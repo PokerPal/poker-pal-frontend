@@ -6,7 +6,7 @@ namespace Persistence
 
         internal bool InMemory { get; set; } = false;
         
-        internal string ConnectionString { get; set; }
+        internal string? ConnectionString { get; set; }
 
         public DatabaseContextFactoryOptions UseInMemoryDatabase(string inMemoryDatabaseName)
         {

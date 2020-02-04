@@ -24,12 +24,12 @@ namespace Persistence
         {
             modelBuilder.Entity<UserTournamentEntity>()
                 .HasOne(ut => ut.User)
-                .WithMany(u => u.UserTournaments)
+                .WithMany(u => u!.UserTournaments)
                 .HasForeignKey(ut => ut.UserId);
 
             modelBuilder.Entity<UserTournamentEntity>()
                 .HasOne(ut => ut.Tournament)
-                .WithMany(t => t.UserTournaments)
+                .WithMany(t => t!.UserTournaments)
                 .HasForeignKey(ut => ut.TournamentId);
         }
     }
