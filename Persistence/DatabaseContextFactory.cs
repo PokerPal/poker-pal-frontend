@@ -26,6 +26,7 @@ namespace Persistence
                 
                 var builder = new DbContextOptionsBuilder()
                     .UseNpgsql(connectionString);
+                this._contextOptions = builder.Options;
             }
         }
         
