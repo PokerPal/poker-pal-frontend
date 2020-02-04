@@ -9,5 +9,9 @@ namespace Persistence.Entities
         public Guid TournamentId { get; set; }
         
         public int TotalScore { get; set; }
+        
+        public UserEntity? User { get; set; }
+        
+        public TournamentEntity? Tournament { get; set; }
     }
 }

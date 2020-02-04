@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Persistence.Entities
 {
@@ -17,6 +18,8 @@ namespace Persistence.Entities
         public string PasswordHash { get; set; }
 
         public string PasswordSalt { get; set; }
+        
+        public List<UserTournamentEntity>? UserTournaments { get; set; }
     }
 
     public enum AuthLevel

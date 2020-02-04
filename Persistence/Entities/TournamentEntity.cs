@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace Persistence.Entities
 {
     public class TournamentEntity
     {
-        public Guid TournamentID { get; set; }
+        public Guid Id { get; set; }
         
         public DateTime StartDate { get; set; }
         
@@ -13,5 +14,7 @@ namespace Persistence.Entities
         public int? Frequency { get; set; }
         
         public string Venue { get; set; }
+        
+        public List<UserTournamentEntity>? UserTournaments { get; set; }
     }
 }
