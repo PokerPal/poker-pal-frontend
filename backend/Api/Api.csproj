@@ -5,10 +5,14 @@
         <Nullable>enable</Nullable>
         <LangVersion>8</LangVersion>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\Application\Application.csproj" />
         <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.113" />
     </ItemGroup>
 
 </Project>
