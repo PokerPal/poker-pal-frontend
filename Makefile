@@ -7,6 +7,9 @@ build: backend
 backend:
 	dotnet build backend/PokerPal.sln
 
+clean:
+	dotnet clean backend/PokerPal.sln
+
 # Run rules
 
 inmemory: backend
