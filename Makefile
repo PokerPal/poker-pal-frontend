@@ -12,8 +12,8 @@ backend:
 inmemory: backend
 	dotnet run -p backend/Api/Api.csproj --launch-profile "Local API/In Memory Database"
 
-postgres: backend
-	dotnet run -p backend/Api/Api.csproj --launch-profile "Local API/Postgres"
+postgresql: backend
+	dotnet run -p backend/Api/Api.csproj --launch-profile "Local API/PostgreSQL"
 
-.PHONY: backend inmemory postgres
+.PHONY: backend inmemory postgresql
 

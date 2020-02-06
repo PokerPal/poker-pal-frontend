@@ -35,8 +35,8 @@ Again, several options:
 
 - With `make`, run `make inmemory` to run the backend only with an in-memory database; this is what 
   you want for development most of the time.
-- With `make`, run `make postgres` to run the backend only with a PostgreSQL database.
+- With `make`, run `make postgresql` to run the backend only with a PostgreSQL database.
 - Manually run `dotnet run --launch-profile "Local API/In Memory Database"`
-- Manually run `dotnet run --launch-profile "Local API/Postgres"`
+- Manually run `dotnet run --launch-profile "Local API/PostgreSQL"`
 - Run one of the two launch profiles from within Rider or Visual Studio
 

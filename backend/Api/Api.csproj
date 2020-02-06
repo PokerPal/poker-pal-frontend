@@ -6,6 +6,24 @@
         <LangVersion>8</LangVersion>
     </PropertyGroup>
     
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Local API/Postgres' ">
+      <StartAction>Project</StartAction>
+      <EnvironmentVariables>
+        <Variable name="DATABASE_CONNECTION_STRING" value="foofoobarboobarfoo" />
+        <Variable name="ASPNETCORE_ENVIRONMENT" value="Development" />
+      </EnvironmentVariables>
+      <LaunchBrowser></LaunchBrowser>
+      <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Local API/In Memory Database' ">
+      <StartAction>Project</StartAction>
+      <EnvironmentVariables>
+        <Variable name="ASPNETCORE_ENVIRONMENT" value="Development" />
+        <Variable name="USE_IN_MEMORY_DATABASE" value="TRUE" />
+      </EnvironmentVariables>
+      <LaunchBrowser></LaunchBrowser>
+      <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+    </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\Application\Application.csproj" />
       <ProjectReference Include="..\Persistence\Persistence.csproj" />
