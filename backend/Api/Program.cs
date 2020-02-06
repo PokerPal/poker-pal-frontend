@@ -1,22 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// <copyright file="Program.cs" company="IP Group 2">
+// Copyright (c) IP Group 2. All rights reserved.
+// </copyright>
+
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Api
 {
-    public class Program
+    /// <summary>
+    /// Provides the entry point for the API.
+    /// </summary>
+    public static class Program
     {
+        /// <summary>
+        /// Entry point for the API.
+        /// </summary>
+        /// <param name="args">The command-line arguments provided when running this program.</param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }

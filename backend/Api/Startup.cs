@@ -1,10 +1,11 @@
+// <copyright file="Startup.cs" company="IP Group 2">
+// Copyright (c) IP Group 2. All rights reserved.
+// </copyright>
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,21 +13,35 @@ using Persistence;
 
 namespace Api
 {
+    /// <summary>
+    /// Configures and starts the application.
+    /// </summary>
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">The application configuration.</param>
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// <summary>
+        /// Gets the application configuration.
+        /// </summary>
+        public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Adds services to the container.
+        /// </summary>
+        /// <param name="services">The service collection to add services to.</param>
+        /// <exception cref="ArgumentException">Throws an ArgumentException if neither a database connection string nor
+        /// the option to use an in-memory database were provided in the startup configuration.</exception>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             services.AddDatabaseContextFactory(options =>
             {
                 if (this.Configuration["USE_IN_MEMORY_DATABASE"] == "TRUE")
@@ -45,7 +60,12 @@ namespace Api
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Called by the runtime to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">The app being configured.</param>
+        /// <param name="env">The current hosting environment.</param>
+        // ReSharper disable once UnusedMember.Global
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -57,17 +77,13 @@ namespace Api
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:3000")
-            );
+                .WithOrigins("http://localhost:3000"));
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
