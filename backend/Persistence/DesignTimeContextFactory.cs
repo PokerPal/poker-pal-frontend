@@ -1,14 +1,24 @@
+// <copyright file="DesignTimeContextFactory.cs" company="IP Group 2">
+// Copyright (c) IP Group 2. All rights reserved.
+// </copyright>
+
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Persistence
 {
-    public class DesignTimeContextFactory: IDesignTimeDbContextFactory<DatabaseContext>
+    /// <inheritdoc />
+    public class DesignTimeContextFactory : IDesignTimeDbContextFactory<DatabaseContext>
     {
-        public DatabaseContext CreateDbContext(string[] args)
+        /// <inheritdoc />
+        public DatabaseContext CreateDbContext([NotNull] string[] args)
         {
-            var connectionString = "Host=localhost;Port=5032;Database=poker-pal;Username=group;Password=password";
+            const string connectionString =
+                "Host=localhost;Port=5032;Database=poker-pal;Username=group2;Password=password";
             var options = new DbContextOptionsBuilder().UseNpgsql(connectionString).Options;
+
             return new DatabaseContext(options);
         }
     }

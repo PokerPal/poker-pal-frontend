@@ -1,14 +1,37 @@
+// <copyright file="DatabaseContext.cs" company="IP Group 2">
+// Copyright (c) IP Group 2. All rights reserved.
+// </copyright>
+
 using Microsoft.EntityFrameworkCore;
 using Persistence.Entities;
 
 namespace Persistence
 {
-    public partial class DatabaseContext: DbContext
+    /// <inheritdoc />
+    public partial class DatabaseContext : DbContext
     {
-        internal DatabaseContext(DbContextOptions options) : base(options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DatabaseContext"/> class.
+        /// </summary>
+        /// <param name="options">The options for configuration of this context.</param>
+        internal DatabaseContext(DbContextOptions options)
+            : base(options)
         {
         }
-        
-        public DbSet<UserEntity> Users { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of all users in the database.
+        /// </summary>
+        public DbSet<UserEntity>? Users { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of all tournaments in the database.
+        /// </summary>
+        public DbSet<TournamentEntity>? Tournaments { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of all user-tournament link entities in the database.
+        /// </summary>
+        public DbSet<UserTournamentEntity>? UserTournaments { get; set; }
     }
 }
