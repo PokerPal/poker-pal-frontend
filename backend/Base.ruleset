@@ -2,6 +2,7 @@
 <RuleSet Name="PokerPal Style Rules" Description=" " ToolsVersion="16.0">
   <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
     <Rule Id="CS0162" Action="Error" />
+    <Rule Id="CS1591" Action="Warning" />
     <Rule Id="CS1998" Action="None" />
     <Rule Id="CS8625" Action="Error" />
   </Rules>
@@ -19,8 +20,8 @@
     <Rule Id="SA1413" Action="Error" />
     <Rule Id="SA1507" Action="Error" />
     <Rule Id="SA1516" Action="Error" />
-    <Rule Id="SA1600" Action="Error" />
-    <Rule Id="SA1602" Action="Error" />
+    <Rule Id="SA1600" Action="Warning" />
+    <Rule Id="SA1602" Action="Warning" />
     <Rule Id="SA1623" Action="None" />
     <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1635" Action="None" />
