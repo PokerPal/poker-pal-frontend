@@ -2,39 +2,55 @@
 // Copyright (c) IP Group 2. All rights reserved.
 // </copyright>
 
+using System.Threading.Tasks;
+using Api.ModelTypes.Input;
+using Api.ModelTypes.Output;
+using Api.ModelTypes.Result;
+using Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Persistence;
-using Persistence.Interfaces;
+using Utility;
 
 namespace Api.Controllers
 {
     /// <summary>
-    /// Provides information about and actions on users.
+    /// Provides an interface to performing operations on and retrieving information about users.
     /// </summary>
     [ApiController]
     [Route("/users")]
     public class UsersController : ControllerBase
     {
-        private readonly IDatabaseContextFactory<DatabaseContext> databaseContextFactory;
+        private readonly UserService userService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersController"/> class.
         /// </summary>
-        /// <param name="databaseContextFactory">Factory for the database context.</param>
-        public UsersController(IDatabaseContextFactory<DatabaseContext> databaseContextFactory)
+        /// <param name="userService">The user service.</param>
+        public UsersController(UserService userService)
         {
-            this.databaseContextFactory = databaseContextFactory;
+            this.userService = userService;
         }
 
         /// <summary>
         /// Create a new user with the provided details.
         /// </summary>
-        [HttpPost("create")]
-        public async void CreateUser()
+        /// <param name="user">Details of the user to create.</param>
+        /// <returns>The result of the creation of the user.</returns>
+        [HttpPost]
+        public async Task<Result<CreateUserResultType, string>> CreateUser([FromBody] CreateUserInputType user)
         {
-            await using var context = this.databaseContextFactory.CreateDatabaseContext();
+            return (await this.userService.CreateUserAsync(user.Email, user.Name, user.Password))
+                .Map(CreateUserResultType.FromModel);
+        }
 
-            // TODO: Finish implementing CreateUser()
+        /// <summary>
+        /// Get the details of the user with the provided ID.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <returns>The details of the user.</returns>
+        [HttpGet("{id}")]
+        public async Task<Result<UserOutputType, string>> GetUser(int id)
+        {
+            return (await this.userService.GetUserAsync(id)).Map(UserOutputType.FromModel);
         }
     }
 }

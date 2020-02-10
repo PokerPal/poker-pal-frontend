@@ -3,7 +3,6 @@
 // </copyright>
 
 using System;
-
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Interfaces;
 

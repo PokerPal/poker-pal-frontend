@@ -17,4 +17,10 @@
         <AdditionalFiles Include="..\Base.ruleset" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Application.Cryptography\Application.Cryptography.csproj" />
+      <ProjectReference Include="..\Persistence\Persistence.csproj" />
+      <ProjectReference Include="..\Utility\Utility.csproj" />
+    </ItemGroup>
+
 </Project>

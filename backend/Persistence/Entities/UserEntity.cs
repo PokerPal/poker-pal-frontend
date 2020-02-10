@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Entities
 {
@@ -41,16 +42,14 @@ namespace Persistence.Entities
         /// <param name="name">The user's full name.</param>
         /// <param name="joined">The date and time the user joined.</param>
         /// <param name="authLevel">The user's authorisation level.</param>
-        /// <param name="passwordHash">Hash of the user's password &amp; salt.</param>
-        /// <param name="passwordSalt">Salt for the user's password hash.</param>
+        /// <param name="passwordHash">The user's hashed password, together with its salt.</param>
         public UserEntity(
-            Guid id,
+            int id,
             string email,
             string name,
             DateTime joined,
             AuthLevel authLevel,
-            string passwordHash,
-            string passwordSalt)
+            string passwordHash)
         {
             this.Id = id;
             this.Email = email;
@@ -58,13 +57,13 @@ namespace Persistence.Entities
             this.Joined = joined;
             this.AuthLevel = authLevel;
             this.PasswordHash = passwordHash;
-            this.PasswordSalt = passwordSalt;
         }
 
         /// <summary>
         /// Gets or sets this user's unique identifier.
         /// </summary>
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user's registered email address.
@@ -87,14 +86,9 @@ namespace Persistence.Entities
         public AuthLevel AuthLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the hash of the user's password &amp; salt.
+        /// Gets or sets the user's hashed (and salted) password.
         /// </summary>
         public string PasswordHash { get; set; }
-
-        /// <summary>
-        /// Gets or sets the salt (for computing and comparing against the user's password hash).
-        /// </summary>
-        public string PasswordSalt { get; set; }
 
         /// <summary>
         /// Gets or sets the user-tournament relations this user belongs to; autofilled when fetched from the database,
