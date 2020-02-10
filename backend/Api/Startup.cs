@@ -6,7 +6,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using Application.Services;
+using Application;
+using Application.Cryptography;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
+
+#pragma warning disable 618
 
 namespace Api
 {
@@ -62,6 +65,9 @@ namespace Api
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
             });
+
+            services.AddApplicationServices();
+            services.AddCryptoServices();
 
             services.AddDatabaseContextFactory(options =>
             {
