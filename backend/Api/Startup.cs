@@ -3,12 +3,16 @@
 // </copyright>
 
 using System;
-
+using System.IO;
+using System.Reflection;
+using System.Text.Json.Serialization;
+using Application.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Persistence;
 
 namespace Api
@@ -40,7 +44,24 @@ namespace Api
         /// the option to use an in-memory database were provided in the startup configuration.</exception>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(jsonOptions =>
+                jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "PokerPal",
+                    Version = "v1",
+                    Description = "PokerPal API",
+                });
+
+                options.DescribeAllEnumsAsStrings();
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
 
             services.AddDatabaseContextFactory(options =>
             {
@@ -82,6 +103,13 @@ namespace Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "PokerPal API V1"));
+            }
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
