@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Entities
 {
@@ -44,7 +45,7 @@ namespace Persistence.Entities
         /// <param name="passwordHash">Hash of the user's password &amp; salt.</param>
         /// <param name="passwordSalt">Salt for the user's password hash.</param>
         public UserEntity(
-            Guid id,
+            int id,
             string email,
             string name,
             DateTime joined,
@@ -58,13 +59,13 @@ namespace Persistence.Entities
             this.Joined = joined;
             this.AuthLevel = authLevel;
             this.PasswordHash = passwordHash;
-            this.PasswordSalt = passwordSalt;
         }
 
         /// <summary>
         /// Gets or sets this user's unique identifier.
         /// </summary>
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user's registered email address.
