@@ -3,6 +3,7 @@
   "settings": {
     "documentationRules": {
       "companyName": "IP Group 2",
+      "copyrightText": "Copyright (c) {companyName}. All rights reserved.",
       "documentInternalElements": false,
       "documentExposedElements": true,
       "documentInterfaces": true,

@@ -1,3 +1,7 @@
+// <copyright file="ServiceCollectionExtensions.cs" company="IP Group 2">
+// Copyright (c) IP Group 2. All rights reserved.
+// </copyright>
+
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
