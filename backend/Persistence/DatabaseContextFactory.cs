@@ -4,7 +4,6 @@
 
 using System;
 using System.Text;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Persistence.Interfaces;
