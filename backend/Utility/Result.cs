@@ -101,6 +101,32 @@ namespace Utility
         }
 
         /// <summary>
+        /// Converts a result of type <c>Result{T,E}</c> to a result of a new type <c>Result{T,F}</c>.
+        ///
+        /// This works by converting the wrapped <c>E</c> error value to an <c>F</c> using the provided function
+        /// <c>mapping()</c>, if this result is a failure. If this result is a success, the success value is copied to
+        /// the new result.
+        /// </summary>
+        /// <param name="mapping">The conversion function from an <c>E></c> to an <c>F</c>.</param>
+        /// <typeparam name="F">The error type of the new result.</typeparam>
+        /// <returns>The new result.</returns>
+        public Result<T, F> MapErr<F>(Func<E, F> mapping)
+            where F : class
+        {
+            if (this.IsSuccess)
+            {
+                return new Result<T, F>
+                {
+                    IsSuccess = true,
+                    Value = this.Value,
+                    Error = null,
+                };
+            }
+
+            return Result<T, F>.Fail(mapping(this.Error!));
+        }
+
+        /// <summary>
         /// Unwraps a <see cref="Result{T,E}"/> to produce a value of type <c>T</c>, by providing a default to be used
         /// if the result is unsuccessful.
         ///
@@ -127,6 +153,41 @@ namespace Utility
         public T OrElse(Func<T> other)
         {
             return this.IsSuccess ? this.Value! : other();
+        }
+
+        /// <summary>
+        /// Converts this entire result instance to a new type using the given mapping function <c>wrapping()</c>.
+        ///
+        /// Useful mainly for method chaining.
+        /// </summary>
+        /// <param name="wrapping">The mapping function.</param>
+        /// <typeparam name="U">The new type this result is being mapped to.</typeparam>
+        /// <returns>The result of the wrapping.</returns>
+        public U Wrap<U>(Func<Result<T, E>, U> wrapping)
+        {
+            return wrapping(this);
+        }
+
+        /// <summary>
+        /// Like <see cref="Wrap{U}"/>, but applies a different wrapping function depending on whether this result is a
+        /// success or a failure.
+        /// </summary>
+        /// <param name="wrapOk">The wrapping function to use if this result is a success.</param>
+        /// <param name="wrapErr">The wrapping function to use if this result is a failure.</param>
+        /// <typeparam name="U">The new type this result is being mapped to.</typeparam>
+        /// <returns>The result of the wrapping.</returns>
+        public U WrapSplit<U>(Func<Result<T, E>, U> wrapOk, Func<Result<T, E>, U> wrapErr)
+        {
+            return this.IsSuccess ? wrapOk(this) : wrapErr(this);
+        }
+
+        /// <summary>
+        /// Unsafely unwrap the success value of this result. This will return null if this result is a failure.
+        /// </summary>
+        /// <returns>The success value, or null.</returns>
+        public T Unwrap()
+        {
+            return this.Value!;
         }
     }
 }
