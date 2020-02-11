@@ -36,7 +36,8 @@ namespace Api.Controllers
         /// <param name="user">Details of the user to create.</param>
         /// <returns>The result of the creation of the user.</returns>
         [HttpPost]
-        public async Task<Result<CreateUserResultType, string>> CreateUser([FromBody] CreateUserInputType user)
+        public async Task<ActionResult<Result<CreateUserResultType, string>>> CreateUser(
+            [FromBody] CreateUserInputType user)
         {
             return (await this.userService.CreateUserAsync(user.Email, user.Name, user.Password))
                 .Map(CreateUserResultType.FromModel);
@@ -48,9 +49,11 @@ namespace Api.Controllers
         /// <param name="id">The unique identifier of the user.</param>
         /// <returns>The details of the user.</returns>
         [HttpGet("{id}")]
-        public async Task<Result<UserOutputType, string>> GetUser(int id)
+        public async Task<ActionResult<Result<UserOutputType, string>>> GetUser(int id)
         {
-            return (await this.userService.GetUserAsync(id)).Map(UserOutputType.FromModel);
+            return (await this.userService.GetUserAsync(id))
+                .Map(UserOutputType.FromModel)
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
     }
 }
