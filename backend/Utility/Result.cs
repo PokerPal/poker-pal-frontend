@@ -127,6 +127,22 @@ namespace Utility
         }
 
         /// <summary>
+        /// If this result was a success, runs the next operation <c>next()</c> on the result value. Otherwise, passes
+        /// on this result's error value.
+        ///
+        /// This is useful for control flow based on Result values.
+        /// </summary>
+        /// <param name="next">The next operation to run.</param>
+        /// <typeparam name="U">The successful result type of the operation.</typeparam>
+        /// <returns>The result of <c>next()</c> if this result was successful, otherwise this result's error value.
+        /// </returns>
+        public Result<U, E> AndThen<U>(Func<T, Result<U, E>> next)
+            where U : class
+        {
+            return this.IsSuccess ? next(this.Value!) : Result<U, E>.Fail(this.Error);
+        }
+
+        /// <summary>
         /// Unwraps a <see cref="Result{T,E}"/> to produce a value of type <c>T</c>, by providing a default to be used
         /// if the result is unsuccessful.
         ///
