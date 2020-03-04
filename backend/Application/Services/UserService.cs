@@ -83,6 +83,14 @@ namespace Application.Services
             var hash = this.cryptoService.CalculateHash(password, salt);
             var compressedHash = this.cryptoService.CompressHash(salt, hash);
 
+
+
+            if (context.Users == null)
+            {
+                this.logger.LogError($"Users DB set was null when trying to create user.");
+                return "Unable to access database.";
+            }
+
             var user = new UserEntity(
                 0,
                 email,
@@ -90,12 +98,6 @@ namespace Application.Services
                 DateTime.Now,
                 AuthLevel.User,
                 compressedHash);
-
-            if (context.Users == null)
-            {
-                this.logger.LogError($"Users DB set was null when trying to create user.");
-                return "Unable to access database.";
-            }
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
