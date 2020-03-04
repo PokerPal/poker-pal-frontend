@@ -30,8 +30,18 @@ namespace Persistence
         public DbSet<TournamentEntity>? Tournaments { get; set; }
 
         /// <summary>
+        /// Gets or sets the set of all badges in the database.
+        /// </summary>
+        public DbSet<BadgeEntity>? Badges { get; set; }
+
+        /// <summary>
         /// Gets or sets the set of all user-tournament link entities in the database.
         /// </summary>
         public DbSet<UserTournamentEntity>? UserTournaments { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of all user-badge link entities in the database.
+        /// </summary>
+        public DbSet<UserBadgeEntity>? UserBadges { get; set; }
     }
 }

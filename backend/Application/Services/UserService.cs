@@ -83,8 +83,6 @@ namespace Application.Services
             var hash = this.cryptoService.CalculateHash(password, salt);
             var compressedHash = this.cryptoService.CompressHash(salt, hash);
 
-
-
             if (context.Users == null)
             {
                 this.logger.LogError($"Users DB set was null when trying to create user.");

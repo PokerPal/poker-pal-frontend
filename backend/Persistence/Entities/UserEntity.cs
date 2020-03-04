@@ -95,5 +95,11 @@ namespace Persistence.Entities
         /// null otherwise.
         /// </summary>
         public IEnumerable<UserTournamentEntity>? UserTournaments { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the user-badge relations this user belongs to; autofilled when fetched from the database,
+        /// null otherwise.
+        /// </summary>
+        public IEnumerable<UserBadgeEntity>? UserBadges { get; set; } = null;
     }
 }
