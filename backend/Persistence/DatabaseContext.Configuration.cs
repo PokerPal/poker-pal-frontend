@@ -25,7 +25,8 @@ namespace Persistence
         {
             modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
             modelBuilder.Entity<TournamentEntity>().HasKey(t => t.Id);
-            modelBuilder.Entity<BadgeEntity>().HasKey(b => b.Id);
+            modelBuilder.Entity<BadgeEntity>()
+                .HasKey(b => b.Id);
 
             modelBuilder.Entity<UserTournamentEntity>()
                 .HasKey(ut => new { ut.UserId, ut.TournamentId });

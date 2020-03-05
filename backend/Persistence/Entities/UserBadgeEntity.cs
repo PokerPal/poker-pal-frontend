@@ -21,7 +21,6 @@ namespace Persistence.Entities
         {
             this.UserId = userId;
             this.BadgeID = badgeID;
-            this.HasBadge = hasBadge;
         }
 
         /// <summary>
@@ -33,11 +32,6 @@ namespace Persistence.Entities
         /// Gets or sets the unique identifier of the linked badge.
         /// </summary>
         public Guid BadgeID { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether or not a user has a badge.
-        /// </summary>
-        public bool HasBadge { get; set; }
 
         /// <summary>
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the database, null

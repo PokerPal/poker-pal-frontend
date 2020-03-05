@@ -16,15 +16,15 @@ namespace Persistence.Entities
         /// Initializes a new instance of the <see cref="BadgeEntity"/> class.
         /// </summary>
         /// <param name="id">The badge's unique identifier.</param>
-        /// <param name="badgeName">The badge's Name.</param>
-        /// <param name="badgeDescription">The badge's Description.</param>
-        /// <param name="badgeType">The badge's type.</param>
-        public BadgeEntity(Guid id, string badgeName, string badgeDescription, int badgeType)
+        /// <param name="name">The badge's Name.</param>
+        /// <param name="description">The badge's Description.</param>
+        /// <param name="type">The badge's type.</param>
+        public BadgeEntity(Guid id, string name, string description, int type)
         {
             this.Id = id;
-            this.BadgeName = badgeName;
-            this.BadgeDescription = badgeDescription;
-            this.BadgeType = badgeType;
+            this.Name = name;
+            this.Description = description;
+            this.Type = type;
         }
 
         /// <summary>
@@ -35,17 +35,17 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets this badge's name.
         /// </summary>
-        public string BadgeName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets this badge's Description.
         /// </summary>
-        public string BadgeDescription { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the type of this badge.
         /// </summary>
-        public int BadgeType { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// Gets or sets the user-badge relations this badge belongs to; autofilled when fetched from the
