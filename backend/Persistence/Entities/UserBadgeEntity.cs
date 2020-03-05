@@ -15,11 +15,11 @@ namespace Persistence.Entities
         /// Initializes a new instance of the <see cref="UserBadgeEntity"/> class.
         /// </summary>
         /// <param name="userId">The unique identifier of the linked user.</param>
-        /// <param name="badgeID">The unique identifier of the linked badge.</param>
-        public UserBadgeEntity(int userId, Guid badgeID)
+        /// <param name="badgeId">The unique identifier of the linked badge.</param>
+        public UserBadgeEntity(int userId, Guid badgeId)
         {
             this.UserId = userId;
-            this.BadgeID = badgeID;
+            this.BadgeId = badgeId;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the linked badge.
         /// </summary>
-        public Guid BadgeID { get; set; }
+        public Guid BadgeId { get; set; }
 
         /// <summary>
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the database, null
