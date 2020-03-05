@@ -16,8 +16,7 @@ namespace Persistence.Entities
         /// </summary>
         /// <param name="userId">The unique identifier of the linked user.</param>
         /// <param name="badgeID">The unique identifier of the linked badge.</param>
-        /// <param name="hasBadge">If the user has the badge.</param>
-        public UserBadgeEntity(int userId, Guid badgeID, bool hasBadge)
+        public UserBadgeEntity(int userId, Guid badgeID)
         {
             this.UserId = userId;
             this.BadgeID = badgeID;
