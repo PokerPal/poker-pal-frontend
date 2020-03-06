@@ -16,7 +16,7 @@ namespace Persistence.Entities
         /// </summary>
         /// <param name="userId">The unique identifier of the linked user.</param>
         /// <param name="badgeId">The unique identifier of the linked badge.</param>
-        public UserBadgeEntity(int userId, Guid badgeId)
+        public UserBadgeEntity(int userId, int badgeId)
         {
             this.UserId = userId;
             this.BadgeId = badgeId;
@@ -30,7 +30,7 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the linked badge.
         /// </summary>
-        public Guid BadgeId { get; set; }
+        public int BadgeId { get; set; }
 
         /// <summary>
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the database, null
