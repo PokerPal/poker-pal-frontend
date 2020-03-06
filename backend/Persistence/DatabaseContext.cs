@@ -1,7 +1,3 @@
-// <copyright file="DatabaseContext.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using Microsoft.EntityFrameworkCore;
 using Persistence.Entities;
 
@@ -22,12 +18,12 @@ namespace Persistence
         /// <summary>
         /// Gets or sets the set of all users in the database.
         /// </summary>
-        public DbSet<UserEntity>? Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all tournaments in the database.
         /// </summary>
-        public DbSet<TournamentEntity>? Tournaments { get; set; }
+        public DbSet<TournamentEntity> Tournaments { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all badges in the database.
@@ -37,11 +33,11 @@ namespace Persistence
         /// <summary>
         /// Gets or sets the set of all user-tournament link entities in the database.
         /// </summary>
-        public DbSet<UserTournamentEntity>? UserTournaments { get; set; }
+        public DbSet<UserTournamentEntity> UserTournaments { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all user-badge link entities in the database.
         /// </summary>
-        public DbSet<UserBadgeEntity>? UserBadges { get; set; }
+        public DbSet<UserBadgeEntity> UserBadges { get; set; }
     }
 }

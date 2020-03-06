@@ -1,7 +1,3 @@
-// <copyright file="DatabaseContextFactoryOptions.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 namespace Persistence
 {
     /// <summary>
@@ -9,11 +5,11 @@ namespace Persistence
     /// </summary>
     public class DatabaseContextFactoryOptions
     {
-        internal string? InMemoryDatabaseName { get; private set; }
+        internal string InMemoryDatabaseName { get; private set; }
 
         internal bool InMemory { get; private set; }
 
-        internal string? ConnectionString { get; private set; }
+        internal string ConnectionString { get; private set; }
 
         /// <summary>
         /// Creates a set of options for using an in-memory database.

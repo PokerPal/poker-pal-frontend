@@ -1,7 +1,3 @@
-// <copyright file="UserTournamentEntity.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
 
 namespace Persistence.Entities
@@ -43,12 +39,12 @@ namespace Persistence.Entities
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the database, null
         /// otherwise.
         /// </summary>
-        public UserEntity? User { get; set; } = null;
+        public UserEntity User { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the tournament entity linked to this entity; autofilled when fetched from the database, null
         /// otherwise.
         /// </summary>
-        public TournamentEntity? Tournament { get; set; } = null;
+        public TournamentEntity Tournament { get; set; } = null;
     }
 }

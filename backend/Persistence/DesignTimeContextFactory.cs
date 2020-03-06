@@ -1,8 +1,5 @@
-// <copyright file="DesignTimeContextFactory.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 

@@ -1,7 +1,3 @@
-// <copyright file="TournamentEntity.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
 using System.Collections.Generic;
 
@@ -58,6 +54,6 @@ namespace Persistence.Entities
         /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when fetched from the
         /// database, null otherwise.
         /// </summary>
-        public List<UserTournamentEntity>? UserTournaments { get; set; } = null;
+        public List<UserTournamentEntity> UserTournaments { get; set; } = null;
     }
 }

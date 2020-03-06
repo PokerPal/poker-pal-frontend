@@ -1,9 +1,6 @@
-// <copyright file="UserService.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
 using System.Threading.Tasks;
+
 using Application.Cryptography.Services;
 using Application.Models.Output;
 using Application.Models.Result;
@@ -12,6 +9,7 @@ using Persistence;
 using Persistence.Entities;
 using Persistence.Interfaces;
 using Utility;
+using Utility.ResultModel;
 
 namespace Application.Services
 {

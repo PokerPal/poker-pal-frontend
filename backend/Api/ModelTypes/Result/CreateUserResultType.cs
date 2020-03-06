@@ -1,11 +1,6 @@
-// <copyright file="CreateUserResultType.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
-using Application.Models.Result;
 
-#pragma warning disable 8618
+using Application.Models.Result;
 
 namespace Api.ModelTypes.Result
 {

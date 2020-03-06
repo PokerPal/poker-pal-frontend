@@ -1,8 +1,5 @@
-// <copyright file="UserOutputModel.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
+
 using Persistence.Entities;
 
 namespace Application.Models.Output
