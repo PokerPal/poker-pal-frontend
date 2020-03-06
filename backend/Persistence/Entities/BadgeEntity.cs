@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Entities
 {
@@ -35,7 +36,7 @@ namespace Persistence.Entities
         /// <param name="name">The badge's Name.</param>
         /// <param name="description">The badge's Description.</param>
         /// <param name="type">The badge's type.</param>
-        public BadgeEntity(Guid id, string name, string description, Type type)
+        public BadgeEntity(int id, string name, string description, Type type)
         {
             this.Id = id;
             this.Name = name;
@@ -46,7 +47,8 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets this badge's unique identifier.
         /// </summary>
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets this badge's name.
