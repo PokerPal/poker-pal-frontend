@@ -19,7 +19,7 @@ namespace Application.Models.Output
         /// <param name="name">The badge's Name.</param>
         /// <param name="description">The badge's Description.</param>
         /// <param name="type">The badge's type.</param>
-        public BadgeOutputModel(Guid id, string name, string description, Type type)
+        public BadgeOutputModel(int id, string name, string description, Type type)
         {
             this.Id = id;
             this.Name = name;
@@ -30,7 +30,7 @@ namespace Application.Models.Output
         /// <summary>
         /// The badge's unique identifier.
         /// </summary>
-        public Guid Id { get; }
+        public int Id { get; }
 
         /// <summary>
         /// The badge's name.
