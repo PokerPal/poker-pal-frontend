@@ -31,7 +31,7 @@ namespace Persistence
                 .HasKey(ut => new { ut.UserId, ut.TournamentId });
 
             modelBuilder.Entity<UserBadgeEntity>()
-                .HasKey(ub => new { ub.UserId, ub.BadgeID });
+                .HasKey(ub => new { ub.UserId, ub.BadgeId });
         }
 
         /// <summary>
