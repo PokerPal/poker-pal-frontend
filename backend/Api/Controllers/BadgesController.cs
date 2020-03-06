@@ -15,7 +15,7 @@ using Utility.ResultModel;
 namespace Api.Controllers
 {
     /// <summary>
-    /// Provides an interface to performing operations on and retrieving information about users.
+    /// Provides an interface to performing operations on and retrieving information about badges.
     /// </summary>
     [ApiController]
     [Route("/badges")]
@@ -51,7 +51,7 @@ namespace Api.Controllers
         /// <param name="id">The unique identifier of the badge.</param>
         /// <returns>The details of the badge.</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Result<UserOutputType, string>>> GetBadge(int id)
+        public async Task<ActionResult<Result<BadgeOutputType, string>>> GetBadge(int id)
         {
             return (await this.badgeService.GetBadgeAsync(id))
                 .Map(BadgeOutputType.FromModel)
