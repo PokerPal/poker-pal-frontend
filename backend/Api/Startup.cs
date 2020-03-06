@@ -1,11 +1,8 @@
-// <copyright file="Startup.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
+
 using Application;
 using Application.Cryptography;
 using Microsoft.AspNetCore.Builder;

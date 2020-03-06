@@ -1,8 +1,5 @@
-// <copyright file="UserOutputType.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
 using System;
+
 using Application.Models.Output;
 
 namespace Api.ModelTypes.Output
