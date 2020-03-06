@@ -53,7 +53,7 @@ namespace Persistence
             modelBuilder.Entity<UserBadgeEntity>()
                 .HasOne(ub => ub.Badge)
                 .WithMany(b => b!.UserBadges)
-                .HasForeignKey(ub => ub.BadgeID);
+                .HasForeignKey(ub => ub.BadgeId);
 
             modelBuilder.Entity<UserBadgeEntity>()
                 .HasOne(ub => ub.User)
