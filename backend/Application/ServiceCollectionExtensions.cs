@@ -19,6 +19,7 @@ namespace Application
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<UserService>();
+            services.AddScoped<BadgeService>();
         }
     }
 }
