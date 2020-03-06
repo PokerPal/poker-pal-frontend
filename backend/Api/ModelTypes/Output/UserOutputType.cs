@@ -5,8 +5,6 @@
 using System;
 using Application.Models.Output;
 
-#pragma warning disable 8618
-
 namespace Api.ModelTypes.Output
 {
     /// <summary>

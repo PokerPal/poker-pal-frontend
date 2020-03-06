@@ -22,16 +22,16 @@ namespace Persistence
         /// <summary>
         /// Gets or sets the set of all users in the database.
         /// </summary>
-        public DbSet<UserEntity>? Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all tournaments in the database.
         /// </summary>
-        public DbSet<TournamentEntity>? Tournaments { get; set; }
+        public DbSet<TournamentEntity> Tournaments { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all user-tournament link entities in the database.
         /// </summary>
-        public DbSet<UserTournamentEntity>? UserTournaments { get; set; }
+        public DbSet<UserTournamentEntity> UserTournaments { get; set; }
     }
 }

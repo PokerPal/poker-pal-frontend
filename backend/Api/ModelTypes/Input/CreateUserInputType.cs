@@ -2,8 +2,6 @@
 // Copyright (c) IP Group 2. All rights reserved.
 // </copyright>
 
-#pragma warning disable 8618
-
 namespace Api.ModelTypes.Input
 {
     /// <summary>
