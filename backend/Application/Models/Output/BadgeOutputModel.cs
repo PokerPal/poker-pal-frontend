@@ -2,7 +2,6 @@
 // Copyright (c) IP Group 2. All rights reserved.
 // </copyright>
 
-using System;
 using Type = Persistence.Entities.Type;
 
 namespace Application.Models.Output

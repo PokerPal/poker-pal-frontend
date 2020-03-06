@@ -1,4 +1,5 @@
 using System;
+
 using Application.Models.Output;
 
 namespace Api.ModelTypes.Output

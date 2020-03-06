@@ -28,7 +28,7 @@ namespace Persistence
         /// <summary>
         /// Gets or sets the set of all badges in the database.
         /// </summary>
-        public DbSet<BadgeEntity>? Badges { get; set; }
+        public DbSet<BadgeEntity> Badges { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all user-tournament link entities in the database.

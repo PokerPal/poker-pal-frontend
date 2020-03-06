@@ -69,6 +69,6 @@ namespace Persistence.Entities
         /// Gets or sets the user-badge relations this badge belongs to; autofilled when fetched from the
         /// database, null otherwise.
         /// </summary>
-        public List<UserBadgeEntity>? UserBadges { get; set; } = null;
+        public List<UserBadgeEntity> UserBadges { get; set; } = null;
     }
 }

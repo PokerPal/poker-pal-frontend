@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
+
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
-using Utility;
 using Utility.ResultModel;
 
 namespace Api.Controllers

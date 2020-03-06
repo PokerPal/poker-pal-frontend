@@ -36,12 +36,12 @@ namespace Persistence.Entities
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the database, null
         /// otherwise.
         /// </summary>
-        public UserEntity? User { get; set; } = null;
+        public UserEntity User { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the badge entity linked to this entity; autofilled when fetched from the database, null
         /// otherwise.
         /// </summary>
-        public BadgeEntity? Badge { get; set; } = null;
+        public BadgeEntity Badge { get; set; } = null;
     }
 }
