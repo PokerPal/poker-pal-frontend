@@ -1,5 +1,4 @@
 using System;
-
 using Application.Models.Result;
 
 namespace Api.ModelTypes.Result

@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
