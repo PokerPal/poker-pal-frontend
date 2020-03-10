@@ -14,12 +14,12 @@ namespace Persistence.Entities
     public enum Type
     {
         /// <summary>
-        /// Normal user authorisation level.
+        /// Option A.
         /// </summary>
         OptionA = 1,
 
         /// <summary>
-        /// Administrator authorisation level.
+        /// Option B.
         /// </summary>
         OptionB,
     }

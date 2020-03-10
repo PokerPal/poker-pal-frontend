@@ -3,13 +3,8 @@
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
-
 using Application.Services;
-
 using Microsoft.AspNetCore.Mvc;
-
-using Persistence.Entities;
-
 using Utility.ResultModel;
 
 namespace Api.Controllers
@@ -18,7 +13,7 @@ namespace Api.Controllers
     /// Provides an interface to performing operations on and retrieving information about badges.
     /// </summary>
     [ApiController]
-    [Route("/badges")]
+    [Route("/controller")]
     public class BadgesController : ControllerBase
     {
         private readonly BadgeService badgeService;
