@@ -2,6 +2,7 @@
 // Copyright (c) IP Group 2. All rights reserved.
 // </copyright>
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ using Persistence.Entities;
 using Persistence.Interfaces;
 
 using Utility.ResultModel;
+
+using Type = Persistence.Entities.Type;
 
 namespace Application.Services
 {
@@ -64,7 +67,7 @@ namespace Application.Services
         }
 
         /// <summary>
-        /// Get the badges a user has
+        /// Get the badges a user has.
         /// </summary>
         /// <param name="id">The users id.</param>
         /// <returns>Any badges the user has.</returns>
@@ -78,18 +81,16 @@ namespace Application.Services
                 return "Unable to access database.";
             }
 
-            var badges = context.UserBadges.Where(ub => ub.UserId == id).ToList(); 
+            var badges = context.UserBadges.Where(ub => ub.UserId == id).ToList();
             if (badges.Count == 0)
             {
                 return $"User with id {id} didnt have any badges.";
             }
 
-            // var userBadges = new List<BadgeOutputModel>();
-            // foreach (var badge in badges)
-            //       {
-            //            userBadges.Add(this.GetBadgeAsync(badge.BadgeId).Result.Value);
-            //       }
-            var userBadges = badges.Select(badge => this.GetBadgeAsync(badge.BadgeId).Result.Value).ToList();
+            // I tried formatting this to the best of my abilities.
+            var userBadges = badges.Select(
+                badge => context.Badges.Find(badge.BadgeId)).Select(
+                b => new BadgeOutputModel(b.Id, b.Name, b.Description, b.Type)).ToList();
 
             return userBadges;
         }
@@ -124,6 +125,51 @@ namespace Application.Services
             return new CreateBadgeResultModel()
             {
                 Id = badge.Id,
+            };
+        }
+
+        /// <summary>
+        /// Create a link between a given user and a given badge.
+        /// </summary>
+        /// <param name="badgeId">The badgeID to link.</param>
+        /// <param name="userId">The userID to link.</param>
+        /// <returns>The outcome of the operation.</returns>
+        public async Task<Result<CreateUserBadgeResultModel, string>> CreateUserBadge(
+            int badgeId,
+            int userId)
+        {
+            await using var context = this.databaseContextFactory.CreateDatabaseContext();
+            if (context.Badges == null)
+            {
+                this.logger.LogError($"Badge DB set was null when trying to create badge.");
+                return "Unable to access database.";
+            }
+
+            if ((context.Badges == null) || (context.Users == null))
+            {
+                this.logger.LogError($"Badge DB or User DB set was null when trying to create the Link.");
+                return "Unable to access database.";
+            }
+
+            if ((context.Badges.Find(badgeId) == null) || (context.Users.Find(userId) == null))
+            {
+                return "Badge not found or user not found";
+            }
+
+            if (context.UserBadges.Find(userId, badgeId) != null)
+            {
+                return "This link already exists";
+            }
+
+            var userBadge = new UserBadgeEntity(
+                userId,
+                badgeId);
+            context.UserBadges.Add(userBadge);
+            await context.SaveChangesAsync();
+            return new CreateUserBadgeResultModel()
+            {
+                BadgeId = badgeId,
+                UserId = userId,
             };
         }
     }
