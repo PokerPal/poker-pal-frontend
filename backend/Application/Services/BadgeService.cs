@@ -2,6 +2,8 @@
 // Copyright (c) IP Group 2. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Application.Models.Output;
@@ -59,6 +61,37 @@ namespace Application.Services
             }
 
             return new BadgeOutputModel(badge.Id, badge.Name, badge.Description, badge.Type);
+        }
+
+        /// <summary>
+        /// Get the badges a user has
+        /// </summary>
+        /// <param name="id">The users id.</param>
+        /// <returns>Any badges the user has.</returns>
+        public async Task<Result<List<BadgeOutputModel>, string>> GetUserBadges(int id)
+        {
+            await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+            if (context.UserBadges == null)
+            {
+                this.logger.LogError($"UserBadges DB set was null when trying to get UserBadge with user id {id}.");
+                return "Unable to access database.";
+            }
+
+            var badges = context.UserBadges.Where(ub => ub.UserId == id).ToList(); 
+            if (badges.Count == 0)
+            {
+                return $"User with id {id} didnt have any badges.";
+            }
+
+            // var userBadges = new List<BadgeOutputModel>();
+            // foreach (var badge in badges)
+            //       {
+            //            userBadges.Add(this.GetBadgeAsync(badge.BadgeId).Result.Value);
+            //       }
+            var userBadges = badges.Select(badge => this.GetBadgeAsync(badge.BadgeId).Result.Value).ToList();
+
+            return userBadges;
         }
 
         /// <summary>
