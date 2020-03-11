@@ -86,5 +86,17 @@ namespace Api.Controllers
             return (await userService.AddBadge(id, inputType.BadgeId))
                 .Map(CreateUserBadgeResultType.FromModel);
         }
+        
+        /// <summary>
+        /// Get the details of all users.
+        /// </summary>
+        /// <returns>The details of the user.</returns>
+        [HttpGet("")]
+        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetUser()
+        {
+            return (await this.userService.GetAllUsersAsync())
+                .Map(users => users.Select(UserOutputType.FromModel))
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
     }
 }
