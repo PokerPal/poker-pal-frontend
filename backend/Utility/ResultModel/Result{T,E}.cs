@@ -11,60 +11,60 @@ namespace Utility.ResultModel
     public sealed class Result<T, E>
     {
         /// <summary>
-        /// The successful result value, if <c>IsSuccess == true</c>, otherwise <c>default</c>.
+        /// The successful result value, if <c>IsOk == true</c>, otherwise <c>default</c>.
         /// </summary>
         public T Value { get; private set; }
 
         /// <summary>
-        /// The error value, if <c>IsSuccess == false</c>, otherwise <c>default</c>.
+        /// The error value, if <c>IsOk == false</c>, otherwise <c>default</c>.
         /// </summary>
         public E Error { get; private set; }
 
         /// <summary>
         /// Gets whether the operation completed successfully.
         /// </summary>
-        public bool IsSuccess { get; private set; }
+        public bool IsOk { get; private set; }
 
         /// <summary>
         /// Implicitly converts a value of type <c>T</c> to a <c>Result{T,E}</c> representing a
         /// success.
         /// </summary>
-        /// <param name="successValue">The value to wrap inside the successful result.</param>
-        /// <returns>The created result wrapping <c>successValue</c>.</returns>
-        public static implicit operator Result<T, E>(T successValue)
+        /// <param name="okValue">The value to wrap inside the successful result.</param>
+        /// <returns>The created result wrapping <c>okValue</c>.</returns>
+        public static implicit operator Result<T, E>(T okValue)
         {
-            return Success(successValue);
+            return Ok(okValue);
         }
 
         /// <summary>
         /// Implicitly converts a value of type <c>E</c> to a <c>Result{T,E}</c> representing a
         /// failure.
         /// </summary>
-        /// <param name="errorValue">The value to wrap inside the failed result.</param>
-        /// <returns>The created result wrapping <c>errorValue</c>.</returns>
-        public static implicit operator Result<T, E>(E errorValue)
+        /// <param name="errValue">The value to wrap inside the failed result.</param>
+        /// <returns>The created result wrapping <c>errValue</c>.</returns>
+        public static implicit operator Result<T, E>(E errValue)
         {
-            return Fail(errorValue);
+            return Err(errValue);
         }
 
         /// <summary>
-        /// Implicitly converts a <see cref="SuccessfulResult{T}"/> to a <see cref="Result{T,E}"/>.
+        /// Implicitly converts an <see cref="OkResult{T}"/> to a <see cref="Result{T,E}"/>.
         /// </summary>
-        /// <param name="success">The value to convert.</param>
+        /// <param name="okResult">The value to convert.</param>
         /// <returns>The converted result.</returns>
-        public static implicit operator Result<T, E>(SuccessfulResult<T> success)
+        public static implicit operator Result<T, E>(OkResult<T> okResult)
         {
-            return Success(success.Value);
+            return Ok(okResult.Value);
         }
 
         /// <summary>
-        /// Implicitly converts a <see cref="FailedResult{E}"/> to a <see cref="Result{T,E}"/>.
+        /// Implicitly converts an <see cref="ErrResult{E}"/> to a <see cref="Result{T,E}"/>.
         /// </summary>
-        /// <param name="failure">The value to convert.</param>
+        /// <param name="errResult">The value to convert.</param>
         /// <returns>The converted result.</returns>
-        public static implicit operator Result<T, E>(FailedResult<E> failure)
+        public static implicit operator Result<T, E>(ErrResult<E> errResult)
         {
-            return Fail(failure.Error);
+            return Err(errResult.Error);
         }
 
         /// <summary>
@@ -72,11 +72,11 @@ namespace Utility.ResultModel
         /// </summary>
         /// <param name="value">The success value.</param>
         /// <returns>The successful result.</returns>
-        public static Result<T, E> Success(T value)
+        public static Result<T, E> Ok(T value)
         {
             return new Result<T, E>
             {
-                IsSuccess = true,
+                IsOk = true,
                 Value = value,
                 Error = default,
             };
@@ -87,14 +87,57 @@ namespace Utility.ResultModel
         /// </summary>
         /// <param name="error">The error value representing the failure.</param>
         /// <returns>The failed result.</returns>
-        public static Result<T, E> Fail(E error)
+        public static Result<T, E> Err(E error)
         {
             return new Result<T, E>
             {
-                IsSuccess = false,
+                IsOk = false,
                 Value = default,
                 Error = error,
             };
+        }
+
+        /// <summary>
+        /// Creates a result from a value by checking if the value is <c>null</c>, and returning an
+        /// empty error if so.
+        /// </summary>
+        /// <param name="value">The value to wrap inside the result if non-null.</param>
+        /// <returns>The result.</returns>
+        public static Result<T, Empty> FromNullable(T value)
+        {
+            return value == null ?
+                Result<T, Empty>.Err(new Empty()) :
+                Result<T, Empty>.Ok(value);
+        }
+
+        /// <summary>
+        /// Creates a result from a value by checking if the value is <c>null</c>, and returning
+        /// the provided error if so. If the error value is expensive to compute, consider using
+        /// <see cref="FromNullableOrElse" /> instead.
+        /// </summary>
+        /// <param name="value">The value to wrap inside the result if non-null.</param>
+        /// <param name="error">The error value to use if <paramref name="value"/> is <c>null</c>.
+        /// </param>
+        /// <returns>The result.</returns>
+        public static Result<T, E> FromNullableOr(T value, E error)
+        {
+            return value == null ? Err(error) : Ok(value);
+        }
+
+        /// <summary>
+        /// Creates a result from a value by checking if the value is <c>null</c>, and returning
+        /// the result of the provided error function if so. This function, as opposed to
+        /// <see cref="FromNullableOr" />, is useful when the error value is expensive to
+        /// compute; the function <c>error</c> is only called in the case where the value is
+        /// <c>null</c>.
+        /// </summary>
+        /// <param name="value">The value to wrap inside the result if non-null.</param>
+        /// <param name="error">The function to compute the error value to use if
+        /// <paramref name="value"/> is <c>null</c>.</param>
+        /// <returns>The result.</returns>
+        public static Result<T, E> FromNullableOrElse(T value, Func<E> error)
+        {
+            return value == null ? Err(error()) : Ok(value);
         }
 
         /// <summary>
@@ -108,17 +151,17 @@ namespace Utility.ResultModel
         /// <returns>The new result.</returns>
         public Result<U, E> Map<U>(Func<T, U> mapping)
         {
-            if (!this.IsSuccess)
+            if (!this.IsOk)
             {
                 return new Result<U, E>
                 {
-                    IsSuccess = false,
+                    IsOk = false,
                     Value = default,
                     Error = this.Error,
                 };
             }
 
-            return Result.Success(mapping(this.Value));
+            return Result.Ok(mapping(this.Value));
         }
 
         /// <summary>
@@ -147,17 +190,17 @@ namespace Utility.ResultModel
         /// <returns>The new result.</returns>
         public Result<T, F> MapErr<F>(Func<E, F> mapping)
         {
-            if (this.IsSuccess)
+            if (this.IsOk)
             {
                 return new Result<T, F>
                 {
-                    IsSuccess = true,
+                    IsOk = true,
                     Value = this.Value,
                     Error = default,
                 };
             }
 
-            return Result.Fail(mapping(this.Error));
+            return Result.Err(mapping(this.Error));
         }
 
         /// <summary>
@@ -188,7 +231,7 @@ namespace Utility.ResultModel
         /// </returns>
         public Result<U, E> AndThen<U>(Func<T, Result<U, E>> next)
         {
-            return this.IsSuccess ? next(this.Value) : Result.Fail(this.Error);
+            return this.IsOk ? next(this.Value) : Result.Err(this.Error);
         }
 
         /// <summary>
@@ -204,9 +247,9 @@ namespace Utility.ResultModel
         /// </returns>
         public async Task<Result<U, E>> AndThenAsync<U>(Func<T, Task<Result<U, E>>> nextAsync)
         {
-            return this.IsSuccess
+            return this.IsOk
                 ? await nextAsync(this.Value)
-                : Result.Fail(this.Error);
+                : Result.Err(this.Error);
         }
 
         /// <summary>
@@ -223,7 +266,7 @@ namespace Utility.ResultModel
         /// </returns>
         public T Or(T other)
         {
-            return this.IsSuccess ? this.Value : other;
+            return this.IsOk ? this.Value : other;
         }
 
         /// <summary>
@@ -240,7 +283,7 @@ namespace Utility.ResultModel
         /// </returns>
         public T OrElse(Func<T> other)
         {
-            return this.IsSuccess ? this.Value : other();
+            return this.IsOk ? this.Value : other();
         }
 
         /// <summary>
@@ -267,7 +310,7 @@ namespace Utility.ResultModel
         /// <returns>The result of the wrapping.</returns>
         public U WrapSplit<U>(Func<Result<T, E>, U> wrapOk, Func<Result<T, E>, U> wrapErr)
         {
-            return this.IsSuccess ? wrapOk(this) : wrapErr(this);
+            return this.IsOk ? wrapOk(this) : wrapErr(this);
         }
 
         /// <summary>
@@ -277,7 +320,7 @@ namespace Utility.ResultModel
         /// <returns>The success value, or <c>default</c>.</returns>
         public T Unwrap()
         {
-            return this.IsSuccess ? this.Value : default;
+            return this.IsOk ? this.Value : default;
         }
     }
 }

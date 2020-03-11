@@ -6,9 +6,9 @@ namespace Utility.ResultModel
     /// <typeparam name="E">
     /// The type of the error wrapped inside the <see cref="Result{T,E}"/>.
     /// </typeparam>
-    public sealed class FailedResult<E>
+    public sealed class ErrResult<E>
     {
-        internal FailedResult(E error)
+        internal ErrResult(E error)
         {
             this.Error = error;
         }
