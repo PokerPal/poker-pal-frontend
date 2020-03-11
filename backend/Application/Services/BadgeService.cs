@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 using Application.Models.Output;
 using Application.Models.Result;
+
 using Microsoft.Extensions.Logging;
+
 using Persistence;
 using Persistence.Entities;
 using Persistence.Interfaces;
@@ -52,7 +54,8 @@ namespace Application.Services
 
             if (context.Badges == null)
             {
-                this.logger.LogError($"Badge DB set was null when trying to get badge with id {id}.");
+                this.logger.LogError(
+                    $"Badge DB set was null when trying to get badge with id {id}.");
                 return "Unable to access database.";
             }
 
@@ -71,28 +74,31 @@ namespace Application.Services
         /// </summary>
         /// <param name="id">The users id.</param>
         /// <returns>Any badges the user has.</returns>
-        public async Task<Result<List<BadgeOutputModel>, string>> GetUserBadges(int id)
+        public async Task<Result<IEnumerable<BadgeOutputModel>, string>> GetUserBadges(int id)
         {
             await using var context = this.databaseContextFactory.CreateDatabaseContext();
 
             if (context.UserBadges == null)
             {
-                this.logger.LogError($"UserBadges DB set was null when trying to get UserBadge with user id {id}.");
+                this.logger.LogError(
+                    $"UserBadges DB set was null when trying to get UserBadge with user id {id}.");
                 return "Unable to access database.";
             }
 
-            var badges = context.UserBadges.Where(ub => ub.UserId == id).ToList();
-            if (badges.Count == 0)
+            var user = await context.Users.FindAsync(id);
+
+            if (user == null)
             {
-                return $"User with id {id} didnt have any badges.";
+                return $"Unable to find user with id {id}.";
             }
 
-            // I tried formatting this to the best of my abilities.
-            var userBadges = badges.Select(
-                badge => context.Badges.Find(badge.BadgeId)).Select(
-                b => new BadgeOutputModel(b.Id, b.Name, b.Description, b.Type)).ToList();
-
-            return userBadges;
+            return Result.Ok(user.UserBadges
+                .Select(ub => ub.Badge)
+                .Select(badge => new BadgeOutputModel(
+                    badge.Id,
+                    badge.Name,
+                    badge.Description,
+                    badge.Type)));
         }
 
         /// <summary>
@@ -119,7 +125,7 @@ namespace Application.Services
                 return "Unable to access database.";
             }
 
-            context.Badges.Add(badge);
+            await context.Badges.AddAsync(badge);
             await context.SaveChangesAsync();
 
             return new CreateBadgeResultModel()
@@ -139,24 +145,27 @@ namespace Application.Services
             int userId)
         {
             await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
             if (context.Badges == null)
             {
                 this.logger.LogError($"Badge DB set was null when trying to create badge.");
                 return "Unable to access database.";
             }
 
-            if ((context.Badges == null) || (context.Users == null))
+            if (context.Badges == null || context.Users == null)
             {
-                this.logger.LogError($"Badge DB or User DB set was null when trying to create the Link.");
+                this.logger.LogError(
+                    $"Badge DB or User DB set was null when trying to create the Link.");
                 return "Unable to access database.";
             }
 
-            if ((context.Badges.Find(badgeId) == null) || (context.Users.Find(userId) == null))
+            if (await context.Badges.FindAsync(badgeId) == null ||
+                await context.Users.FindAsync(userId) == null)
             {
                 return "Badge not found or user not found";
             }
 
-            if (context.UserBadges.Find(userId, badgeId) != null)
+            if (await context.UserBadges.FindAsync(userId, badgeId) != null)
             {
                 return "This link already exists";
             }
@@ -164,8 +173,10 @@ namespace Application.Services
             var userBadge = new UserBadgeEntity(
                 userId,
                 badgeId);
-            context.UserBadges.Add(userBadge);
+
+            await context.UserBadges.AddAsync(userBadge);
             await context.SaveChangesAsync();
+
             return new CreateUserBadgeResultModel()
             {
                 BadgeId = badgeId,
