@@ -13,8 +13,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
 
-#pragma warning disable 618
-
 namespace Api
 {
     /// <summary>
@@ -55,8 +53,6 @@ namespace Api
                     Version = "v1",
                     Description = "PokerPal API",
                 });
-
-                options.DescribeAllEnumsAsStrings();
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

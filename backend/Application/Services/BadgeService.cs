@@ -1,24 +1,14 @@
-﻿// <copyright file="BadgeService.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Application.Models.Output;
 using Application.Models.Result;
-
 using Microsoft.Extensions.Logging;
-
 using Persistence;
 using Persistence.Entities;
 using Persistence.Interfaces;
-
 using Utility.ResultModel;
-
-using Type = Persistence.Entities.Type;
 
 namespace Application.Services
 {
@@ -117,7 +107,7 @@ namespace Application.Services
                 0,
                 name,
                 description,
-                Type.OptionA);
+                BadgeType.OptionA);
 
             if (context.Badges == null)
             {

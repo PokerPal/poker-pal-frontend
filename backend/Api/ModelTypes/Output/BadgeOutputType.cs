@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Application.Models.Output;
 
@@ -11,7 +10,7 @@ namespace Api.ModelTypes.Output
     public class BadgeOutputType
     {
         /// <summary>
-        /// Converts an instance of the model <see cref="BadgeOutputModel"/> to this model type.
+        /// Converts an instance of the model <see cref="BadgeOutputModel"/> to this model badgeType.
         /// </summary>
         public static Func<BadgeOutputModel, BadgeOutputType> FromModel { get; } =
             model => new BadgeOutputType { Model = model };
@@ -32,7 +31,7 @@ namespace Api.ModelTypes.Output
         public string Description => this.Model.Description.ToString();
 
         /// <summary>
-        /// The badge type.
+        /// The badge badgeType.
         /// </summary>
         public string Type => this.Model.Type.ToString();
 

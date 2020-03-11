@@ -3,11 +3,8 @@
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
-
 using Application.Services;
-
 using Microsoft.AspNetCore.Mvc;
-
 using Utility.ResultModel;
 
 namespace Api.Controllers
@@ -25,7 +22,7 @@ namespace Api.Controllers
         /// <param name="badge">Details of the badge to create.</param>
         /// <param name="badgeService">The badge service.</param>
         /// <returns>The result of the creation of the badge.</returns>
-        [HttpPost]
+        [HttpPost("")]
         public async Task<ActionResult<Result<CreateBadgeResultType, string>>> CreateBadge(
             [FromBody] CreateBadgeInputType badge,
             [FromServices] BadgeService badgeService)

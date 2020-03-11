@@ -21,7 +21,7 @@ namespace Api.ModelTypes.Result
         }
 
         /// <summary>
-        /// Converts an instance of the model <see cref="CreateBadgeResultModel"/> to this model type.
+        /// Converts an instance of the model <see cref="CreateBadgeResultModel"/> to this model badgeType.
         /// </summary>
         public static Func<CreateBadgeResultModel, CreateBadgeResultType> FromModel { get; } =
             model => new CreateBadgeResultType(model);

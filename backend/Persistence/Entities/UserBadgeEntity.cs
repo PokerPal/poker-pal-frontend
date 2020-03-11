@@ -1,10 +1,4 @@
-﻿// <copyright file="UserBadgeEntity.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
-using System;
-
-namespace Persistence.Entities
+﻿namespace Persistence.Entities
 {
     /// <summary>
     /// Represents a link between a user and a badge in the database.

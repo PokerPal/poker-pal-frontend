@@ -1,9 +1,4 @@
-﻿// <copyright file="BadgeEntity.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Entities
@@ -11,7 +6,7 @@ namespace Persistence.Entities
     /// <summary>
     /// The type of the badge, further details on what the options are are to be decided with the group.
     /// </summary>
-    public enum Type
+    public enum BadgeType
     {
         /// <summary>
         /// Option A.
@@ -36,7 +31,7 @@ namespace Persistence.Entities
         /// <param name="name">The badge's Name.</param>
         /// <param name="description">The badge's Description.</param>
         /// <param name="type">The badge's type.</param>
-        public BadgeEntity(int id, string name, string description, Type type)
+        public BadgeEntity(int id, string name, string description, BadgeType type)
         {
             this.Id = id;
             this.Name = name;
@@ -63,7 +58,7 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets the type of this badge.
         /// </summary>
-        public Type Type { get; set; }
+        public BadgeType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the user-badge relations this badge belongs to; autofilled when fetched from the

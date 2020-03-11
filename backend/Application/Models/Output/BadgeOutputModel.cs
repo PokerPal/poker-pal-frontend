@@ -1,8 +1,4 @@
-﻿// <copyright file="BadgeOutputModel.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
-using Type = Persistence.Entities.Type;
+﻿using Persistence.Entities;
 
 namespace Application.Models.Output
 {
@@ -15,10 +11,10 @@ namespace Application.Models.Output
         /// Initializes a new instance of the <see cref="BadgeOutputModel"/> class.
         /// </summary>
         /// <param name="id">The badge's unique identifier.</param>
-        /// <param name="name">The badge's Name.</param>
-        /// <param name="description">The badge's Description.</param>
+        /// <param name="name">The badge's name.</param>
+        /// <param name="description">The badge's description.</param>
         /// <param name="type">The badge's type.</param>
-        public BadgeOutputModel(int id, string name, string description, Type type)
+        public BadgeOutputModel(int id, string name, string description, BadgeType type)
         {
             this.Id = id;
             this.Name = name;
@@ -42,8 +38,8 @@ namespace Application.Models.Output
         public string Description { get; }
 
         /// <summary>
-        /// The badge type.
+        /// The badge badgeType.
         /// </summary>
-        public Type Type { get; }
+        public BadgeType Type { get; }
     }
 }

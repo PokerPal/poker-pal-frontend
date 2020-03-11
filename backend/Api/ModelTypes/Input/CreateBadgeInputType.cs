@@ -1,9 +1,4 @@
-﻿// <copyright file="CreateBadgeInputType.cs" company="IP Group 2">
-// Copyright (c) IP Group 2. All rights reserved.
-// </copyright>
-
-#pragma warning disable 8618
-namespace Api.ModelTypes.Input
+﻿namespace Api.ModelTypes.Input
 {
     /// <summary>
     /// Details required to make a new badge.
