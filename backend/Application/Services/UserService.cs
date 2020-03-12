@@ -60,7 +60,7 @@ namespace Application.Services
                         $"User with id {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(u => new UserOutputModel(
-                        u.Id, u.Email, u.Email, u.Joined, u.AuthLevel));
+                        u.Id, u.Email, u.Name, u.Joined, u.AuthLevel));
             }
         }
 
