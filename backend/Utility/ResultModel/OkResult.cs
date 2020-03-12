@@ -6,9 +6,9 @@ namespace Utility.ResultModel
     /// <typeparam name="T">
     /// The type of the success value wrapped inside the <see cref="Result{T,E}"/>.
     /// </typeparam>
-    public sealed class SuccessfulResult<T>
+    public sealed class OkResult<T>
     {
-        internal SuccessfulResult(T value)
+        internal OkResult(T value)
         {
             this.Value = value;
         }

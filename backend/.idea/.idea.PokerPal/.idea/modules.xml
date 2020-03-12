@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/.idea.PokerPal/.idea/.idea.PokerPal.iml" filepath="$PROJECT_DIR$/.idea/.idea.PokerPal/.idea/.idea.PokerPal.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/.idea.PokerPal/riderModule.iml" filepath="$PROJECT_DIR$/.idea/.idea.PokerPal/riderModule.iml" />
     </modules>
   </component>

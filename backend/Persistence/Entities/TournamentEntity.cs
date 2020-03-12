@@ -54,6 +54,6 @@ namespace Persistence.Entities
         /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when fetched from the
         /// database, null otherwise.
         /// </summary>
-        public List<UserTournamentEntity> UserTournaments { get; set; } = null;
+        public virtual List<UserTournamentEntity> UserTournaments { get; set; } = null;
     }
 }

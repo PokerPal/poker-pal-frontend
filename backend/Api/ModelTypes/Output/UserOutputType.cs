@@ -10,7 +10,7 @@ namespace Api.ModelTypes.Output
     public class UserOutputType
     {
         /// <summary>
-        /// Converts an instance of the model <see cref="UserOutputModel"/> to this model type.
+        /// Converts an instance of the model <see cref="UserOutputModel"/> to this model badgeType.
         /// </summary>
         public static Func<UserOutputModel, UserOutputType> FromModel { get; } =
             model => new UserOutputType { Model = model };
