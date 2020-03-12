@@ -63,7 +63,7 @@ namespace Application.Services
                         u.Id, u.Email, u.Email, u.Joined, u.AuthLevel));
             }
         }
-        
+
         /// <summary>
         /// Get the details of all users in the database.
         /// </summary>
@@ -72,13 +72,6 @@ namespace Application.Services
         {
             await using var context = this.databaseContextFactory.CreateDatabaseContext();
 
-            if (context.Users == null)
-            {
-                this.logger.LogError(
-                    $"Users DB set was null when trying to get list of users.");
-                return "Unable to access database.";
-            }
-            
             return context.Users
                 .Select(user => new UserOutputModel(
                     user.Id,

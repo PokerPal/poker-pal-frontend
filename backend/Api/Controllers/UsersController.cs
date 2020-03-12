@@ -53,6 +53,20 @@ namespace Api.Controllers
         }
 
         /// <summary>
+        /// Get the details of all users.
+        /// </summary>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The details of the user.</returns>
+        [HttpGet("")]
+        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetAllUsers(
+            [FromServices] UserService userService)
+        {
+            return (await userService.GetAllUsersAsync())
+                .Map(users => users.Select(UserOutputType.FromModel))
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
         /// Get the badges a user has.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
@@ -85,18 +99,6 @@ namespace Api.Controllers
         {
             return (await userService.AddBadge(id, inputType.BadgeId))
                 .Map(CreateUserBadgeResultType.FromModel);
-        }
-        
-        /// <summary>
-        /// Get the details of all users.
-        /// </summary>
-        /// <returns>The details of the user.</returns>
-        [HttpGet("")]
-        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetUser()
-        {
-            return (await this.userService.GetAllUsersAsync())
-                .Map(users => users.Select(UserOutputType.FromModel))
-                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
     }
 }
