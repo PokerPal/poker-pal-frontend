@@ -1,4 +1,6 @@
-﻿namespace Persistence.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Persistence.Entities
 {
     /// <summary>
     /// Represents a link between a user and a badge in the database.
@@ -30,12 +32,12 @@
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the database, null
         /// otherwise.
         /// </summary>
-        public UserEntity User { get; set; } = null;
+        public virtual UserEntity User { get; set; } = null;
 
         /// <summary>
         /// Gets or sets the badge entity linked to this entity; autofilled when fetched from the database, null
         /// otherwise.
         /// </summary>
-        public BadgeEntity Badge { get; set; } = null;
+        public virtual BadgeEntity Badge { get; set; } = null;
     }
 }

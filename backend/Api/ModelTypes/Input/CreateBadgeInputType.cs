@@ -11,8 +11,13 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// The badge's Description.
+        /// The badge's description.
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// The type of the badge. Possible values: <c>"A"</c>, <c>"B"</c>.
+        /// </summary>
+        public string BadgeType { get; set; }
     }
 }

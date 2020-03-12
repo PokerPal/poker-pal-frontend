@@ -31,9 +31,9 @@ namespace Api.ModelTypes.Output
         public string Description => this.Model.Description.ToString();
 
         /// <summary>
-        /// The badge badgeType.
+        /// The badge type.
         /// </summary>
-        public string Type => this.Model.Type.ToString();
+        public string BadgeType => this.Model.BadgeType.ToString();
 
         internal BadgeOutputModel Model { get; set; }
     }

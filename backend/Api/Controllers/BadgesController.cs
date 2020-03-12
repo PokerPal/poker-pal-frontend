@@ -27,7 +27,7 @@ namespace Api.Controllers
             [FromBody] CreateBadgeInputType badge,
             [FromServices] BadgeService badgeService)
         {
-            return (await badgeService.CreateBadge(badge.Name, badge.Description))
+            return (await badgeService.CreateBadge(badge.Name, badge.Description, badge.BadgeType))
                 .Map(CreateBadgeResultType.FromModel);
         }
 

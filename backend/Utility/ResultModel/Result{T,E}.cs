@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace Utility.ResultModel
@@ -170,7 +171,7 @@ namespace Utility.ResultModel
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <returns>The unchanged result.</returns>
-        public Result<T, E> OnSuccess(Action<T> action)
+        public Result<T, E> OnOk(Action<T> action)
         {
             return this.Map(v =>
             {
@@ -209,7 +210,7 @@ namespace Utility.ResultModel
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <returns>The unchanged result.</returns>
-        public Result<T, E> OnError(Action<E> action)
+        public Result<T, E> OnErr(Action<E> action)
         {
             return this.MapErr(e =>
             {

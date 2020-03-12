@@ -5,12 +5,14 @@ using System.Text.Json.Serialization;
 
 using Application;
 using Application.Cryptography;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+
 using Persistence;
 
 namespace Api
@@ -62,22 +64,25 @@ namespace Api
             services.AddApplicationServices();
             services.AddCryptoServices();
 
-            services.AddDatabaseContextFactory(options =>
-            {
-                if (this.Configuration["USE_IN_MEMORY_DATABASE"] == "TRUE")
+            services
+                .AddDatabaseContextFactory(options =>
                 {
-                    options.UseInMemoryDatabase("example_in_memory_database");
-                }
-                else if (string.IsNullOrWhiteSpace(this.Configuration["DATABASE_CONNECTION_STRING"]))
-                {
-                    throw new ArgumentException(
-                        "USE_IN_MEMORY_DATABASE was not set and no DATABASE_CONNECTION_STRING was provided.");
-                }
-                else
-                {
-                    options.UseConnectionString(this.Configuration["DATABASE_CONNECTION_STRING"]);
-                }
-            });
+                    if (this.Configuration["USE_IN_MEMORY_DATABASE"] == "TRUE")
+                    {
+                        options.UseInMemoryDatabase("example_in_memory_database");
+                    }
+                    else if (string.IsNullOrWhiteSpace(
+                        this.Configuration["DATABASE_CONNECTION_STRING"]))
+                    {
+                        throw new ArgumentException(
+                            "USE_IN_MEMORY_DATABASE was not set and no DATABASE_CONNECTION_STRING was provided.");
+                    }
+                    else
+                    {
+                        options.UseConnectionString(
+                            this.Configuration["DATABASE_CONNECTION_STRING"]);
+                    }
+                });
         }
 
         /// <summary>

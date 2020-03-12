@@ -13,13 +13,13 @@ namespace Application.Models.Output
         /// <param name="id">The badge's unique identifier.</param>
         /// <param name="name">The badge's name.</param>
         /// <param name="description">The badge's description.</param>
-        /// <param name="type">The badge's type.</param>
-        public BadgeOutputModel(int id, string name, string description, BadgeType type)
+        /// <param name="badgeType">The badge's type.</param>
+        public BadgeOutputModel(int id, string name, string description, BadgeType badgeType)
         {
             this.Id = id;
             this.Name = name;
             this.Description = description;
-            this.Type = type;
+            this.BadgeType = badgeType;
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace Application.Models.Output
         public string Description { get; }
 
         /// <summary>
-        /// The badge badgeType.
+        /// The badge type.
         /// </summary>
-        public BadgeType Type { get; }
+        public BadgeType BadgeType { get; }
     }
 }
