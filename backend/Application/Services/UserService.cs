@@ -65,6 +65,24 @@ namespace Application.Services
         }
 
         /// <summary>
+        /// Get the details of all users in the database.
+        /// </summary>
+        /// <returns>The user's details, if found.</returns>
+        public async Task<Result<IEnumerable<UserOutputModel>, string>> GetAllUsersAsync()
+        {
+            await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+            return context.Users
+                .Select(user => new UserOutputModel(
+                    user.Id,
+                    user.Email,
+                    user.Name,
+                    user.Joined,
+                    user.AuthLevel))
+                .ToList();
+        }
+
+        /// <summary>
         /// Create a new user entity in the database.
         /// </summary>
         /// <param name="email">The user's email address.</param>
