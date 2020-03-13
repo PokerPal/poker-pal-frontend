@@ -22,7 +22,7 @@ export function LoginPage() {
                             <br/><br/>
                             <input type="password" id="pin" name="pw" className="Input-box" placeholder="Password"/>
                             <br/><br/>
-                            <input type="submit" value="Sign in" className="Login-button"/>
+                            <input type="submit" value="Sign in" className="LoginDELETE-button"/>
                         </form>
                     </div>
                 </div>
