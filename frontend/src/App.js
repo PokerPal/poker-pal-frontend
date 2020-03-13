@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
-// import { NativeRouter, Route, Link } from "react-router-native";
-import logo from './bluffBathLogo.png';//'./logo.svg';
-//bluffBathLogo.png
+import logo from './bluffBathLogo.png';
 import './App.css';
 import './Layout.css';
-// import './Login';
 
 class App extends Component {
     render() {
@@ -25,11 +21,10 @@ class App extends Component {
                         </div>
                         <div className="headerLeft">
                             <img src={logo} className="App-logo-small" alt="App-logo-small"/>
-                            {/*<h4>Bluff Bath</h4>*/}
                         </div>
                     </div>
                 </div>
-                <br></br>
+                <br />
 
                 <Router>
                     <div className="navBar">
@@ -62,7 +57,6 @@ class App extends Component {
                 <div className="section">
 
                     <div className="leftSection">
-                        {/*<img src={logo} className="App-logo" alt="logo" width="500" height="500"/>*/}
                         <p>
                             left
                         </p>
@@ -75,25 +69,7 @@ class App extends Component {
                             two
                             three
                         </ul>
-                        {/*<form className="form1">*/}
-                        {/*  <input type="text" id="fname" name="email" className="Input-box" placeholder="Email"></input>*/}
-                        {/*  <br></br><br></br>*/}
-                        {/*  <input type="password" id="pin" name="pw" className="Input-box" placeholder="Password"></input>*/}
-                        {/*  <br></br><br></br>*/}
-                        {/*  <input type="submit" value="Sign in" className="Login-button"></input>*/}
-                        {/*</form>*/}
                     </div>
-                    {/*<div className="leftSection">*/}
-                    {/*  <body>*/}
-                    {/*  left hand side*/}
-                    {/*  </body>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="rightSection">*/}
-                    {/*  <body>*/}
-                    {/*  right hand side*/}
-                    {/*  </body>*/}
-                    {/*</div>*/}
 
                 </div>
 
@@ -140,11 +116,11 @@ function LoginTest() {
                     <div className="rightSection">
                         <p>LOGIN </p>
                         <form className="form1">
-                            <input type="text" id="fname" name="email" class="Input-box" placeholder="Email"></input>
+                            <input type="text" id="fname" name="email" className="Input-box" placeholder="Email"/>
                             <br /> <br />
-                            <input type="password" id="pin" name="pw" class="Input-box" placeholder="Password"></input>
+                            <input type="password" id="pin" name="pw" className="Input-box" placeholder="Password"/>
                             <br /> <br />
-                            <input type="submit" value="Sign in" class="Login-button"></input>
+                            <input type="submit" value="Sign in" className="Login-button"/>
                         </form>
                     </div>
                 </div>
