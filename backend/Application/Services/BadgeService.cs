@@ -45,7 +45,7 @@ namespace Application.Services
                 return Result<BadgeEntity, string>
                     .FromNullableOr(
                         await context.Badges.FindAsync(id),
-                        $"Badge with id {id} not found.")
+                        $"Badge not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(b => new BadgeOutputModel(
                         b.Id, b.Name, b.Description, b.Type));
