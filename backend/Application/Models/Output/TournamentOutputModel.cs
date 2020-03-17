@@ -3,7 +3,7 @@
 namespace Application.Models.Output
 {
     /// <summary>
-    /// Represents details about a tournament
+    /// Represents details about a tournament.
     /// </summary>
     public class TournamentOutputModel
     {
@@ -13,8 +13,8 @@ namespace Application.Models.Output
         /// <param name="id">The Tournaments Unique Identifier.</param>
         /// <param name="startDate">The start date of the tournament.</param>
         /// <param name="endDate">The end date of the tournament.</param>
-        /// <param name="frequency">How often the tournament occurs</param>
-        /// <param name="venue">Where the tournament takes place</param>
+        /// <param name="frequency">How often the tournament occurs.</param>
+        /// <param name="venue">Where the tournament takes place.</param>
         public TournamentOutputModel(int id, DateTime startDate, DateTime endDate, int? frequency, string venue)
         {
             this.Id = id;
