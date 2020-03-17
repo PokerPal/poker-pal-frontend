@@ -3,7 +3,7 @@
 }
 
 .header {
-    background-color: #666;
+    /*background-color: #666;*/
     padding: 5px;
     /*padding-right: 30px;*/
     text-align: center;
@@ -28,13 +28,13 @@
     width: 50%;
     text-align: right;
     /* height: 200px; only for demonstration, should be removed */
-    background: #ccc;
+    /*background: #ccc;*/
     padding: 0px;
 }
 
 .headerLeft {
     border-color: #222222;
-    background-color: #777;
+    /*background-color: #777;*/
     padding: 0px;
     text-align: left;
     color: white;
@@ -46,12 +46,12 @@
     width: 50%;
     text-align: right;
     /* height: 200px; only for demonstration, should be removed */
-    background: #ccc;
+    /*background: #ccc;*/
     padding: 20px;
 }
 .rightSection {
     border-color: #222222;
-    background-color: #777;
+    /*background-color: #777;*/
     padding: 10px;
     text-align: left;
     color: white;
@@ -67,7 +67,7 @@ nav ul {
     float: left;
     padding: 20px;
     width: 100%;
-    background-color: #f1f1f1;
+    /*background-color: #f1f1f1;*/
     height: 200px; /* only for demonstration, should be removed */
 }
 

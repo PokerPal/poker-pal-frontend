@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
-// import { NativeRouter, Route, Link } from "react-router-native";
-import logo from './bluffBathLogo.png';//'./logo.svg';
-//bluffBathLogo.png
+import logo from './bluffBathLogo.png';
 import './App.css';
 import './Layout.css';
-// import './Login';
+import {LoginPage} from "./LoginPage";
+import {MemberProfile} from "./MemberProfile";
+import {MainLeaguePage} from "./MainLeaguePage";
+import {SideLeaguePage} from "./SideLeaguePage";
+import {AdminOptions} from "./AdminOptions";
+import {UserSettings} from "./UserSettings";
+
 
 class App extends Component {
     render() {
@@ -25,49 +28,65 @@ class App extends Component {
                         </div>
                         <div className="headerLeft">
                             <img src={logo} className="App-logo-small" alt="App-logo-small"/>
-                            {/*<h4>Bluff Bath</h4>*/}
                         </div>
                     </div>
                 </div>
-                <br></br>
+                <br />
 
                 <Router>
                     <div className="navBar">
-                        <Link to="/">  Home  </Link>
-                        <Link to="/about">  About  </Link>
-                        <Link to="/login">  Login  </Link>
-                        User Profile |
-                        Main League |
-                        Side League |
-                        Admin Options |
-                        Settings
+                        <Link to="/">  Home | </Link>
+                        <Link to="/login">  Login | </Link>
+                        <Link to="/memberProfile">  Profile | </Link>
+                        <Link to="/mainLeague">  Main League | </Link>
+                        <Link to="/sideLeague">  Side League | </Link>
+                        <Link to="/adminOptions">  Admin Options | </Link>
+                        <Link to="/userSettings">  User Settings </Link>
                     </div>
+                    <hr />
                     <Switch>
                         <Route exact path="/">
                             <Home />
                         </Route>
 
-                        <Route path="/about">
-                            <About />
+                        <Route path="/login">
+                            <LoginPage />
                         </Route>
 
-                        <Route path="/login">
-                            <LoginTest />
+                        <Route path="/memberProfile">
+                            <MemberProfile />
                         </Route>
+
+                        <Route path="/mainLeague">
+                            <MainLeaguePage />
+                        </Route>
+
+                        <Route path="/sideLeague">
+                            <SideLeaguePage />
+                        </Route>
+
+                        <Route path="/adminOptions">
+                            <AdminOptions />
+                        </Route>
+
+                        <Route path="/userSettings">
+                            <UserSettings />
+                        </Route>
+
+
                     </Switch>
                 </Router>
 
-                <hr />
+
 
                 <div className="section">
 
                     <div className="leftSection">
-                        {/*<img src={logo} className="App-logo" alt="logo" width="500" height="500"/>*/}
                         <p>
-                            left
+
                         </p>
                     </div>
-
+`
                     <div className="rightSection">
                         <p>LOGIN </p>
                         <ul>
@@ -75,25 +94,7 @@ class App extends Component {
                             two
                             three
                         </ul>
-                        {/*<form className="form1">*/}
-                        {/*  <input type="text" id="fname" name="email" className="Input-box" placeholder="Email"></input>*/}
-                        {/*  <br></br><br></br>*/}
-                        {/*  <input type="password" id="pin" name="pw" className="Input-box" placeholder="Password"></input>*/}
-                        {/*  <br></br><br></br>*/}
-                        {/*  <input type="submit" value="Sign in" className="Login-button"></input>*/}
-                        {/*</form>*/}
                     </div>
-                    {/*<div className="leftSection">*/}
-                    {/*  <body>*/}
-                    {/*  left hand side*/}
-                    {/*  </body>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="rightSection">*/}
-                    {/*  <body>*/}
-                    {/*  right hand side*/}
-                    {/*  </body>*/}
-                    {/*</div>*/}
 
                 </div>
 
@@ -106,8 +107,6 @@ class App extends Component {
 export default App;
 
 function Home() {
-    // Login();
-
     return (
         <div>
             <h2>Home</h2>
@@ -123,33 +122,3 @@ function About() {
     );
 }
 
-function LoginTest() {
-    return (
-        <div className="App">
-            <body>
-
-                <div className="custom-header">
-                    <b>Bluff Bath</b>
-                </div>
-
-                <div className="section">
-                    <div className="leftSection">
-                        <img src={logo} className="App-logo" alt="logo" width="500" height="500" />
-                    </div>
-
-                    <div className="rightSection">
-                        <p>LOGIN </p>
-                        <form className="form1">
-                            <input type="text" id="fname" name="email" class="Input-box" placeholder="Email"></input>
-                            <br /> <br />
-                            <input type="password" id="pin" name="pw" class="Input-box" placeholder="Password"></input>
-                            <br /> <br />
-                            <input type="submit" value="Sign in" class="Login-button"></input>
-                        </form>
-                    </div>
-                </div>
-
-            </body>
-        </div>
-    );
-}
