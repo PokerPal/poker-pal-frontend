@@ -17,7 +17,12 @@ namespace Persistence.Entities
         /// <param name="endDate">The tournament's end date.</param>
         /// <param name="frequency">The tournament's frequency.</param>
         /// <param name="venue">The venue of the tournament.</param>
-        public TournamentEntity(int id, DateTime startDate, DateTime endDate, int? frequency, string venue)
+        public TournamentEntity(
+            int id,
+            DateTime startDate,
+            DateTime endDate,
+            int? frequency,
+            string venue)
         {
             this.Id = id;
             this.StartDate = startDate;
@@ -53,8 +58,8 @@ namespace Persistence.Entities
         public string Venue { get; set; }
 
         /// <summary>
-        /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when fetched from the
-        /// database, null otherwise.
+        /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when
+        /// fetched from the database, null otherwise.
         /// </summary>
         public virtual List<UserTournamentEntity> UserTournaments { get; set; } = null;
     }

@@ -15,7 +15,12 @@ namespace Application.Models.Output
         /// <param name="endDate">The end date of the tournament.</param>
         /// <param name="frequency">How often the tournament occurs.</param>
         /// <param name="venue">Where the tournament takes place.</param>
-        public TournamentOutputModel(int id, DateTime startDate, DateTime endDate, int? frequency, string venue)
+        public TournamentOutputModel(
+            int id,
+            DateTime startDate,
+            DateTime endDate,
+            int? frequency,
+            string venue)
         {
             this.Id = id;
             this.StartDate = startDate;

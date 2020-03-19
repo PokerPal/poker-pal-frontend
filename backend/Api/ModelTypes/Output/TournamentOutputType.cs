@@ -11,10 +11,11 @@ namespace Api.ModelTypes.Output
     public class TournamentOutputType
     {
         /// <summary>
-        /// Converts an instance of the model <see cref="TournamentOutputModel"/> to this model tournament type.
+        /// Converts an instance of the model <see cref="TournamentOutputModel"/> to this output
+        /// type.
         /// </summary>
-        public static Func<TournamentOutputModel, TournamentOutputType> FromModel { get; } =
-            model => new TournamentOutputType() { Model = model };
+        public static readonly Func<TournamentOutputModel, TournamentOutputType> FromModel
+            = model => new TournamentOutputType { Model = model };
 
         /// <summary>
         /// The tournament's unique identifier.

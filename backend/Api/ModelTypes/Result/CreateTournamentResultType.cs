@@ -9,6 +9,13 @@ namespace Api.ModelTypes.Result
     /// </summary>
     public class CreateTournamentResultType
     {
+        /// <summary>
+        /// Converts an instance of the result model<see cref="CreateTournamentResultModel"/> to
+        /// this result type.
+        /// </summary>
+        public static readonly Func<CreateTournamentResultModel, CreateTournamentResultType>
+            FromModel = model => new CreateTournamentResultType(model);
+
         private readonly CreateTournamentResultModel model;
 
         /// <summary>
@@ -19,12 +26,6 @@ namespace Api.ModelTypes.Result
         {
             this.model = model;
         }
-
-        /// <summary>
-        /// Converts an instance of the model <see cref="CreateTournamentResultModel"/> to this model TournamentType.
-        /// </summary>
-        public static Func<CreateTournamentResultModel, CreateTournamentResultType> FromModel { get; } =
-            model => new CreateTournamentResultType(model);
 
         /// <summary>
         /// The unique identifier of the newly created Tournament.
