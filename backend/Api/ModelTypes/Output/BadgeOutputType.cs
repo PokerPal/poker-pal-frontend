@@ -10,10 +10,10 @@ namespace Api.ModelTypes.Output
     public class BadgeOutputType
     {
         /// <summary>
-        /// Converts an instance of the model <see cref="BadgeOutputModel"/> to this model badgeType.
+        /// Converts an instance of the model <see cref="BadgeOutputModel"/> to this output type.
         /// </summary>
-        public static Func<BadgeOutputModel, BadgeOutputType> FromModel { get; } =
-            model => new BadgeOutputType { Model = model };
+        public static readonly Func<BadgeOutputModel, BadgeOutputType> FromModel
+            = model => new BadgeOutputType { Model = model };
 
         /// <summary>
         /// The badge's unique identifier.

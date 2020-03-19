@@ -1,4 +1,5 @@
 using Application.Services;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -16,6 +17,7 @@ namespace Application
         {
             services.AddScoped<UserService>();
             services.AddScoped<BadgeService>();
+            services.AddScoped<TournamentService>();
         }
     }
 }
