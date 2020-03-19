@@ -19,7 +19,7 @@ namespace Api.Controllers
     /// </summary>
     [ApiController]
     [Route("tournaments")]
-    public class TournamentController : ControllerBase
+    public class TournamentsController : ControllerBase
     {
         /// <summary>
         /// Create a new tournament with the provided details.

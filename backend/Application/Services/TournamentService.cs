@@ -19,7 +19,7 @@ namespace Application.Services
     /// </summary>
     public class TournamentService
     {
-        private readonly ILogger<BadgeService> logger;
+        private readonly ILogger<TournamentService> logger;
         private readonly IDatabaseContextFactory<DatabaseContext> databaseContextFactory;
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Application.Services
         /// <param name="databaseContextFactory">Factory for the database context.</param>
         /// <param name="logger">Logger for messages.</param>
         public TournamentService(
-            ILogger<BadgeService> logger,
+            ILogger<TournamentService> logger,
             IDatabaseContextFactory<DatabaseContext> databaseContextFactory)
         {
             this.logger = logger;

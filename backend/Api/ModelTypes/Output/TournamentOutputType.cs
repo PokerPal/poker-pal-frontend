@@ -20,27 +20,27 @@ namespace Api.ModelTypes.Output
         /// <summary>
         /// The tournament's unique identifier.
         /// </summary>
-        public string Id => this.Model.Id.ToString();
+        public int Id => this.Model.Id;
 
         /// <summary>
         /// The tournament's start date.
         /// </summary>
-        public string StartDate => this.Model.StartDate.ToString(CultureInfo.CurrentCulture);
+        public DateTime StartDate => this.Model.StartDate;
 
         /// <summary>
         /// the tournament's end date.
         /// </summary>
-        public string EndDate => this.Model.EndDate.ToString(CultureInfo.CurrentCulture);
+        public DateTime EndDate => this.Model.EndDate;
 
         /// <summary>
         /// The tournament Frequency.
         /// </summary>
-        public string Frequency => this.Model.Frequency.ToString();
+        public int? Frequency => this.Model.Frequency;
 
         /// <summary>
         /// The tournament's venue.
         /// </summary>
-        public string Venue => this.Model.Venue.ToString();
+        public string Venue => this.Model.Venue;
 
         internal TournamentOutputModel Model { get; set; }
     }

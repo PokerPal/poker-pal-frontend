@@ -19,6 +19,8 @@ namespace Api.ModelTypes.Input
 
         /// <summary>
         /// The frequency of this tournament.
+        /// How often the tournament occurs, in days.
+        /// ie '7' for a week.
         /// </summary>
         public int? Frequency { get; set; }
 
