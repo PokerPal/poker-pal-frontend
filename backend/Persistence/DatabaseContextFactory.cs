@@ -3,6 +3,7 @@ using System.Text;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+
 using Persistence.Interfaces;
 
 namespace Persistence
@@ -17,7 +18,9 @@ namespace Persistence
         /// </summary>
         /// <param name="options">Options for the creation of database contexts.</param>
         /// <param name="serviceProvider">The service provider.</param>
-        public DatabaseContextFactory(IOptions<DatabaseContextFactoryOptions> options, IServiceProvider serviceProvider)
+        public DatabaseContextFactory(
+            IOptions<DatabaseContextFactoryOptions> options,
+            IServiceProvider serviceProvider)
         {
             if (options.Value.InMemory)
             {
@@ -29,7 +32,8 @@ namespace Persistence
             else
             {
                 var connectionString =
-                    Encoding.UTF8.GetString(Convert.FromBase64String(options.Value.ConnectionString));
+                    Encoding.UTF8.GetString(
+                        Convert.FromBase64String(options.Value.ConnectionString));
 
                 var builder = new DbContextOptionsBuilder()
                     .UseNpgsql(connectionString);

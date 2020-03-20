@@ -1,4 +1,5 @@
 using Application.Cryptography.Services;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Cryptography

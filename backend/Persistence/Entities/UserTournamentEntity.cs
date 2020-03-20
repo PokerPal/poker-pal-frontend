@@ -13,7 +13,7 @@ namespace Persistence.Entities
         /// <param name="userId">The unique identifier of the linked user.</param>
         /// <param name="tournamentId">The unique identifier of the linked tournament.</param>
         /// <param name="totalScore">The total score of the user in this tournament.</param>
-        public UserTournamentEntity(int userId, Guid tournamentId, int totalScore)
+        public UserTournamentEntity(int userId, int tournamentId, int totalScore)
         {
             this.UserId = userId;
             this.TournamentId = tournamentId;
@@ -28,7 +28,7 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets the unique identifier of the linked tournament.
         /// </summary>
-        public Guid TournamentId { get; set; }
+        public int TournamentId { get; set; }
 
         /// <summary>
         /// Gets or sets the total score of the user in this tournament.

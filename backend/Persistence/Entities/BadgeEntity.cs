@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Persistence.Entities
 {
     /// <summary>
-    /// The type of the badge, further details on what the options are are to be decided with the group.
+    /// The type of the badge, further details on what the options are are to be decided with the
+    /// group.
     /// </summary>
     public enum BadgeType
     {
@@ -61,8 +62,8 @@ namespace Persistence.Entities
         public BadgeType Type { get; set; }
 
         /// <summary>
-        /// Gets or sets the user-badge relations this badge belongs to; autofilled when fetched from the
-        /// database, null otherwise.
+        /// Gets or sets the user-badge relations this badge belongs to; autofilled when fetched
+        /// from the database, null otherwise.
         /// </summary>
         public virtual List<UserBadgeEntity> UserBadges { get; set; } = null;
     }

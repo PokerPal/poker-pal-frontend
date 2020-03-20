@@ -17,7 +17,12 @@ namespace Application.Models.Output
         /// <param name="name">The user's full name.</param>
         /// <param name="joined">The date and time when the user registered.</param>
         /// <param name="authLevel">The user's authorisation level.</param>
-        public UserOutputModel(int id, string email, string name, DateTime joined, AuthLevel authLevel)
+        public UserOutputModel(
+            int id,
+            string email,
+            string name,
+            DateTime joined,
+            AuthLevel authLevel)
         {
             this.Id = id;
             this.Email = email;

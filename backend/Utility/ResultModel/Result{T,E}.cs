@@ -106,9 +106,7 @@ namespace Utility.ResultModel
         /// <returns>The result.</returns>
         public static Result<T, Empty> FromNullable(T value)
         {
-            return value == null ?
-                Result<T, Empty>.Err(new Empty()) :
-                Result<T, Empty>.Ok(value);
+            return value == null ? Result<T, Empty>.Err(new Empty()) : Result<T, Empty>.Ok(value);
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Entities
 {
@@ -16,7 +17,12 @@ namespace Persistence.Entities
         /// <param name="endDate">The tournament's end date.</param>
         /// <param name="frequency">The tournament's frequency.</param>
         /// <param name="venue">The venue of the tournament.</param>
-        public TournamentEntity(Guid id, DateTime startDate, DateTime endDate, int? frequency, string venue)
+        public TournamentEntity(
+            int id,
+            DateTime startDate,
+            DateTime endDate,
+            int? frequency,
+            string venue)
         {
             this.Id = id;
             this.StartDate = startDate;
@@ -28,7 +34,8 @@ namespace Persistence.Entities
         /// <summary>
         /// Gets or sets this tournament's unique identifier.
         /// </summary>
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets this tournament's start date.
@@ -51,8 +58,8 @@ namespace Persistence.Entities
         public string Venue { get; set; }
 
         /// <summary>
-        /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when fetched from the
-        /// database, null otherwise.
+        /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when
+        /// fetched from the database, null otherwise.
         /// </summary>
         public virtual List<UserTournamentEntity> UserTournaments { get; set; } = null;
     }
