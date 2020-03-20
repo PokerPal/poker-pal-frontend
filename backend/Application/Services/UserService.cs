@@ -57,7 +57,7 @@ namespace Application.Services
                 return Result<UserEntity, string>
                     .FromNullableOr(
                         await context.Users.FindAsync(id),
-                        $"User with id {id} not found.")
+                        $"User not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(u => new UserOutputModel(
                         u.Id, u.Email, u.Name, u.Joined, u.AuthLevel));
@@ -70,16 +70,19 @@ namespace Application.Services
         /// <returns>The user's details, if found.</returns>
         public async Task<Result<IEnumerable<UserOutputModel>, string>> GetAllUsersAsync()
         {
-            await using var context = this.databaseContextFactory.CreateDatabaseContext();
+            using (this.logger.BeginScope("Getting list of all users."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
 
-            return context.Users
-                .Select(user => new UserOutputModel(
-                    user.Id,
-                    user.Email,
-                    user.Name,
-                    user.Joined,
-                    user.AuthLevel))
-                .ToList();
+                return context.Users
+                    .Select(user => new UserOutputModel(
+                        user.Id,
+                        user.Email,
+                        user.Name,
+                        user.Joined,
+                        user.AuthLevel))
+                    .ToList();
+            }
         }
 
         /// <summary>
@@ -139,7 +142,7 @@ namespace Application.Services
                     .SingleOrDefaultAsync(u => u.Id == id);
 
                 return Result<UserEntity, string>
-                    .FromNullableOr(user, $"User with id {id} not found.")
+                    .FromNullableOr(user, "User not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(u => u.UserBadges
                         .Select(ub => ub.Badge)
@@ -166,21 +169,21 @@ namespace Application.Services
                 if (await context.Users.FindAsync(userId) == null)
                 {
                     return Result
-                        .Err($"User with id {userId} not found.")
+                        .Err($"User not found.")
                         .OnErr(e => this.logger.LogWarning(e));
                 }
 
                 if (await context.Badges.FindAsync(badgeId) == null)
                 {
                     return Result
-                        .Err($"Badge with id {badgeId} not found.")
+                        .Err($"Badge not found.")
                         .OnErr(e => this.logger.LogWarning(e));
                 }
 
                 if (await context.UserBadges.FindAsync(userId, badgeId) != null)
                 {
                     return Result
-                        .Err($"User with id {userId} already has badge with id {badgeId}.")
+                        .Err($"User already has badge with id {badgeId}.")
                         .OnErr(e => this.logger.LogWarning(e));
                 }
 
