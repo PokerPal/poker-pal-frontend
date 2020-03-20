@@ -29,7 +29,7 @@ export function LoginPage() {
     );
 }
 
-function clicked() {
+function clicked() { //some test comment
     var request = new XMLHttpRequest();
     request.open('GET', "https://localhost:5001/users/1");
     request.onload = function(){
