@@ -4,7 +4,6 @@ import React from "react";
 export function LoginPage() {
     return (
         <div className="App">
-            <body>
 
                 <div className="custom-header">
                     <b>Bluff Bath</b>
@@ -22,11 +21,29 @@ export function LoginPage() {
                             <br/><br/>
                             <input type="password" id="pin" name="pw" className="Input-box" placeholder="Password"/>
                             <br/><br/>
-                            <input type="submit" value="Sign in" className="LoginDELETE-button"/>
+                            <button type="button"  className="Login-button" onClick={clicked}>Sign in</button> {/*value="Sign in" , postUserDetails*/}
                         </form>
                     </div>
                 </div>
-            </body>
         </div>
     );
+}
+
+function clicked() {
+    var request = new XMLHttpRequest();
+    request.open('GET', "https://localhost:5001/users/1");
+    request.onload = function(){
+        var data = JSON.parse(this.response);
+        if (data.error == null) {
+            console.log(data.value.id);
+            console.log(data.value.name);
+            console.log(data.value.email);
+            console.log(data.value.joined);
+            console.log(data.value.authLevel);
+        }
+
+
+    };
+    request.send();
+
 }

@@ -32,7 +32,22 @@ class App extends Component {
                     </div>
                 </div>
                 <br />
+                <script>
+                    console.error("stuff")
+                    var PokerPal = require('poker_pal');
 
+                    var api = new PokerPal.BadgesApi()
+                    var id = 56; {/*// {Number} The unique identifier of the badge.*/}
+
+                    var callback = function(error, data, response) {/*{
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log('API called successfully. Returned data: ' + data);
+                        }*/}
+                    };
+                    api.badgesIdGet(id, callback);
+                </script>
                 <Router>
                     <div className="navBar">
                         <Link to="/">  Home | </Link>
@@ -78,7 +93,6 @@ class App extends Component {
                 </Router>
 
 
-
                 <div className="section">
 
                     <div className="leftSection">
@@ -110,14 +124,6 @@ function Home() {
     return (
         <div>
             <h2>Home</h2>
-        </div>
-    );
-}
-
-function About() {
-    return (
-        <div>
-            <h2>About</h2>
         </div>
     );
 }
