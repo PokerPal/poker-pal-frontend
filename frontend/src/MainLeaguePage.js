@@ -5,7 +5,7 @@ export function MainLeaguePage() {
     return (
         <div>
             MAIN LEAGUE PAGE
-            {/*HTML HERE*/}
+            {<h1>TEST</h1>}
         </div>
     );
 }
