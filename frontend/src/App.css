@@ -42,6 +42,33 @@
   font-family: Arial;
 }
 
+.side-custom-header {
+  text-align: left;
+  height: 10%;
+  padding: 5px;
+  font-size: 60px;
+  color: #0013ae;
+  font-family: Arial;
+}
+
+.sub-section-header {
+  text-align: left;
+  height: 10%;
+  padding: 5px;
+  font-size: 30px;
+  color: #334bff;
+  font-family: Arial;
+}
+
+.smaller-text {
+  text-align: left;
+  height: 10%;
+  padding: 5px;
+  font-size: 20px;
+  color: #0013ae;
+  font-family: Arial;
+}
+
 .App-intro {
   font-size: 50pt;
   font-weight: 600;
@@ -65,6 +92,20 @@
   color: white;
   border-radius: .25rem;
 
+}
+
+.profile-picture{
+padding: 20px;
+}
+
+.circle{
+  float: left;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  shape-outside: circle();
+  clip-path: circle();
+  background: lightblue;
 }
 
 @keyframes App-logo-spin {
