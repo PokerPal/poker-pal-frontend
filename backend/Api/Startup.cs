@@ -40,8 +40,10 @@ namespace Api
         /// Adds services to the container.
         /// </summary>
         /// <param name="services">The service collection to add services to.</param>
-        /// <exception cref="ArgumentException">Throws an ArgumentException if neither a database connection string nor
-        /// the option to use an in-memory database were provided in the startup configuration.</exception>
+        /// <exception cref="ArgumentException">
+        /// Throws an ArgumentException if neither a database connection string nor the option to
+        /// use an in-memory database were provided in the startup configuration.
+        /// </exception>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddJsonOptions(jsonOptions =>

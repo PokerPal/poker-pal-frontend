@@ -9,6 +9,13 @@ namespace Api.ModelTypes.Result
     /// </summary>
     public class CreateBadgeResultType
     {
+        /// <summary>
+        /// Converts an instance of the model <see cref="CreateBadgeResultModel"/> to this result
+        /// type.
+        /// </summary>
+        public static readonly Func<CreateBadgeResultModel, CreateBadgeResultType> FromModel
+            = model => new CreateBadgeResultType(model);
+
         private readonly CreateBadgeResultModel model;
 
         /// <summary>
@@ -19,12 +26,6 @@ namespace Api.ModelTypes.Result
         {
             this.model = model;
         }
-
-        /// <summary>
-        /// Converts an instance of the model <see cref="CreateBadgeResultModel"/> to this model badgeType.
-        /// </summary>
-        public static Func<CreateBadgeResultModel, CreateBadgeResultType> FromModel { get; } =
-            model => new CreateBadgeResultType(model);
 
         /// <summary>
         /// The unique identifier of the newly created badge.
