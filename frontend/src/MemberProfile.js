@@ -27,6 +27,7 @@ export function MemberProfile() {
                         <br></br>
                         <br></br>
                         <br></br>
+                        <br></br>
                         <b>Badges</b>
                     </div>
 
