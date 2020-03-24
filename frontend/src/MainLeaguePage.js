@@ -1,5 +1,6 @@
 import React from "react";
 import './Tournaments.css';
+import MainLeagueLeaderboard from './MainLeagueLeaderboard'
 import {Line} from 'react-chartjs-2';
 export function MainLeaguePage() {
     var pWidth=500
@@ -32,9 +33,7 @@ export function MainLeaguePage() {
                             <p><strong>Place History</strong></p>
                             <Line data={pHistory}/>                                   
                             <p><strong>Leaderboard</strong></p>
-                            <svg width={pWidth} height={pHeight}>
-                                <rect width={pWidth}height={pHeight}/>
-                            </svg>  
+                            <MainLeagueLeaderboard/>
                     </div>
                 </div>
             </body>

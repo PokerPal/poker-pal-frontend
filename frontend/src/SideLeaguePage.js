@@ -2,6 +2,7 @@ import logo from "./bluffBathLogo.png";
 import React from "react";
 import './Tournaments.css'
 import {Line} from 'react-chartjs-2';
+import SideLeagueLeaderboard from "./SideLeagueLeaderboard";
 export function SideLeaguePage() {
     var pWidth=500
     var pHeight=200
@@ -33,9 +34,7 @@ export function SideLeaguePage() {
                             <p><strong>Balance History</strong></p>
                             <Line data = {bHistory}/>                                    
                             <p><strong>Leaderboard</strong></p>
-                            <svg width={pWidth} height={pHeight}>
-                                <rect width={pWidth}height={pHeight}/>
-                            </svg>  
+                            <SideLeagueLeaderboard/>
                     </div>
                 </div>
             </body>
