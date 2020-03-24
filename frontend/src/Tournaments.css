@@ -1,4 +1,7 @@
 
+.Tournament{
+    float: center;
+}
 .tournamentRightSection {
     border-color: #222222;
     /*background-color: #777;*/
@@ -11,9 +14,10 @@
 .tournamentLeftSection {
     border-color: #222222;
     float: left;
-    width: 40%;
-    text-align: right;
+    width: 20%;
+    text-align: left;
     /* height: 200px; only for demonstration, should be removed */
     /*background: #ccc;*/
-    padding: 20px;
+    padding-left: 400px;
+    padding-top: 20px;
 }

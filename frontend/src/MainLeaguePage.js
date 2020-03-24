@@ -1,30 +1,37 @@
 import React from "react";
-import './Tournaments.css'
+import './Tournaments.css';
+import {Line} from 'react-chartjs-2';
 export function MainLeaguePage() {
     var pWidth=500
     var pHeight=200
-    var textBoxStyle ={
-        readOnly:'true',
-        textAlign:'right'
+    var hPlace = 10 //NEED TO GET FROM API
+    var cPlace = 10 //NEED TO GET FROM API
+    var lastUpdate = "11/10/20"
+    var pHistory = {
+        labels: ["January", "February", "March", "April", "May", "June", "July"], //WHAT DO WE WANT ON AXIS?
+        datasets: [{
+            label : 'Place History',
+            backgroundColor: '#0013ae',
+            borderColor: '#0013ae',
+            data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
+        }]
     }
     return (
         <div className="Tournament">
             <body>
                 <div>
                     <div className="tournamentLeftSection">
-                        <p>Current Place</p>
-                        <input style={textBoxStyle} placeholder="10"></input>
-                        <p>Highest Place</p>
-                        <input style={textBoxStyle} placeholder="1"></input>
-                        <p>Last Updated</p>
-                        <input style={textBoxStyle} placeholder="10/12/20"></input>
+                        <p><strong>Current Place</strong></p>
+                        <p>{cPlace}</p>
+                        <p><strong>Highest Place</strong></p>
+                        <p>{hPlace}</p>
+                        <p><strong>Last Updated</strong></p>
+                        <p>{lastUpdate}</p>
                     </div>
                     <div className="tournamentRightSection">
-                            <p>Place History</p>
-                            <svg width={pWidth} height={pHeight}>
-                                <rect width={pWidth}height={pHeight}/>
-                            </svg>                                             
-                            <p>Leaderboard</p>
+                            <p><strong>Place History</strong></p>
+                            <Line data={pHistory}/>                                   
+                            <p><strong>Leaderboard</strong></p>
                             <svg width={pWidth} height={pHeight}>
                                 <rect width={pWidth}height={pHeight}/>
                             </svg>  
