@@ -88,7 +88,7 @@ export function LoginPage() {
 
                 <div className="section">
                     <div className="leftSection">
-                        <img src={logo} className="App-logo" alt="logo" width="500" height="500" />
+                        <img src={logo} className="App-logo-large" alt="logo" width="500" height="500" />
                     </div>
 
                     <div className="rightSection">

@@ -9,8 +9,10 @@
 
 .App-logo-large {
   /* animation: App-logo-spin infinite 20s linear; */
-  height: 300px;
-  width: 300px;
+  /*height: 300vmin;
+  width: 300vmin;*/
+  max-width: 150%;
+  height: auto;
 }
 .App-logo-small {
   /* animation: App-logo-spin infinite 20s linear; */
@@ -29,7 +31,7 @@
   padding: 20px;
   font-size: 150px;
   color: gold;
-  font-family: Arial;
+  font-family: Arial, serif;
 }
 
 .custom-header {
@@ -37,9 +39,10 @@
   /* background-color: #0013ae; */
   height: 30%;
   padding: 20px;
-  font-size: 150px;
+  /*font-size: 150px;*/
+  font-size: calc(0px + 15vmin);
   color: #0013ae;
-  font-family: Arial;
+  font-family: Arial, serif;
 }
 
 .App-intro {
@@ -64,7 +67,6 @@
   text-align: center;
   color: white;
   border-radius: .25rem;
-
 }
 
 @keyframes App-logo-spin {

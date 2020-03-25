@@ -1,5 +1,7 @@
+
 .universalTextColour {
     color: #0013ae;
+
 }
 
 .header {
@@ -13,7 +15,7 @@
 
 .navBar {
     /*background-color: #555;*/
-    background-color: white;
+    /*background-color: white;*/
     padding: 20px;
     text-align: center;
     /*text-justify: inter-word;*/
@@ -22,28 +24,30 @@
     color: #0013ae;
 }
 
+.headerLeft {
+    border-color: #222222;
+    /*background-color: #777;*/
+    padding: 0px;
+    width: 10%;
+    text-align: left;
+    color: white;
+}
+
 .headerRight {
     border-color: #222222;
     float: right;
-    width: 50%;
+    width: 90%;
     text-align: right;
     /* height: 200px; only for demonstration, should be removed */
     /*background: #ccc;*/
     padding: 0px;
 }
 
-.headerLeft {
-    border-color: #222222;
-    /*background-color: #777;*/
-    padding: 0px;
-    text-align: left;
-    color: white;
-}
-
 .leftSection {
     border-color: #222222;
     float: left;
-    width: 50%;
+    /*width: 50%;*/
+    width: auto;
     text-align: right;
     /* height: 200px; only for demonstration, should be removed */
     /*background: #ccc;*/
@@ -52,9 +56,10 @@
 .rightSection {
     border-color: #222222;
     /*background-color: #777;*/
+    width: auto;
     padding: 10px;
     text-align: left;
-    /*color: white;*/
+    color: black; /*CHANGES THE FONT COLOUR, DON'T CHANGE*/
 }
 
 nav ul {

@@ -34,15 +34,12 @@ export function RegisterPage() {
 function postUserDetails(){
     const method = "GET";
     const url = "https://localhost:5001/users/1";
-    const parameters = "email=fart2@farty.com" +
-        "&name=fart2" +
-        "&password=asdfasdf2";
     let request = new XMLHttpRequest();
     request.open(method, url);
     request.onload = function(){
         console.log(request.responseText)
     };
-    request.send(parameters)
+    request.send()
 }
 
 function clicked() {
