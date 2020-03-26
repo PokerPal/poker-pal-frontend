@@ -1,4 +1,4 @@
-import logo from "./bluffBathLogo.png";
+// import logo from "./bluffBathLogo.png";
 import React from "react";
 
 export function SideLeaguePage() {

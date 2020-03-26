@@ -5,7 +5,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import logo from './bluffBathLogo.png';
+import BluffBathLogo from './bluffBathLogo.png';
 import './App.css';
 import './Layout.css';
 import {LoginPage} from "./LoginPage";
@@ -15,89 +15,68 @@ import {SideLeaguePage} from "./SideLeaguePage";
 import {AdminOptions} from "./AdminOptions";
 import {UserSettings} from "./UserSettings";
 
-
 class App extends Component {
     render() {
         return (
             <div className="universalTextColour">
-                <div className="section">
-                    <div className="header">
-
-                        <div className="headerRight">
-                            <h2 className="Page-header">Main League</h2>
-                        </div>
-                        <div className="headerLeft">
-                            <img src={logo} className="App-logo-small" alt="App-logo-small"/>
-                        </div>
+                <header>
+                    <div className="headerLeft">
+                        <img src={BluffBathLogo} className="App-logo-small" alt="App-logo-small"/>
                     </div>
-                </div>
-                <br />
 
-                <Router>
-                    <div className="navBar">
-                        <Link to="/">  Home | </Link>
-                        <Link to="/login">  Login | </Link>
-                        <Link to="/memberProfile">  Profile | </Link>
-                        <Link to="/mainLeague">  Main League | </Link>
-                        <Link to="/sideLeague">  Side League | </Link>
-                        <Link to="/adminOptions">  Admin Options | </Link>
-                        <Link to="/userSettings">  User Settings </Link>
-                    </div>
-                    <hr />
-                    <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-
-                        <Route path="/login">
-                            <LoginPage />
-                        </Route>
-
-                        <Route path="/memberProfile">
-                            <MemberProfile />
-                        </Route>
-
-                        <Route path="/mainLeague">
-                            <MainLeaguePage />
-                        </Route>
-
-                        <Route path="/sideLeague">
-                            <SideLeaguePage />
-                        </Route>
-
-                        <Route path="/adminOptions">
-                            <AdminOptions />
-                        </Route>
-
-                        <Route path="/userSettings">
-                            <UserSettings />
-                        </Route>
-
-
-                    </Switch>
-                </Router>
-
-
-
-                <div className="section">
-
-                    <div className="leftSection">
-                        <p>
-
-                        </p>
-                    </div>
-`
-                    <div className="rightSection">
-                        <p>LOGIN </p>
-                        <ul>
-                            one
-                            two
-                            three
+                    <div className="headerRight">
+                        <ul className="navBar">
+                            <b>
+                            <a href="/">Dashboard</a>|
+                            <a href="/login">Login</a>|
+                            <a href="/memberProfile">Profile</a>|
+                            <a href="/mainLeague">Main League</a>|
+                            <a href="/sideLeague">Side League</a>|
+                            <a href="/adminOptions">Admin options</a>|
+                            <a href="/userSettings" >Settings</a>
+                            </b>
                         </ul>
                     </div>
 
-                </div>
+                </header>
 
+                <div className="hrLine"/>
+
+                <section className="section">
+
+                    <Router>
+                        <Switch>
+                            <Route exact path="/">
+                                <Dashboard />
+                            </Route>
+
+                            <Route path="/login">
+                                <LoginPage />
+                            </Route>
+
+                            <Route path="/memberProfile">
+                                <MemberProfile />
+                            </Route>
+
+                            <Route path="/mainLeague">
+                                <MainLeaguePage />
+                            </Route>
+
+                            <Route path="/sideLeague">
+                                <SideLeaguePage />
+                            </Route>
+
+                            <Route path="/adminOptions">
+                                <AdminOptions />
+                            </Route>
+
+                            <Route path="/userSettings">
+                                <UserSettings />
+                            </Route>
+                        </Switch>
+                    </Router>
+
+                </section>
             </div>
 
         );
@@ -106,18 +85,10 @@ class App extends Component {
 
 export default App;
 
-function Home() {
+function Dashboard() {
     return (
         <div>
-            <h2>Home</h2>
-        </div>
-    );
-}
-
-function About() {
-    return (
-        <div>
-            <h2>About</h2>
+            <h2>Dashboard</h2>
         </div>
     );
 }

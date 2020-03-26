@@ -1,19 +1,20 @@
 .App {
   text-align: center;
-  /*color: #0013ae;*/
 }
 
 .universalTextColour {
   color: #0013ae;
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .App-logo-large {
-  /* animation: App-logo-spin infinite 20s linear; */
-  height: 300px;
-  width: 300px;
+  width: calc(140px + 50vmin);
+  height: auto;
 }
 .App-logo-small {
-  /* animation: App-logo-spin infinite 20s linear; */
+  border-left: 10px solid white;
+  border-top: 10px solid white;
+  display: block;
   height: 150px;
   width: 150px;
 }
@@ -23,23 +24,20 @@
 }
 
 .App-header {
-  /* background-color: #222; */
   background-color: #0013ae;
   height: 30%;
   padding: 20px;
   font-size: 150px;
   color: gold;
-  font-family: Arial;
+  font-family: Arial, serif;
 }
 
 .custom-header {
-  /* background-color: #222; */
-  /* background-color: #0013ae; */
   height: 30%;
   padding: 20px;
-  font-size: 150px;
+  font-size: calc(0px + 15vmin);
   color: #0013ae;
-  font-family: Arial;
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .App-intro {
@@ -64,10 +62,4 @@
   text-align: center;
   color: white;
   border-radius: .25rem;
-
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

@@ -1,0 +1,56 @@
+
+.Tournament{
+    float: center;
+}
+.tournamentRightSection {
+    border-color: #222222;
+    /*background-color: #777;*/
+    padding: 10px;
+    float:left;
+    width: 50%;
+    text-align: left;
+    color: #0013ae
+}
+.tournamentLeftSection {
+    border-color: #222222;
+    float: left;
+    width: 20%;
+    text-align: left;
+    /* height: 200px; only for demonstration, should be removed */
+    /*background: #ccc;*/
+    padding-left: 400px;
+    padding-top: 20px;
+}
+#title {
+    text-align: center;
+    font-family: arial, sans-serif;
+  }
+  
+#leaderboardEntry {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+}
+
+#leaderboardEntry td, #leaderboardEntry th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#leaderboardEntry tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#leaderboardEntry tr:hover {
+    background-color: #ddd;
+}
+
+#leaderboardEntry th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #0013ae;
+    color: white;
+}
