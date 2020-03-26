@@ -1,8 +1,4 @@
 
-.universalTextColour {
-    color: #0013ae;
-}
-
 .header {
     padding: 5px;
     text-align: center;
@@ -16,6 +12,25 @@
     font-size: 25px;
     color: #0013ae;
 }
+
+ul:first-child:before {
+    content: "" !important;
+}
+
+a {
+    color: #0013ae;
+    text-decoration: none;
+}
+
+a:hover {
+    /*background-color: lightgray;*/
+    /*text-decoration: underline;*/
+    color: #ffe733;
+}
+
+/*a:before {*/
+/*    content: " | ";*/
+/*}*/
 
 .headerLeft {
     float: left;

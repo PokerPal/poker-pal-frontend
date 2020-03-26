@@ -1,8 +1,100 @@
 import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
 import "./slider.css";
+import "./App.css";
+import "./Layout.css";
 
-import {RegisterPage} from './RegisterPage';
+export function LoginPage() {
+    return (
+        <div className="App">
+
+            <div className="custom-header">
+                <b>Bluff Bath</b>
+            </div>
+
+            <div className="section">
+
+                <div className="leftSection">
+                    <img src={logo} className="App-logo-large" alt="logo" />
+                </div>
+
+                <div className="rightSection">
+                    <LoginControl/>
+                </div>
+
+            </div>
+        </div>
+    );
+}
+
+class LoginControl extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleChangeToLogin = this.handleChangeToLogin.bind(this);
+        this.handleChangeToRegister = this.handleChangeToRegister.bind(this);
+        this.state = {isLoggedIn: false};
+    }
+
+    handleChangeToLogin() {
+        this.setState({isLoggedIn: true});
+    }
+
+    handleChangeToRegister() {
+        this.setState({isLoggedIn: false});
+    }
+
+    render() {
+        const isLoggedIn = this.state.isLoggedIn;
+        let button;
+        if (isLoggedIn) {
+            button = <RegisterButton onClick={this.handleChangeToRegister} />;
+        } else {
+            button = <LoginButton onClick={this.handleChangeToLogin} />;
+        }
+
+        return (
+            <div>
+                {button}
+                <Greeting isLoggedIn={!isLoggedIn} />
+            </div>
+        );
+    }
+}
+
+function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+        return <LoginForm/>;
+    }
+    return <RegisterForm/>;
+}
+
+function LoginButton(props) {
+    return (
+        <div>
+            Login
+            <label className="switch">
+                <input type="checkbox" id="logRegToggle" onClick={props.onClick} />
+                <span className="slider round"/>
+            </label>
+            Register
+        </div>
+    );
+}
+
+function RegisterButton(props) {
+    return (
+        <div>
+            Login
+            <label className="switch">
+                <input type="checkbox" checked={true} id="logRegToggle" onClick={props.onClick} />
+                <span className="slider round"/>
+            </label>
+            Register
+        </div>
+
+    );
+}
 
 class RegisterForm extends Component {
     constructor(props) {
@@ -20,8 +112,7 @@ class RegisterForm extends Component {
 
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value});
-        /*this.setState({value1: event.target.value1}); // KEEP ME FOR REFERENCE
-        this.setState({value2: event.target.value2});*/
+        /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
     }
 
     handleSubmit(event) {
@@ -77,63 +168,62 @@ class RegisterForm extends Component {
 
 }
 
+class LoginForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+        };
 
-export function LoginPage() {
-    return (
-        <div className="App">
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-                <div className="custom-header">
-                    <b>Bluff Bath</b>
-                </div>
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value});
+        /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
+    }
 
-                <div className="section">
-                    <div className="leftSection">
-                        <img src={logo} className="App-logo-large" alt="logo" width="500" height="500" />
-                    </div>
+    handleSubmit(event) {
+        console.log("username: " + this.state.username);
+        console.log("password: " + this.state.password);
 
-                    <div className="rightSection">
-                        Login
-                        <label className="switch">
-                            <input type="checkbox" id="logRegToggle" onClick={Toggle}  />
-                            <span className="slider round"/>
-                        </label>
-                        {/*<button onClick={Toggle}> switch </button>*/}
-                        Register
+        // TODO password stuff when added to API
+        let valid = true;
+        if (this.state.username.length === 0
+            || this.state.password.length === 0) {
+            window.alert("Please fill in all fields");
+            valid = false;
+        }
 
-                        <RegisterForm/>
+        event.preventDefault();
+        if (valid) { // TODO passwords should most probably be encrypted somehow before here
+            Login("{" +
+                "\"email\":\""+ this.state.username +"@bath.ac.uk\"," +
+                "\"password\":\""+this.state.password+"\"" +
+                "}");
+        }/*else{ // TODO clear passwords on invalid input?
+            this.state.password = '';
+            this.state.confirmPassword = '';
+        }*/
 
-                        {/*<RegisterUI />
-                        <LoginUI />*/}
+    }
 
-                    </div>
-                </div>
-        </div>
-    );
+    render() {
+        return (
+            <div>
+                <p><b>LOGIN</b></p>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" name="username" className="Input-box" placeholder="Bath username" value={this.state.username} onChange={this.handleChange}/> <br/>
+                    <input type="password" name="password" className="Input-box" placeholder="Password" value={this.state.password} onChange={this.handleChange}/> <br/> <br/>
+                    <button type="submit" value="Submit" className="Login-button">Login</button>
+                </form>
+            </div>
+        );
+    }
+
 }
-
-function Toggle(){
-    console.log("fart");
-    return (LoginUI)
-}
-
-
-function RegisterUI(){
-    return (
-        <div>
-            <p><b>REGISTER</b></p>
-            <form className="form1">
-                <input type="text" id="fname" className="Input-box" placeholder="First Name"/> <br/>
-                <input type="text" id="lname" className="Input-box" placeholder="Last Name"/> <br/>
-                <input type="text" id="username" className="Input-box" placeholder="Bath username"/> <br/>
-                <input type="password" id="password" className="Input-box" placeholder="Password"/> <br/>
-                <input type="password" id="confirmPassword" className="Input-box" placeholder="Confirm Password"/>
-                <br/><br/>
-                <button type="button"  className="Login-button" onClick={Register()}>Register</button> {/*onClick={Register()}*/}
-            </form>
-        </div>
-    );
-}
-
 
 function Register(pars) {
     console.log("REGISTER");
@@ -155,21 +245,6 @@ function Register(pars) {
     };
     request.send(params)
 
-}
-
-function LoginUI(){
-    return (
-        <div>
-            <p><b>LOGIN</b></p>
-            <form className="form1">
-                <input type="text" id="user" className="Input-box" placeholder="Email"/>
-                <br/><br/>
-                <input type="password" id="pass" className="Input-box" placeholder="Password"/>
-                <br/><br/>
-                <button type="button"  className="Login-button" onClick={Login}>Sign in</button>
-            </form>
-        </div>
-    );
 }
 
 function Login() {

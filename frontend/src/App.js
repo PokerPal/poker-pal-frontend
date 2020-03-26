@@ -26,13 +26,15 @@ class App extends Component {
 
                     <div className="headerRight">
                         <ul className="navBar">
-                            <a href="/">Dashboard | </a>
-                            <a href="/login">Login | </a>
-                            <a href="/memberProfile">Profile | </a>
-                            <a href="/mainLeague">Main League | </a>
-                            <a href="/sideLeague">Side League | </a>
-                            <a href="/adminOptions">Admin options | </a>
-                            <a href="/userSettings">Settings </a>
+                            <b>
+                            <a href="/">Dashboard</a>|
+                            <a href="/login">Login</a>|
+                            <a href="/memberProfile">Profile</a>|
+                            <a href="/mainLeague">Main League</a>|
+                            <a href="/sideLeague">Side League</a>|
+                            <a href="/adminOptions">Admin options</a>|
+                            <a href="/userSettings" >Settings</a>
+                            </b>
                         </ul>
                     </div>
 
@@ -40,7 +42,7 @@ class App extends Component {
 
                 <div className="hrLine"/>
 
-                <container className="section">
+                <section className="section">
 
                     <Router>
                         <Switch>
@@ -74,7 +76,7 @@ class App extends Component {
                         </Switch>
                     </Router>
 
-                </container>
+                </section>
             </div>
 
         );

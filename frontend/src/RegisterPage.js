@@ -1,6 +1,8 @@
 import logo from "./bluffBathLogo.png";
 import React from "react";
 
+// TODO: CURRENTLY OBSOLETE FILE, POSSIBLY DELETE WHEN SORTED HOW SWITCH BETWEEN LOGIN AND REGISTER OCCURS
+
 export function RegisterPage() {
     return (
         <div className="App">
