@@ -3,29 +3,29 @@
 namespace Api.ModelTypes.Input
 {
     /// <summary>
-    /// Details required to make a new tournament.
+    /// Details required to make a new session.
     /// </summary>
-    public class CreateTournamentInputType
+    public class CreateSessionInputType
     {
         /// <summary>
-        /// The tournament's start date.
+        /// The session's start date.
         /// </summary>
         public DateTime StartDate { get; set; }
 
         /// <summary>
-        /// The tournament's end date.
+        /// The session's end date.
         /// </summary>
         public DateTime EndDate { get; set; }
 
         /// <summary>
-        /// The frequency of this tournament.
-        /// How often the tournament occurs, in days.
+        /// The frequency of this session.
+        /// How often the session occurs, in days.
         /// ie '7' for a week.
         /// </summary>
         public int? Frequency { get; set; }
 
         /// <summary>
-        /// The tournament's venue.
+        /// The session's venue.
         /// </summary>
         public string Venue { get; set; }
     }
