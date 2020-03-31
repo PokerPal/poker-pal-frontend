@@ -1,11 +1,13 @@
-import logo from "./bluffBathLogo.png";
 import profilePicture from "./profilePicPlaceholder.jpg"
 import React from "react";
+import Cookies from 'universal-cookie';
 
 export function MemberProfile() {
     return (
         <div className="App">
             <body>
+
+
 
             <div className="side-custom-header">
                 <b>Profile</b>
@@ -13,9 +15,10 @@ export function MemberProfile() {
 
             <div className="section">
                 <div className="leftSection">
-                    <div className="sub-section-header">
+                    <GetUserName/>
+                    {/*<div className="sub-section-header">
                         <b>(Member Name)</b>
-                    </div>
+                    </div>*/}
 
                     <img src={profilePicture} className="profile-picture" alt="profilePicture" align="left" width="175" height="175" />
 
@@ -56,4 +59,16 @@ export function MemberProfile() {
             </body>
         </div>
     );
+}
+
+function GetUserName(){
+    const cookies = new Cookies();
+    /*cookies.set('myCat', 'Pacman', { path: '/' });*/
+    console.log(cookies.get('userName'));
+    let name = cookies.get('userName');
+    return (
+      <div className="sub-section-header">
+        <b>{name}</b>
+      </div>
+    )
 }
