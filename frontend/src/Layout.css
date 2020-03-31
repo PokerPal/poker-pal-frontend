@@ -1,60 +1,77 @@
-.universalTextColour {
-    color: #0013ae;
-}
 
 .header {
-    /*background-color: #666;*/
     padding: 5px;
-    /*padding-right: 30px;*/
     text-align: center;
     font-size: 35px;
     color: white;
 }
 
 .navBar {
-    /*background-color: #555;*/
-    background-color: white;
     padding: 20px;
     text-align: center;
-    /*text-justify: inter-word;*/
-    /*text-autospace: ideograph-space;*/
     font-size: 25px;
     color: #0013ae;
 }
 
-.headerRight {
-    border-color: #222222;
-    float: right;
-    width: 50%;
-    text-align: right;
-    /* height: 200px; only for demonstration, should be removed */
-    /*background: #ccc;*/
-    padding: 0px;
+ul:first-child:before {
+    content: "" !important;
 }
 
+a {
+    color: #0013ae;
+    text-decoration: none;
+}
+
+a:hover {
+    /*background-color: lightgray;*/
+    /*text-decoration: underline;*/
+    color: #ffe733;
+}
+
+/*a:before {*/
+/*    content: " | ";*/
+/*}*/
+
 .headerLeft {
-    border-color: #222222;
-    /*background-color: #777;*/
-    padding: 0px;
+    float: left;
+    width: auto;
     text-align: left;
     color: white;
+}
+
+.headerRight {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.hrLine {
+    border: 2px lightgray;
+    background-color: lightgray;
+    height: 3px;
+}
+
+.hrLine:after { /*TODO why doesn't this seem to work?*/
+    padding-bottom: 100px;
+}
+
+.section {
+    align-content: center;
+    text-align: center;
 }
 
 .leftSection {
     border-color: #222222;
     float: left;
-    width: 50%;
+    width: auto;
     text-align: right;
-    /* height: 200px; only for demonstration, should be removed */
-    /*background: #ccc;*/
     padding: 20px;
 }
 .rightSection {
     border-color: #222222;
-    /*background-color: #777;*/
+    width: auto;
     padding: 10px;
     text-align: left;
-    color: white;
+    color: black; /*CHANGES THE FONT COLOUR, DON'T CHANGE*/
 }
 
 nav ul {
@@ -67,22 +84,5 @@ nav ul {
     float: left;
     padding: 20px;
     width: 100%;
-    /*background-color: #f1f1f1;*/
     height: 200px; /* only for demonstration, should be removed */
-}
-
-.section:before {
-    border-color: #222222;
-    content: "";
-    display: table;
-    /*display: inline;*/
-    clear: both;
-}
-
-
-@media (max-width: 600px) {
-    nav, footer {
-        width: 100%;
-        height: auto;
-    }
 }
