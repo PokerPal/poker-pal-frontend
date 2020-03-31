@@ -126,6 +126,32 @@ namespace Application.Services
         }
 
         /// <summary>
+        /// Get all of a user's sessions.
+        /// </summary>
+        /// <param name="id">The user's id.</param>
+        /// <returns>All of the user's sessions.</returns>
+        public async Task<Result<IEnumerable<SessionOutputModel>, string>> GetUserSessions(int id)
+        {
+            using (this.logger.BeginScope($"Getting sessions for user with id {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var user = await context.Users
+                    .Include(u => u.UserSessions)
+                    .ThenInclude(us => us.Session)
+                    .SingleOrDefaultAsync(u => u.Id == id);
+
+                return Result<UserEntity, string>
+                    .FromNullableOr(user, "User not found.")
+                    .OnErr(e => this.logger.LogWarning(e))
+                    .Map(u => u.UserSessions
+                        .Select(us => us.Session)
+                        .Select(s => new SessionOutputModel(
+                            s.Id, s.StartDate, s.EndDate, s.Frequency, s.Venue)));
+            }
+        }
+
+        /// <summary>
         /// Get all of a user's badges.
         /// </summary>
         /// <param name="id">The user's id.</param>
