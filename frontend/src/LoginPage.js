@@ -1,5 +1,8 @@
 import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
+import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
+
 import "./slider.css";
 import "./App.css";
 import "./Layout.css";
@@ -247,6 +250,13 @@ function Register(pars) {
 
 }
 
+/*const mapStateToProps = (state, ownProps) => {
+    return({
+        state: state,
+        cookies: ownProps.cookies,
+    });
+};*/
+
 function Login() {
     var request = new XMLHttpRequest();
     request.open('GET', "https://localhost:5001/users/1");
@@ -259,8 +269,14 @@ function Login() {
             console.log(data.value.joined);
             console.log(data.value.authLevel);
         }
-
     };
     request.send();
+    /*const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+    setCookie('name', 'fart1', { path: '/' });
+    let cookieValue = cookies.get('name');
+    console.log(cookieValue)*/
+    const cookies = new Cookies();
+    /*cookies.set('myCat', 'Pacman', { path: '/' });*/
+    console.log(cookies.get('myCat')); // Pacman
 
 }
