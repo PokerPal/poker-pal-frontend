@@ -14,7 +14,7 @@ import {MainLeaguePage} from "./MainLeaguePage";
 import {SideLeaguePage} from "./SideLeaguePage";
 import {AdminOptions} from "./AdminOptions";
 import {UserSettings} from "./UserSettings";
-
+import {TournDataIn} from "./TournDataIn";
 class App extends Component {
     render() {
         return (
@@ -33,6 +33,7 @@ class App extends Component {
                             <a href="/mainLeague">Main League</a>|
                             <a href="/sideLeague">Side League</a>|
                             <a href="/adminOptions">Admin options</a>|
+                            <a href="/tournDataIn" >Tournament Data Input</a>
                             <a href="/userSettings" >Settings</a>
                             </b>
                         </ul>
@@ -68,6 +69,10 @@ class App extends Component {
 
                             <Route path="/adminOptions">
                                 <AdminOptions />
+                            </Route>
+
+                            <Route path="/tournDataIn">
+                                <TournDataIn />
                             </Route>
 
                             <Route path="/userSettings">
