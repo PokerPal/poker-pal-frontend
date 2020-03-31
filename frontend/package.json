@@ -9,10 +9,12 @@
     "openapi-client-axios": "^3.3.2",
     "poker_pal": "^1.0.1",
     "react": "^16.13.0",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "0.9.5",
-    "swagger-client": "^3.10.0"
+    "swagger-client": "^3.10.0",
+    "universal-cookie": "^4.0.3"
   },
   "devDependencies": {},
   "scripts": {
