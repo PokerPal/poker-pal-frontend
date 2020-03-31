@@ -250,7 +250,6 @@ function Register(pars) {
 
 }
 
-
 function Login() {
     let request = new XMLHttpRequest();
     request.open('GET', "http://localhost:5000/users/1");
@@ -265,13 +264,6 @@ function Login() {
             const cookies = new Cookies();
             cookies.set('userName', data.value.name, { path: '/' });
         }
-
-
     };
     request.send();
-
-/*    const cookies = new Cookies();
-    cookies.set('userName', thisData.value.name, { path: '/' });
-    console.log(cookies.get('myCat')); // Pacman*/
-
 }
