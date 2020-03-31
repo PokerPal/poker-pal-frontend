@@ -263,6 +263,7 @@ function Login() {
             console.log(data.value.authLevel);
             const cookies = new Cookies();
             cookies.set('userName', data.value.name, { path: '/' });
+            cookies.set('userID', data.value.id, { path: '/' });
         }
     };
     request.send();
