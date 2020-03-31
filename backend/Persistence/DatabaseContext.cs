@@ -22,9 +22,9 @@ namespace Persistence
         public DbSet<UserEntity> Users { get; set; }
 
         /// <summary>
-        /// Gets or sets the set of all tournaments in the database.
+        /// Gets or sets the set of all sessions in the database.
         /// </summary>
-        public DbSet<TournamentEntity> Tournaments { get; set; }
+        public DbSet<SessionEntity> Sessions { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all badges in the database.
@@ -32,9 +32,9 @@ namespace Persistence
         public DbSet<BadgeEntity> Badges { get; set; }
 
         /// <summary>
-        /// Gets or sets the set of all user-tournament link entities in the database.
+        /// Gets or sets the set of all user-session link entities in the database.
         /// </summary>
-        public DbSet<UserTournamentEntity> UserTournaments { get; set; }
+        public DbSet<UserSessionEntity> UserSessions { get; set; }
 
         /// <summary>
         /// Gets or sets the set of all user-badge link entities in the database.

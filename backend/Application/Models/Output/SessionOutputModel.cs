@@ -3,19 +3,19 @@
 namespace Application.Models.Output
 {
     /// <summary>
-    /// Represents details about a tournament.
+    /// Represents details about a session.
     /// </summary>
-    public class TournamentOutputModel
+    public class SessionOutputModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TournamentOutputModel"/> class.
+        /// Initializes a new instance of the <see cref="SessionOutputModel"/> class.
         /// </summary>
-        /// <param name="id">The Tournaments Unique Identifier.</param>
-        /// <param name="startDate">The start date of the tournament.</param>
-        /// <param name="endDate">The end date of the tournament.</param>
-        /// <param name="frequency">How often the tournament occurs.</param>
-        /// <param name="venue">Where the tournament takes place.</param>
-        public TournamentOutputModel(
+        /// <param name="id">The session's unique identifier.</param>
+        /// <param name="startDate">The start date of the session.</param>
+        /// <param name="endDate">The end date of the session.</param>
+        /// <param name="frequency">How often the session occurs.</param>
+        /// <param name="venue">Where the session takes place.</param>
+        public SessionOutputModel(
             int id,
             DateTime startDate,
             DateTime endDate,
@@ -30,27 +30,27 @@ namespace Application.Models.Output
         }
 
         /// <summary>
-        /// The tournament's unique identifier.
+        /// The session's unique identifier.
         /// </summary>
         public int Id { get; }
 
         /// <summary>
-        /// The tournament's start date.
+        /// The session's start date.
         /// </summary>
         public DateTime StartDate { get; }
 
         /// <summary>
-        /// The tournament's end date.
+        /// The session's end date.
         /// </summary>
         public DateTime EndDate { get; }
 
         /// <summary>
-        /// The frequency of this tournament.
+        /// The frequency of this session.
         /// </summary>
         public int? Frequency { get; }
 
         /// <summary>
-        /// The tournament's venue.
+        /// The session's venue.
         /// </summary>
         public string Venue { get; }
     }
