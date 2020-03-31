@@ -1,47 +1,46 @@
 ﻿using System;
-using System.Globalization;
 
 using Application.Models.Output;
 
 namespace Api.ModelTypes.Output
 {
     /// <summary>
-    /// Details about a Tournament.
+    /// Details about a session.
     /// </summary>
-    public class TournamentOutputType
+    public class SessionOutputType
     {
         /// <summary>
-        /// Converts an instance of the model <see cref="TournamentOutputModel"/> to this output
+        /// Converts an instance of the model <see cref="SessionOutputModel"/> to this output
         /// type.
         /// </summary>
-        public static readonly Func<TournamentOutputModel, TournamentOutputType> FromModel
-            = model => new TournamentOutputType { Model = model };
+        public static readonly Func<SessionOutputModel, SessionOutputType> FromModel
+            = model => new SessionOutputType { Model = model };
 
         /// <summary>
-        /// The tournament's unique identifier.
+        /// The session's unique identifier.
         /// </summary>
         public int Id => this.Model.Id;
 
         /// <summary>
-        /// The tournament's start date.
+        /// The session's start date.
         /// </summary>
         public DateTime StartDate => this.Model.StartDate;
 
         /// <summary>
-        /// the tournament's end date.
+        /// The session's end date.
         /// </summary>
         public DateTime EndDate => this.Model.EndDate;
 
         /// <summary>
-        /// The tournament Frequency.
+        /// The session frequency.
         /// </summary>
         public int? Frequency => this.Model.Frequency;
 
         /// <summary>
-        /// The tournament's venue.
+        /// The session's venue.
         /// </summary>
         public string Venue => this.Model.Venue;
 
-        internal TournamentOutputModel Model { get; set; }
+        internal SessionOutputModel Model { get; set; }
     }
 }

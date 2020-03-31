@@ -21,11 +21,11 @@ namespace Persistence
         private void ConfigurePrimary(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
-            modelBuilder.Entity<TournamentEntity>().HasKey(t => t.Id);
+            modelBuilder.Entity<SessionEntity>().HasKey(t => t.Id);
             modelBuilder.Entity<BadgeEntity>().HasKey(b => b.Id);
 
-            modelBuilder.Entity<UserTournamentEntity>()
-                .HasKey(ut => new { ut.UserId, ut.TournamentId });
+            modelBuilder.Entity<UserSessionEntity>()
+                .HasKey(ut => new { ut.UserId, ut.SessionId });
 
             modelBuilder.Entity<UserBadgeEntity>()
                 .HasKey(ub => new { ub.UserId, ub.BadgeId });
@@ -37,15 +37,15 @@ namespace Persistence
         /// <param name="modelBuilder">The model builder for construction of the model.</param>
         private void ConfigureRelationships(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserTournamentEntity>()
+            modelBuilder.Entity<UserSessionEntity>()
                 .HasOne(ut => ut.User)
-                .WithMany(u => u.UserTournaments)
+                .WithMany(u => u.UserSessions)
                 .HasForeignKey(ut => ut.UserId);
 
-            modelBuilder.Entity<UserTournamentEntity>()
-                .HasOne(ut => ut.Tournament)
-                .WithMany(t => t.UserTournaments)
-                .HasForeignKey(ut => ut.TournamentId);
+            modelBuilder.Entity<UserSessionEntity>()
+                .HasOne(ut => ut.Session)
+                .WithMany(t => t.UserSessions)
+                .HasForeignKey(ut => ut.SessionId);
 
             modelBuilder.Entity<UserBadgeEntity>()
                 .HasOne(ub => ub.Badge)

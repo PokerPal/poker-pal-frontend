@@ -5,19 +5,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Persistence.Entities
 {
     /// <summary>
-    /// Represents a tournament in the database.
+    /// Represents a session in the database.
     /// </summary>
-    public class TournamentEntity
+    public class SessionEntity
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TournamentEntity"/> class.
+        /// Initializes a new instance of the <see cref="SessionEntity"/> class.
         /// </summary>
-        /// <param name="id">The tournament's unique identifier.</param>
-        /// <param name="startDate">The tournament's start date.</param>
-        /// <param name="endDate">The tournament's end date.</param>
-        /// <param name="frequency">The tournament's frequency.</param>
-        /// <param name="venue">The venue of the tournament.</param>
-        public TournamentEntity(
+        /// <param name="id">The session's unique identifier.</param>
+        /// <param name="startDate">The session's start date.</param>
+        /// <param name="endDate">The session's end date.</param>
+        /// <param name="frequency">The session's frequency.</param>
+        /// <param name="venue">The venue of the session.</param>
+        public SessionEntity(
             int id,
             DateTime startDate,
             DateTime endDate,
@@ -32,35 +32,36 @@ namespace Persistence.Entities
         }
 
         /// <summary>
-        /// Gets or sets this tournament's unique identifier.
+        /// Gets or sets this session's unique identifier.
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets this tournament's start date.
+        /// Gets or sets this session's start date.
         /// </summary>
         public DateTime StartDate { get; set; }
 
         /// <summary>
-        /// Gets or sets this tournament's end date.
+        /// Gets or sets this session's end date.
         /// </summary>
         public DateTime EndDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the frequency of this tournament.
+        /// Gets or sets the frequency of this session.
         /// </summary>
         public int? Frequency { get; set; }
 
         /// <summary>
-        /// Gets or sets this tournament's venue.
+        /// Gets or sets this session's venue.
         /// </summary>
         public string Venue { get; set; }
 
         /// <summary>
-        /// Gets or sets the user-tournament relations this tournament belongs to; autofilled when
+        /// Gets or sets the user-session relations this session belongs to; autofilled when
         /// fetched from the database, null otherwise.
         /// </summary>
-        public virtual List<UserTournamentEntity> UserTournaments { get; set; } = null;
+
+        public virtual List<UserSessionEntity> UserSessions { get; set; } = null;
     }
 }
