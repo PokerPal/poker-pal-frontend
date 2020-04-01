@@ -67,6 +67,25 @@ namespace Api.Controllers
         }
 
         /// <summary>
+        /// Get the sessions a user has participated in.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The sessions the user participated in.</returns>
+        [HttpGet("{}/sessions")]
+        public async Task<ActionResult<Result<IEnumerable<SessionOutputType>, string>>>
+            GetUserSessions(
+                [FromRoute] int id,
+                [FromServices] UserService userService)
+        {
+            return (await userService.GetUserSessions(id))
+                .Map(models => models
+                    .Select(SessionOutputType.FromModel)
+                    .ToList())
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
         /// Get the badges a user has.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
