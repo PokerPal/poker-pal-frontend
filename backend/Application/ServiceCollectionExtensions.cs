@@ -15,9 +15,10 @@ namespace Application
         /// <param name="services">The service collection to add to.</param>
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<UserService>();
             services.AddScoped<BadgeService>();
+            services.AddScoped<LeagueService>();
             services.AddScoped<SessionService>();
+            services.AddScoped<UserService>();
         }
     }
 }
