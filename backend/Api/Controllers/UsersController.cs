@@ -72,7 +72,7 @@ namespace Api.Controllers
         /// <param name="id">The unique identifier of the user.</param>
         /// <param name="userService">The user service.</param>
         /// <returns>The sessions the user participated in.</returns>
-        [HttpGet("{}/sessions")]
+        [HttpGet("{id}/sessions")]
         public async Task<ActionResult<Result<IEnumerable<SessionOutputType>, string>>>
             GetUserSessions(
                 [FromRoute] int id,
