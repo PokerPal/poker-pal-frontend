@@ -56,5 +56,22 @@ namespace Api.Controllers
                 .Map(SessionOutputType.FromModel)
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
+
+        /// <summary>
+        /// Give a session a users information.
+        /// </summary>
+        /// <param name="id">The session id to be used.</param>
+        /// <param name="userSessionInput">Details of the session and user.</param>
+        /// <param name="sessionService">The session service.</param>
+        /// <returns>The result of the operation.</returns>
+        [HttpPost("{id}/users")]
+        public async Task<ActionResult<Result<CreateUserSessionResultType, string>>> AddUserBadge(
+            [FromRoute] int id,
+            [FromBody] CreateUserSessionInput userSessionInput,
+            [FromServices] SessionService sessionService)
+        {
+            return (await sessionService.AddUser(userSessionInput.UserId, id, userSessionInput.TotalScore))
+                .Map(CreateUserSessionResultType.FromModel);
+        }
     }
 }

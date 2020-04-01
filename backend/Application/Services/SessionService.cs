@@ -102,5 +102,54 @@ namespace Application.Services
                     });
             }
         }
+
+        /// <summary>
+        /// Create a link between a given user and a given session.
+        /// </summary>
+        /// <param name="userId">The userID to link.</param>
+        /// <param name="sessionId">The sessionID to link.</param>
+        /// <param name="totalScore">The users score in the session.</param>
+        /// <returns>The outcome of the operation.</returns>
+        public async Task<Result<CreateUserSessionResultModel, string>> AddUser(
+            int userId,
+            int sessionId,
+            int totalScore)
+        {
+            using (this.logger.BeginScope(
+                $"Adding user with id {userId} to session with id {sessionId}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                if (await context.Users.FindAsync(userId) == null)
+                {
+                    return Result
+                        .Err($"User not found.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                if (await context.Sessions.FindAsync(sessionId) == null)
+                {
+                    return Result
+                        .Err($"Session not found.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                if (await context.UserBadges.FindAsync(userId, sessionId) != null)
+                {
+                    return Result
+                        .Err($"User already has information within session with id {sessionId}.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                await context.UserSessions.AddAsync(new UserSessionEntity(userId, sessionId, totalScore));
+                await context.SaveChangesAsync();
+
+                return new CreateUserSessionResultModel()
+                {
+                    UserId = userId,
+                    SessionId = sessionId,
+                };
+            }
+        }
     }
 }
