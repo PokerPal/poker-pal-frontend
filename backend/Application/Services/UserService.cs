@@ -65,6 +65,34 @@ namespace Application.Services
         }
 
         /// <summary>
+        /// Delete a user from the database.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <returns>The outcome of the deletion.</returns>
+        public async Task<Result<DeleteUserResultModel, string>> DeleteUserAsync(int id)
+        {
+            using (this.logger.BeginScope($"Deleting user with id {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var user = await context.Users.FindAsync(id);
+                if (user == null)
+                {
+                    return Result
+                        .Err($"User not found.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
+                return new DeleteUserResultModel()
+                {
+                    Id = user.Id,
+                };
+            }
+        }
+
+        /// <summary>
         /// Get the details of all users in the database.
         /// </summary>
         /// <returns>The user's details, if found.</returns>
