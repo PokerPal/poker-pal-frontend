@@ -5,7 +5,7 @@ using Application.Models.Result;
 namespace Api.ModelTypes.Result
 {
     /// <summary>
-    /// Data returned as the result of Deletion of a user.
+    /// Data returned as the result of deletion of a user.
     /// </summary>
     public class DeleteUserResultType
     {

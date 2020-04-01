@@ -42,7 +42,7 @@ namespace Api.Controllers
         /// <param name="id">The unique identifier of the user to be deleted.</param>
         /// <param name="userService">The user service.</param>
         /// <returns>The result of the deletion of the user.</returns>
-        [HttpPost("{id}/delete")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Result<DeleteUserResultType, string>>> DeleteUser(
             [FromRoute] int id,
             [FromServices] UserService userService)

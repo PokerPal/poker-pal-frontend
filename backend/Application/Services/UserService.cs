@@ -65,7 +65,7 @@ namespace Application.Services
         }
 
         /// <summary>
-        /// Delete a User from the Database
+        /// Delete a user from the database.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
         /// <returns>The outcome of the deletion.</returns>
