@@ -37,6 +37,21 @@ namespace Api.Controllers
         }
 
         /// <summary>
+        /// Delete a user with the provided id.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user to be deleted.</param>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The result of the deletion of the user.</returns>
+        [HttpPost("{id}/delete")]
+        public async Task<ActionResult<Result<DeleteUserResultType, string>>> DeleteUser(
+            [FromRoute] int id,
+            [FromServices] UserService userService)
+        {
+            return (await userService.DeleteUserAsync(id))
+                .Map(DeleteUserResultType.FromModel);
+        }
+
+        /// <summary>
         /// Get the details of the user with the provided ID.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
