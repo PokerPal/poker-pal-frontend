@@ -17,18 +17,21 @@ namespace Persistence.Entities
         /// <param name="endDate">The session's end date.</param>
         /// <param name="frequency">The session's frequency.</param>
         /// <param name="venue">The venue of the session.</param>
+        /// <param name="leagueId">The ID of the league this session belongs to.</param>
         public SessionEntity(
             int id,
             DateTime startDate,
             DateTime endDate,
             int? frequency,
-            string venue)
+            string venue,
+            int leagueId)
         {
             this.Id = id;
             this.StartDate = startDate;
             this.EndDate = endDate;
             this.Frequency = frequency;
             this.Venue = venue;
+            this.LeagueId = leagueId;
         }
 
         /// <summary>
@@ -58,10 +61,20 @@ namespace Persistence.Entities
         public string Venue { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of the league this session belongs to.
+        /// </summary>
+        public int LeagueId { get; set; }
+
+        /// <summary>
         /// Gets or sets the user-session relations this session belongs to; autofilled when
         /// fetched from the database, null otherwise.
         /// </summary>
-
         public virtual List<UserSessionEntity> UserSessions { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the league this session belongs to; autofilled when fetched from the
+        /// database, null otherwise.
+        /// </summary>
+        public virtual LeagueEntity League { get; set; } = null;
     }
 }
