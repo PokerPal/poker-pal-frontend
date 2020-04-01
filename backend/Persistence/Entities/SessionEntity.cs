@@ -61,7 +61,6 @@ namespace Persistence.Entities
         /// Gets or sets the user-session relations this session belongs to; autofilled when
         /// fetched from the database, null otherwise.
         /// </summary>
-
         public virtual List<UserSessionEntity> UserSessions { get; set; } = null;
     }
 }
