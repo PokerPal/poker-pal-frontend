@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Application.Models.Output;
 using Application.Models.Result;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using Persistence;
@@ -100,6 +103,32 @@ namespace Application.Services
                             Id = session.Id,
                         };
                     });
+            }
+        }
+
+        /// <summary>
+        /// Get all the users within a session.
+        /// </summary>
+        /// <param name="id">The session's id.</param>
+        /// <returns>All of users associated with a session.</returns>
+        public async Task<Result<IEnumerable<UserOutputModel>, string>> GetSessionsUsers(int id)
+        {
+            using (this.logger.BeginScope($"Getting users from the session {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var session = await context.Sessions
+                    .Include(s => s.UserSessions)
+                    .ThenInclude(us => us.User)
+                    .SingleOrDefaultAsync(s => s.Id == id);
+
+                return Result<SessionEntity, string>
+                    .FromNullableOr(session, "Session not found.")
+                    .OnErr(e => this.logger.LogWarning(e))
+                    .Map(s => s.UserSessions
+                        .Select(us => us.User)
+                        .Select(u => new UserOutputModel(
+                            u.Id, u.Email, u.Name, u.Joined, u.AuthLevel)));
             }
         }
 

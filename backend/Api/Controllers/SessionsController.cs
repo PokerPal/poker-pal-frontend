@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
@@ -54,6 +56,24 @@ namespace Api.Controllers
         {
             return (await sessionService.GetSessionAsync(id))
                 .Map(SessionOutputType.FromModel)
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Get the users associated with a session.
+        /// </summary>
+        /// <param name="id">The unique identifier of the session.</param>
+        /// <param name="sessionService">The session service.</param>
+        /// <returns>The users associated with the session.</returns>
+        [HttpGet("{id}/users")]
+        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetSessionsUsers(
+            [FromRoute] int id,
+            [FromServices] SessionService sessionService)
+        {
+            return (await sessionService.GetSessionsUsers(id))
+                .Map(models => models
+                    .Select(model => UserOutputType.FromModel(model))
+                    .ToList())
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
 
