@@ -1,4 +1,9 @@
 import profilePicture from "./profilePicPlaceholder.jpg"
+import medal from "./medal.png"
+import dunce from "./Dunce.png"
+import nine from "./9.png"
+import fifty from "./50.png"
+
 import React from "react";
 import Cookies from 'universal-cookie';
 
@@ -32,14 +37,10 @@ export function MemberProfile() {
                         <b>Badges</b>
                     </div>
 
-                    <div className="circle">
-                    </div>
-                    <div className="circle">
-                    </div>
-                    <div className="circle">
-                    </div>
-                    <div className="circle">
-                    </div>
+                    <img src={medal} className="circle" alt="circle" align="left"  />
+                    <img src={dunce} className="circle" alt="circle" align="left"  />
+                    <img src={nine} className="circle" alt="circle" align="left"  />
+                    <img src={fifty} className="circle" alt="circle" align="left"  />
                 </div>
 
                 <div className="rightSection">
