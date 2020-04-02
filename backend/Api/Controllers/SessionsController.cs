@@ -65,12 +65,12 @@ namespace Api.Controllers
         /// <param name="sessionService">The session service.</param>
         /// <returns>The result of the operation.</returns>
         [HttpPost("{id}/users")]
-        public async Task<ActionResult<Result<CreateUserSessionResultType, string>>> AddUserBadge(
+        public async Task<ActionResult<Result<CreateUserSessionResultType, string>>> AddUserSession(
             [FromRoute] int id,
             [FromBody] CreateUserSessionInput userSessionInput,
             [FromServices] SessionService sessionService)
         {
-            return (await sessionService.AddUser(userSessionInput.UserId, id, userSessionInput.TotalScore))
+            return (await sessionService.AddUser(id, userSessionInput.UserId, userSessionInput.TotalScore))
                 .Map(CreateUserSessionResultType.FromModel);
         }
     }

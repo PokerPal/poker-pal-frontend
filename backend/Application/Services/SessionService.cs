@@ -106,13 +106,13 @@ namespace Application.Services
         /// <summary>
         /// Create a link between a given user and a given session.
         /// </summary>
-        /// <param name="userId">The userID to link.</param>
         /// <param name="sessionId">The sessionID to link.</param>
+        /// <param name="userId">The userID to link.</param>
         /// <param name="totalScore">The users score in the session.</param>
         /// <returns>The outcome of the operation.</returns>
         public async Task<Result<CreateUserSessionResultModel, string>> AddUser(
-            int userId,
             int sessionId,
+            int userId,
             int totalScore)
         {
             using (this.logger.BeginScope(
@@ -134,7 +134,7 @@ namespace Application.Services
                         .OnErr(e => this.logger.LogWarning(e));
                 }
 
-                if (await context.UserBadges.FindAsync(userId, sessionId) != null)
+                if (await context.UserSessions.FindAsync(userId, sessionId) != null)
                 {
                     return Result
                         .Err($"User already has information within session with id {sessionId}.")
