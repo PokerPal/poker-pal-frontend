@@ -27,6 +27,11 @@ namespace Persistence
         public DbSet<SessionEntity> Sessions { get; set; }
 
         /// <summary>
+        /// Gets or sets the set of all leagues in the database.
+        /// </summary>
+        public DbSet<LeagueEntity> Leagues { get; set; }
+
+        /// <summary>
         /// Gets or sets the set of all badges in the database.
         /// </summary>
         public DbSet<BadgeEntity> Badges { get; set; }

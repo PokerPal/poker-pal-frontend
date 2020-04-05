@@ -37,6 +37,21 @@ namespace Api.Controllers
         }
 
         /// <summary>
+        /// Delete a user with the provided id.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user to be deleted.</param>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The result of the deletion of the user.</returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Result<DeleteUserResultType, string>>> DeleteUser(
+            [FromRoute] int id,
+            [FromServices] UserService userService)
+        {
+            return (await userService.DeleteUserAsync(id))
+                .Map(DeleteUserResultType.FromModel);
+        }
+
+        /// <summary>
         /// Get the details of the user with the provided ID.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
@@ -63,6 +78,25 @@ namespace Api.Controllers
         {
             return (await userService.GetAllUsersAsync())
                 .Map(users => users.Select(UserOutputType.FromModel))
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Get the sessions a user has participated in.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The sessions the user participated in.</returns>
+        [HttpGet("{id}/sessions")]
+        public async Task<ActionResult<Result<IEnumerable<SessionOutputType>, string>>>
+            GetUserSessions(
+                [FromRoute] int id,
+                [FromServices] UserService userService)
+        {
+            return (await userService.GetUserSessions(id))
+                .Map(models => models
+                    .Select(SessionOutputType.FromModel)
+                    .ToList())
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
 

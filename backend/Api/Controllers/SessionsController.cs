@@ -36,7 +36,8 @@ namespace Api.Controllers
                     session.StartDate,
                     session.EndDate,
                     session.Frequency,
-                    session.Venue))
+                    session.Venue,
+                    session.LeagueId))
                 .Map(CreateSessionResultType.FromModel);
         }
 

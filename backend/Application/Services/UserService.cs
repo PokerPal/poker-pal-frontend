@@ -65,6 +65,34 @@ namespace Application.Services
         }
 
         /// <summary>
+        /// Delete a user from the database.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user.</param>
+        /// <returns>The outcome of the deletion.</returns>
+        public async Task<Result<DeleteUserResultModel, string>> DeleteUserAsync(int id)
+        {
+            using (this.logger.BeginScope($"Deleting user with id {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var user = await context.Users.FindAsync(id);
+                if (user == null)
+                {
+                    return Result
+                        .Err($"User not found.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
+                return new DeleteUserResultModel()
+                {
+                    Id = user.Id,
+                };
+            }
+        }
+
+        /// <summary>
         /// Get the details of all users in the database.
         /// </summary>
         /// <returns>The user's details, if found.</returns>
@@ -122,6 +150,32 @@ namespace Application.Services
                 {
                     Id = user.Id,
                 };
+            }
+        }
+
+        /// <summary>
+        /// Get all of a user's sessions.
+        /// </summary>
+        /// <param name="id">The user's id.</param>
+        /// <returns>All of the user's sessions.</returns>
+        public async Task<Result<IEnumerable<SessionOutputModel>, string>> GetUserSessions(int id)
+        {
+            using (this.logger.BeginScope($"Getting sessions for user with id {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var user = await context.Users
+                    .Include(u => u.UserSessions)
+                    .ThenInclude(us => us.Session)
+                    .SingleOrDefaultAsync(u => u.Id == id);
+
+                return Result<UserEntity, string>
+                    .FromNullableOr(user, "User not found.")
+                    .OnErr(e => this.logger.LogWarning(e))
+                    .Map(u => u.UserSessions
+                        .Select(us => us.Session)
+                        .Select(s => new SessionOutputModel(
+                            s.Id, s.StartDate, s.EndDate, s.Frequency, s.Venue)));
             }
         }
 
