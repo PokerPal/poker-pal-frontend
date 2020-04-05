@@ -60,19 +60,20 @@ namespace Api.Controllers
         }
 
         /// <summary>
-        /// Get the users associated with a session.
+        /// Get the user sessions associated with a session.
         /// </summary>
         /// <param name="id">The unique identifier of the session.</param>
         /// <param name="sessionService">The session service.</param>
-        /// <returns>The users associated with the session.</returns>
+        /// <returns>The user sessions associated with the session.</returns>
         [HttpGet("{id}/users")]
-        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetSessionsUsers(
+        public async Task<ActionResult<Result<IEnumerable<UserSessionOutputType>, string>>>
+        GetSessionsUsers(
             [FromRoute] int id,
             [FromServices] SessionService sessionService)
         {
-            return (await sessionService.GetSessionsUsers(id))
+            return (await sessionService.GetUserSessions(id))
                 .Map(models => models
-                    .Select(model => UserOutputType.FromModel(model))
+                    .Select(model => UserSessionOutputType.FromModel(model))
                     .ToList())
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }

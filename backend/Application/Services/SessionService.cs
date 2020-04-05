@@ -107,28 +107,26 @@ namespace Application.Services
         }
 
         /// <summary>
-        /// Get all the users within a session.
+        /// Get all the user sessions within a session.
         /// </summary>
         /// <param name="id">The session's id.</param>
-        /// <returns>All of users associated with a session.</returns>
-        public async Task<Result<IEnumerable<UserOutputModel>, string>> GetSessionsUsers(int id)
+        /// <returns>All of user sessions associated with a session.</returns>
+        public async Task<Result<IEnumerable<UserSessionOutputModel>, string>> GetUserSessions(int id)
         {
-            using (this.logger.BeginScope($"Getting users from the session {id}."))
+            using (this.logger.BeginScope($"Getting user sessions associated with session: {id}."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
 
                 var session = await context.Sessions
                     .Include(s => s.UserSessions)
-                    .ThenInclude(us => us.User)
                     .SingleOrDefaultAsync(s => s.Id == id);
 
                 return Result<SessionEntity, string>
                     .FromNullableOr(session, "Session not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(s => s.UserSessions
-                        .Select(us => us.User)
-                        .Select(u => new UserOutputModel(
-                            u.Id, u.Email, u.Name, u.Joined, u.AuthLevel)));
+                        .Select(us => new UserSessionOutputModel(
+                            us.UserId, us.SessionId, us.TotalScore)));
             }
         }
 
