@@ -2,9 +2,11 @@ import React from "react";
 import './Tournaments.css';
 import MainLeagueLeaderboard from './MainLeagueLeaderboard'
 import {Line} from 'react-chartjs-2';
+import Cookies from 'universal-cookie';
 export function MainLeaguePage() {
-    var pWidth=500
-    var pHeight=200
+    const cookies = new Cookies();
+    cookies.set('id', '1234', { path: '/' });
+    var userID  = cookies.get('id'); // Pacman
     var hPlace = 10 //NEED TO GET FROM API
     var cPlace = 10 //NEED TO GET FROM API
     var lastUpdate = "11/10/20"
