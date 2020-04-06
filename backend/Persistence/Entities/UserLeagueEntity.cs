@@ -1,7 +1,7 @@
 ﻿namespace Persistence.Entities
 {
     /// <summary>
-    /// The users status in a league
+    /// The users status in a league.
     /// </summary>
     public class UserLeagueEntity
     {
@@ -9,7 +9,7 @@
         ///  Initializes a new instance of the <see cref="UserLeagueEntity"/> class.
         /// </summary>
         /// <param name="userId">The users unique identification.</param>
-        /// <param name="leagueId">The leagues unique identification</param>
+        /// <param name="leagueId">The leagues unique identification.</param>
         public UserLeagueEntity(int userId, int leagueId)
         {
             this.UserId = userId;

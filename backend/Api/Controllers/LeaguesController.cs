@@ -31,7 +31,7 @@ namespace Api.Controllers
             [FromServices] LeagueService leagueService)
         {
             return (await leagueService.CreateLeague(
-                    league.Name))
+                    league.Name, league.StartingAmount, league.AllowChanges))
                 .Map(CreateLeagueResultType.FromModel);
         }
 

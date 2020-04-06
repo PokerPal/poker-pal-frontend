@@ -26,6 +26,16 @@ namespace Api.ModelTypes.Output
         /// </summary>
         public string Name => this.Model.Name;
 
+        /// <summary>
+        /// The starting amount for users in this tournament.
+        /// </summary>
+        public int StartingAmount => this.Model.StartingAmount;
+
+        /// <summary>
+        /// Whether or not entities linked to this league can be changed.
+        /// </summary>
+        public bool AllowChanges => this.Model.AllowChanges;
+
         internal LeagueOutputModel Model { get; set; }
     }
 }

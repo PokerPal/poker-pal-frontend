@@ -51,7 +51,7 @@ namespace Application.Services
                         await context.Leagues.FindAsync(id),
                         $"League with id {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
-                    .Map(t => new LeagueOutputModel(t.Id, t.Name));
+                    .Map(t => new LeagueOutputModel(t.Id, t.Name, t.StartingAmount, t.AllowChanges));
             }
         }
 
@@ -59,14 +59,16 @@ namespace Application.Services
         /// Create a new league entity in the database.
         /// </summary>
         /// <param name="name">The name of the league.</param>
+        /// <param name="startingAmount">The starting amount for users in the league.</param>
+        /// <param name="allowChanges">Whether or not entities linked to this league can be changed.</param>
         /// <returns>The result of the operation.</returns>
-        public async Task<Result<CreateLeagueResultModel, string>> CreateLeague(string name)
+        public async Task<Result<CreateLeagueResultModel, string>> CreateLeague(string name, int startingAmount, bool allowChanges)
         {
             using (this.logger.BeginScope($"Creating new league \"{name}\"."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
 
-                var league = new LeagueEntity(default, name);
+                var league = new LeagueEntity(default, name, startingAmount, allowChanges);
 
                 await context.Leagues.AddAsync(league);
                 await context.SaveChangesAsync();

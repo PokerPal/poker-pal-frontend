@@ -13,10 +13,14 @@ namespace Persistence.Entities
         /// </summary>
         /// <param name="id">The league's unsique identifier.</param>
         /// <param name="name">The league's name.</param>
-        public LeagueEntity(int id, string name)
+        /// <param name="startingAmount">The amount of points a user starts with.</param>
+        /// <param name="allowChanges">If sessions are allowed to have changes to entities.</param>
+        public LeagueEntity(int id, string name, int startingAmount, bool allowChanges)
         {
             this.Id = id;
             this.Name = name;
+            this.StartingAmount = startingAmount;
+            this.AllowChanges = allowChanges;
         }
 
         /// <summary>
