@@ -6,8 +6,23 @@ import fifty from "./50.png"
 
 import React from "react";
 import Cookies from 'universal-cookie';
+import './Tournaments.css';
+import {Line} from 'react-chartjs-2';
+import MainLeagueLeaderboard from "./MainLeagueLeaderboard";
 
 export function MemberProfile() {
+    var hPlace = 10 //NEED TO GET FROM API
+    var cPlace = 10 //NEED TO GET FROM API
+    var lastUpdate = "11/10/20"
+    var pHistory = {
+        labels: ["January", "February", "March", "April", "May", "June", "July"], //WHAT DO WE WANT ON AXIS?
+        datasets: [{
+            label : 'Place History',
+            backgroundColor: '#0013ae',
+            borderColor: '#0013ae',
+            data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
+        }]
+    }
     return (
         <div className="App">
             <div className="side-custom-header">
@@ -16,13 +31,10 @@ export function MemberProfile() {
 
             <div className="section">
                 <div className="leftSection">
-
                     <GetUserName/>
-
                     {/*<div className="sub-section-header">
                         <b>(Member Name)</b>
                     </div>*/}
-
                     <img src={profilePicture} className="profile-picture" alt="profilePicture" align="left" width="175" height="175" />
 
                     <div className="sub-section-header">
@@ -36,30 +48,35 @@ export function MemberProfile() {
                         <br></br>
                         <b>Badges</b>
                     </div>
-
-                    <img src={medal} className="circle" alt="circle" align="left"  />
+                    <img src={medal} className="circle" alt="circle" align="left"/>
                     <img src={dunce} className="circle" alt="circle" align="left"  />
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
                 </div>
 
-                <div className="rightSection">
+                <div className="memberRightSection">
                     <div className="sub-section-header">
                         <b>My Stats</b>
                     </div>
+                    <br></br>
+                    <div className="smaller-text">
+                        <b>Place History</b>
+                    </div>
+
+                    <Line data={pHistory}/>
                     <div className="smaller-text">
                         {/*<p>rank = </p>*/}
                         <GetRank/>
                         <p>balance = </p>
                         <p>wins = </p>
                     </div>
-
                 </div>
             </div>
 
         </div>
     );
 }
+
 
 function GetUserName(){
     const cookies = new Cookies();
@@ -72,6 +89,7 @@ function GetUserName(){
       </div>
     )
 }
+
 
 // TODO - REPLICATE FOR GetBalance, GetNumWins
 function GetRank(){
@@ -114,6 +132,7 @@ function GetRank(){
     )
 }
 
+
 function GetBalance(){
 
     const cookies = new Cookies();
@@ -126,6 +145,7 @@ function GetBalance(){
       </div>
     )
 }
+
 
 function GetNumWins(){
 
