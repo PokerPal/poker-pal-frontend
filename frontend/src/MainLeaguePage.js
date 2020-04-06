@@ -5,13 +5,13 @@ import {Line} from 'react-chartjs-2';
 import Cookies from 'universal-cookie';
 export function MainLeaguePage() {
     const cookies = new Cookies();
-    cookies.set('id', '1234', { path: '/' });
-    var userID  = cookies.get('id'); // Pacman
+    var userID  = cookies.get('userID'); 
+    var userName = cookies.get('userName');
     var hPlace = 10 //NEED TO GET FROM API
     var cPlace = 10 //NEED TO GET FROM API
     var lastUpdate = "11/10/20"
     var pHistory = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"], //WHAT DO WE WANT ON AXIS?
+        labels: ["January", "February", "March", "April", "May", "June", "July"], //GET FROM API
         datasets: [{
             label : 'Place History',
             backgroundColor: '#0013ae',
@@ -30,6 +30,7 @@ export function MainLeaguePage() {
                         <p>{hPlace}</p>
                         <p><strong>Last Updated</strong></p>
                         <p>{lastUpdate}</p>
+                        {/*<p><button className="session-button" >Add Session Data</button></p>*/}
                     </div>
                     <div className="tournamentRightSection">
                             <p><strong>Place History</strong></p>

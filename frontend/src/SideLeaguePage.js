@@ -6,8 +6,8 @@ import SideLeagueLeaderboard from "./SideLeagueLeaderboard";
 import Cookies from 'universal-cookie';
 export function SideLeaguePage() {
     const cookies = new Cookies();
-    cookies.set('id', '1234', { path: '/' });
-    var userID = cookies.get('id'); // Pacman
+    var userID  = cookies.get('userID'); 
+    var userName = cookies.get('userName');
     var hPlace = 10
     var cPlace = 10
     var lastUpdate = "11/10/20"
@@ -31,6 +31,7 @@ export function SideLeaguePage() {
                         <p>{hPlace}</p>
                         <p><strong>Last Updated</strong></p>
                         <p>{lastUpdate}</p>
+                        <p><button className="session-button">Add Session Data</button></p>
                     </div>
                     <div className="tournamentRightSection">
                             <p><strong>Balance History</strong></p>

@@ -21,6 +21,15 @@
     padding-top: 20px;
     padding-right: 30px;
 }
+.session-button {
+    background-color: #0013ae;
+    height: 50px;
+    width: 130px;
+    font-size: medium;
+    text-align: center;
+    color: white;
+    border-radius: .25rem;
+  }
 #title {
     text-align: center;
     font-family: arial, sans-serif;
@@ -54,3 +63,4 @@
     background-color: #0013ae;
     color: white;
 }
+
