@@ -7,19 +7,19 @@
     /*background-color: #777;*/
     padding: 10px;
     float:left;
-    width: 50%;
+    width: 40%;
     text-align: left;
     color: #0013ae
 }
 .tournamentLeftSection {
     border-color: #222222;
     float: left;
-    width: 20%;
-    text-align: left;
+    text-align: right;
     /* height: 200px; only for demonstration, should be removed */
     /*background: #ccc;*/
-    padding-left: 400px;
+    padding-left: 300px;
     padding-top: 20px;
+    padding-right: 30px;
 }
 #title {
     text-align: center;
