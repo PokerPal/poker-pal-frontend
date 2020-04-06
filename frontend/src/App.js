@@ -15,6 +15,7 @@ import {SideLeaguePage} from "./SideLeaguePage";
 import {AdminOptions} from "./AdminOptions";
 import {UserSettings} from "./UserSettings";
 import {TournDataIn} from "./TournDataIn";
+import {Dashboard} from "./Dashboard";
 
 import Cookies from 'universal-cookie';
 
@@ -32,13 +33,13 @@ class App extends Component {
 
 export default (App);
 
-function Dashboard() {
+/*function Dashboard() {
     return (
         <div>
             <h2>Dashboard</h2>
         </div>
     );
-}
+}*/
 
 /**
  * @return {null}
