@@ -28,5 +28,10 @@ namespace Api.ModelTypes.Input
         /// The session's venue.
         /// </summary>
         public string Venue { get; set; }
+
+        /// <summary>
+        /// The unique identifier of the league this session belongs to.
+        /// </summary>
+        public int LeagueId { get; set; }
     }
 }

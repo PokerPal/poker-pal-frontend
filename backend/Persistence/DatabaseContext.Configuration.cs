@@ -22,6 +22,7 @@ namespace Persistence
         {
             modelBuilder.Entity<UserEntity>().HasKey(u => u.Id);
             modelBuilder.Entity<SessionEntity>().HasKey(t => t.Id);
+            modelBuilder.Entity<LeagueEntity>().HasKey(l => l.Id);
             modelBuilder.Entity<BadgeEntity>().HasKey(b => b.Id);
 
             modelBuilder.Entity<UserSessionEntity>()
@@ -37,6 +38,11 @@ namespace Persistence
         /// <param name="modelBuilder">The model builder for construction of the model.</param>
         private void ConfigureRelationships(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SessionEntity>()
+                .HasOne(s => s.League)
+                .WithMany(l => l.Sessions)
+                .HasForeignKey(s => s.LeagueId);
+
             modelBuilder.Entity<UserSessionEntity>()
                 .HasOne(ut => ut.User)
                 .WithMany(u => u.UserSessions)
