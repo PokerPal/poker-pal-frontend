@@ -5,13 +5,12 @@ import {MainLeaguePage} from "./MainLeaguePage";
 
 import Autosuggest from 'react-autosuggest';
 import Cookies from "universal-cookie";
-
+import {SLI} from './SLI'
 
 
 export function AdminOptions() {
   return (
     <div>
-      {/*<GetUNamesFromBE/>*/}
 
       <Router>
         <Switch>
@@ -20,11 +19,11 @@ export function AdminOptions() {
           </Route>
 
           <Route exact path="/adminOptions/enterMainLeague">
-            <EnterMainLeagueData />
+            <MainLeagueDataEntryForm />
           </Route>
 
           <Route exact path="/adminOptions/enterSideLeague">
-            <EnterSideLeagueData />
+            <SLI />
           </Route>
 
         </Switch>
@@ -49,20 +48,10 @@ function MainScreen() {
   )
 }
 
-function EnterMainLeagueData() {
-  return(
-    <div>
-      <NameAndPlace/>
-    </div>
-  )
-}
-
-function EnterSideLeagueData() {
-  return(
-    <div>
-      Enter Side League Data
-    </div>
-  )
+function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
+  console.log("STUFF TO SEND TO BACKEND");
+  console.log(un);
+  console.log(place)
 }
 
 function GetUNamesFromBE() {
@@ -80,7 +69,6 @@ function GetUNamesFromBE() {
     }
   };
   request.send();
-  console.log("fart");
   return dataReturn;
 }
 
@@ -110,7 +98,7 @@ const renderSuggestion = suggestion => (
   </div>
 );
 
-class NameAndPlace extends Component {
+class MainLeagueDataEntryForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -186,8 +174,8 @@ class NameAndPlace extends Component {
     return (
       <div>
         <br/>
-        <p><b>Enter Name and place</b></p>
         <form onSubmit={this.handleSubmit}>
+          <p><b>Enter Nam: e</b></p>
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -196,18 +184,13 @@ class NameAndPlace extends Component {
             renderSuggestion={renderSuggestion}
             inputProps={inputProps}
           />
+          <p><b>Enter Place: </b></p>
           <input type="number" name="place" className="Input-box" placeholder="Place" value={this.state.place} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button">Submit</button>
         </form>
       </div>
     );
   }
-
 }
 
-function SendToBackEnd(un,place) {
-  console.log("STUFF TO SEND TO BACKEND");
-  console.log(un);
-  console.log(place)
-}
 
