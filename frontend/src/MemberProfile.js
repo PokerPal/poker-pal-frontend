@@ -31,13 +31,10 @@ export function MemberProfile() {
 
             <div className="section">
                 <div className="leftSection">
-
                     <GetUserName/>
-
                     {/*<div className="sub-section-header">
                         <b>(Member Name)</b>
                     </div>*/}
-
                     <img src={profilePicture} className="profile-picture" alt="profilePicture" align="left" width="175" height="175" />
 
                     <div className="sub-section-header">
@@ -51,39 +48,35 @@ export function MemberProfile() {
                         <br></br>
                         <b>Badges</b>
                     </div>
-
-
                     <img src={medal} className="circle" alt="circle" align="left"/>
                     <img src={dunce} className="circle" alt="circle" align="left"  />
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
                 </div>
 
-                <div className="tournamentRightSection">
-
-
+                <div className="memberRightSection">
                     <div className="sub-section-header">
                         <b>My Stats</b>
                     </div>
+                    <br></br>
+                    <div className="smaller-text">
+                        <b>Place History</b>
+                    </div>
 
-
-                    <p><strong>Place History</strong></p>
                     <Line data={pHistory}/>
-
-
                     <div className="smaller-text">
                         {/*<p>rank = </p>*/}
                         <GetRank/>
                         <p>balance = </p>
                         <p>wins = </p>
                     </div>
-
                 </div>
             </div>
 
         </div>
     );
 }
+
 
 function GetUserName(){
     const cookies = new Cookies();
@@ -96,6 +89,7 @@ function GetUserName(){
       </div>
     )
 }
+
 
 // TODO - REPLICATE FOR GetBalance, GetNumWins
 function GetRank(){
@@ -138,6 +132,7 @@ function GetRank(){
     )
 }
 
+
 function GetBalance(){
 
     const cookies = new Cookies();
@@ -150,6 +145,7 @@ function GetBalance(){
       </div>
     )
 }
+
 
 function GetNumWins(){
 
