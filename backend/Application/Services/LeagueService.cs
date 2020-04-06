@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Application.Models.Output;
 using Application.Models.Result;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using Persistence;
@@ -52,6 +55,50 @@ namespace Application.Services
                         $"League with id {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(t => new LeagueOutputModel(t.Id, t.Name, t.StartingAmount, t.AllowChanges));
+            }
+        }
+
+        /// <summary>
+        /// Get all the user leagues within a league.
+        /// </summary>
+        /// <param name="id">The leagues id.</param>
+        /// <returns>All of the user leagues associated with a league.</returns>
+        public async Task<Result<IEnumerable<UserLeagueEntity>, string>> GetUserLeagues(int id)
+        {
+            using (this.logger.BeginScope($"Getting user leagues associated with league: {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var league = await context.Leagues
+                    .Include(l => l.UserLeagues)
+                    .SingleOrDefaultAsync(l => l.Id == id);
+
+                return Result<LeagueEntity, string>
+                    .FromNullableOr(league, "league not found.")
+                    .OnErr(e => this.logger.LogWarning(e))
+                    .Map(l => l.UserLeagues
+                        .Select(ul => new UserLeagueEntity(ul.UserId, ul.LeagueId, ul.TotalStore)));
+            }
+        }
+
+        /// <summary>
+        /// Get the details of a user league in the database.
+        /// </summary>
+        /// <param name="leagueId">The leagues unique id.</param>
+        /// <param name="userId">The users unique id.</param>
+        /// <returns>The user league's information, if found.</returns>
+        public async Task<Result<UserLeagueOutputModel, string>> GetUserLeague(int leagueId, int userId)
+        {
+            using (this.logger.BeginScope($"Getting user league with league id {leagueId} and user Id {userId}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                return Result<UserLeagueEntity, string>
+                    .FromNullableOr(
+                        await context.UserLeagues.FindAsync(leagueId, userId),
+                        $"User league with league id {leagueId} and user Id {userId} not found.")
+                    .OnErr(e => this.logger.LogWarning(e))
+                    .Map(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalStore));
             }
         }
 

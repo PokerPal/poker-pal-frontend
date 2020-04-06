@@ -10,10 +10,12 @@
         /// </summary>
         /// <param name="userId">The users unique identification.</param>
         /// <param name="leagueId">The leagues unique identification.</param>
-        public UserLeagueEntity(int userId, int leagueId)
+        /// <param name="totalStore">The users total score in the league.</param>
+        public UserLeagueEntity(int userId, int leagueId, int totalStore)
         {
             this.UserId = userId;
             this.LeagueId = leagueId;
+            this.TotalStore = totalStore;
         }
 
         /// <summary>

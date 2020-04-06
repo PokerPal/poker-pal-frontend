@@ -11,7 +11,7 @@ namespace Persistence.Entities
         /// <summary>
         /// Initializes a new instance of the <see cref="LeagueEntity"/> class.
         /// </summary>
-        /// <param name="id">The league's unsique identifier.</param>
+        /// <param name="id">The league's unique identifier.</param>
         /// <param name="name">The league's name.</param>
         /// <param name="startingAmount">The amount of points a user starts with.</param>
         /// <param name="allowChanges">If sessions are allowed to have changes to entities.</param>
