@@ -233,50 +233,38 @@ function Register(pars) {
     console.log(pars);
 
     const method = "POST";
-    const url = "https://localhost:5001/users";
-    let params = "{" +
+    const url = "http://localhost:5000/users";
+    /*let params = "{" +
         "\"email\": \"fart2@farty.com\"," +
         "\"name\": \"asdf2\"," +
         "\"password\": \"asdfasdf2\"" +
         "}";
-    params = pars;
+    params = pars;*/
     let request = new XMLHttpRequest();
     request.open(method, url, true);
     request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
         console.log(request.responseText)
     };
-    request.send(params)
+    request.send(pars)
 
 }
 
-/*const mapStateToProps = (state, ownProps) => {
-    return({
-        state: state,
-        cookies: ownProps.cookies,
-    });
-};*/
-
 function Login() {
-    var request = new XMLHttpRequest();
-    request.open('GET', "https://localhost:5001/users/1");
+    let request = new XMLHttpRequest();
+    request.open('GET', "http://localhost:5000/users/1");
     request.onload = function(){
-        var data = JSON.parse(this.response);
+        let data = JSON.parse(this.response);
         if (data.error == null) {
             console.log(data.value.id);
             console.log(data.value.name);
             console.log(data.value.email);
             console.log(data.value.joined);
             console.log(data.value.authLevel);
+            const cookies = new Cookies();
+            cookies.set('userName', data.value.name, { path: '/' });
+            cookies.set('userID', data.value.id, { path: '/' });
         }
     };
     request.send();
-    /*const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
-    setCookie('name', 'fart1', { path: '/' });
-    let cookieValue = cookies.get('name');
-    console.log(cookieValue)*/
-    const cookies = new Cookies();
-    /*cookies.set('myCat', 'Pacman', { path: '/' });*/
-    console.log(cookies.get('myCat')); // Pacman
-
 }
