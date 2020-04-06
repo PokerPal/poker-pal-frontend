@@ -34,7 +34,8 @@ export function MainLeaguePage() {
                     <div className="tournamentRightSection">
                             <p><strong>Place History</strong></p>
                             <Line data={pHistory}/>                                   
-                            <p><strong>Leaderboard</strong></p>
+                            <p>
+                            <strong>Leaderboard </strong></p>
                             <MainLeagueLeaderboard/>
                     </div>
                 </div>
