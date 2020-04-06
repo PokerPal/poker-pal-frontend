@@ -1,5 +1,7 @@
 using System;
 
+using Persistence.Entities;
+
 namespace Api.ModelTypes.Input
 {
     /// <summary>
@@ -11,5 +13,10 @@ namespace Api.ModelTypes.Input
         /// The league's name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The league's type.
+        /// </summary>
+        public LeagueType Type { get; set; }
     }
 }

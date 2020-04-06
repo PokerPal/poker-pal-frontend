@@ -2,6 +2,8 @@ using System;
 
 using Application.Models.Output;
 
+using Persistence.Entities;
+
 namespace Api.ModelTypes.Output
 {
     /// <summary>
@@ -25,6 +27,11 @@ namespace Api.ModelTypes.Output
         /// The league's name.
         /// </summary>
         public string Name => this.Model.Name;
+
+        /// <summary>
+        /// The type of the league.
+        /// </summary>
+        public LeagueType Type => this.Model.Type;
 
         internal LeagueOutputModel Model { get; set; }
     }

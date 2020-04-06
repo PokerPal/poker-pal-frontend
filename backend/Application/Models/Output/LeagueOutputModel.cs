@@ -1,3 +1,5 @@
+using Persistence.Entities;
+
 namespace Application.Models.Output
 {
     /// <summary>
@@ -10,10 +12,12 @@ namespace Application.Models.Output
         /// </summary>
         /// <param name="id">The unique identifier of the league.</param>
         /// <param name="name">The name of the league.</param>
-        public LeagueOutputModel(int id, string name)
+        /// <param name="type">The type of the league.</param>
+        public LeagueOutputModel(int id, string name, LeagueType type)
         {
             this.Id = id;
             this.Name = name;
+            this.Type = type;
         }
 
         /// <summary>
@@ -25,5 +29,10 @@ namespace Application.Models.Output
         /// The name of the league.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// The type of the league.
+        /// </summary>
+        public LeagueType Type { get; }
     }
 }
