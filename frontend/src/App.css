@@ -61,7 +61,7 @@
 .smaller-text {
   text-align: left;
   height: 10%;
-  padding: 5px;
+
   font-size: 20px;
   color: #0013ae;
   font-family: Arial;
@@ -104,6 +104,17 @@ padding: 20px;
   clip-path: circle();
   background: lightblue;
 }
+
+.memberRightSection {
+  border-color: #222222;
+  /*background-color: #777;*/
+  padding-left: 100px;
+  float:left;
+  width: 40%;
+  text-align: left;
+  color: #0013ae
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
