@@ -1,5 +1,7 @@
 using System;
 
+using Persistence.Entities;
+
 namespace Api.ModelTypes.Input
 {
     /// <summary>
@@ -21,5 +23,10 @@ namespace Api.ModelTypes.Input
         /// If entities linked to this league can be changed.
         /// </summary>
         public bool AllowChanges { get; set; }
+
+        /// <summary>
+        /// The league's type.
+        /// </summary>
+        public LeagueType Type { get; set; }
     }
 }

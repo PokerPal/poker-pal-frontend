@@ -1,3 +1,5 @@
+using Persistence.Entities;
+
 namespace Application.Models.Output
 {
     /// <summary>
@@ -12,12 +14,13 @@ namespace Application.Models.Output
         /// <param name="name">The name of the league.</param>
         /// <param name="startingAmount">The starting amount for users in the tournament.</param>
         /// <param name="allowChanges">If the session linked to this leagues, entities can be changed.</param>
-        public LeagueOutputModel(int id, string name, int startingAmount, bool allowChanges)
+        public LeagueOutputModel(int id, string name, int startingAmount, bool allowChanges, LeagueType type)
         {
             this.Id = id;
             this.Name = name;
             this.StartingAmount = startingAmount;
             this.AllowChanges = allowChanges;
+            this.Type = type;
         }
 
         /// <summary>
@@ -39,5 +42,10 @@ namespace Application.Models.Output
         /// The name of the league.
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// The type of the league.
+        /// </summary>
+        public LeagueType Type { get; }
     }
 }

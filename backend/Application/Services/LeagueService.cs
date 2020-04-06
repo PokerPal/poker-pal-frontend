@@ -54,7 +54,8 @@ namespace Application.Services
                         await context.Leagues.FindAsync(id),
                         $"League with id {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
-                    .Map(t => new LeagueOutputModel(t.Id, t.Name, t.StartingAmount, t.AllowChanges));
+                    .Map(t => new LeagueOutputModel(
+                        t.Id, t.Name, t.StartingAmount, t.AllowChanges, t.Type));
             }
         }
 
@@ -98,7 +99,8 @@ namespace Application.Services
                         await context.UserLeagues.FindAsync(leagueId, userId),
                         $"User league with league id {leagueId} and user Id {userId} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
-                    .Map(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalStore));
+                    .Map(ul => new UserLeagueOutputModel(
+                        ul.UserId, ul.LeagueId, ul.TotalStore));
             }
         }
 
@@ -108,15 +110,16 @@ namespace Application.Services
         /// <param name="name">The name of the league.</param>
         /// <param name="startingAmount">The starting amount for users in the league.</param>
         /// <param name="allowChanges">Whether or not entities linked to this league can be changed.</param>
+        /// <param name="type">The type of the league, if it is cash based or point based.</param>
         /// <returns>The result of the operation.</returns>
-        public async Task<Result<CreateLeagueResultModel, string>> CreateLeague(string name, int startingAmount, bool allowChanges)
+        public async Task<Result<CreateLeagueResultModel, string>> CreateLeague(
+            string name, int startingAmount, bool allowChanges, LeagueType type)
         {
             using (this.logger.BeginScope($"Creating new league \"{name}\"."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
 
-                var league = new LeagueEntity(default, name, startingAmount, allowChanges);
-
+                var league = new LeagueEntity(default, name, startingAmount, allowChanges, type);
                 await context.Leagues.AddAsync(league);
                 await context.SaveChangesAsync();
 

@@ -4,6 +4,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Persistence.Entities
 {
     /// <summary>
+    /// The type of league being played.
+    /// </summary>
+    public enum LeagueType
+    {
+        /// <summary>
+        /// Cash based league, where users take out cash and put in cash each session.
+        /// </summary>
+        Cash = 1,
+
+        /// <summary>
+        /// Points based league, where points are calculated based on finishing position.
+        /// </summary>
+        Points = 2,
+    }
+
+    /// <summary>
     /// Represents a league in the database.
     /// </summary>
     public class LeagueEntity
@@ -15,12 +31,14 @@ namespace Persistence.Entities
         /// <param name="name">The league's name.</param>
         /// <param name="startingAmount">The amount of points a user starts with.</param>
         /// <param name="allowChanges">If sessions are allowed to have changes to entities.</param>
-        public LeagueEntity(int id, string name, int startingAmount, bool allowChanges)
+        /// <param name="type">The type of the league, cash or point based.</param>
+        public LeagueEntity(int id, string name, int startingAmount, bool allowChanges,  LeagueType type)
         {
             this.Id = id;
             this.Name = name;
             this.StartingAmount = startingAmount;
             this.AllowChanges = allowChanges;
+            this.Type = type;
         }
 
         /// <summary>
@@ -28,6 +46,11 @@ namespace Persistence.Entities
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        /// <summary>
+        /// The type of the league.
+        /// </summary>
+        public LeagueType Type { get; set; }
 
         /// <summary>
         /// Gets or sets this league's name.
