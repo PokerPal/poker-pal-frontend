@@ -64,7 +64,7 @@ namespace Application.Services
         /// </summary>
         /// <param name="id">The leagues id.</param>
         /// <returns>All of the user leagues associated with a league.</returns>
-        public async Task<Result<IEnumerable<UserLeagueEntity>, string>> GetUserLeagues(int id)
+        public async Task<Result<IEnumerable<UserLeagueOutputModel>, string>> GetUserLeagues(int id)
         {
             using (this.logger.BeginScope($"Getting user leagues associated with league: {id}."))
             {
@@ -78,7 +78,7 @@ namespace Application.Services
                     .FromNullableOr(league, "league not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(l => l.UserLeagues
-                        .Select(ul => new UserLeagueEntity(ul.UserId, ul.LeagueId, ul.TotalStore)));
+                        .Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalStore)));
             }
         }
 
