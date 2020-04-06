@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Application.Models.Output;
 using Application.Models.Result;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using Persistence;
@@ -100,6 +103,79 @@ namespace Application.Services
                             Id = session.Id,
                         };
                     });
+            }
+        }
+
+        /// <summary>
+        /// Get all the user sessions within a session.
+        /// </summary>
+        /// <param name="id">The session's id.</param>
+        /// <returns>All of user sessions associated with a session.</returns>
+        public async Task<Result<IEnumerable<UserSessionOutputModel>, string>> GetUserSessions(int id)
+        {
+            using (this.logger.BeginScope($"Getting user sessions associated with session: {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var session = await context.Sessions
+                    .Include(s => s.UserSessions)
+                    .SingleOrDefaultAsync(s => s.Id == id);
+
+                return Result<SessionEntity, string>
+                    .FromNullableOr(session, "Session not found.")
+                    .OnErr(e => this.logger.LogWarning(e))
+                    .Map(s => s.UserSessions
+                        .Select(us => new UserSessionOutputModel(
+                            us.UserId, us.SessionId, us.TotalScore)));
+            }
+        }
+
+        /// <summary>
+        /// Create a link between a given user and a given session.
+        /// </summary>
+        /// <param name="sessionId">The sessionID to link.</param>
+        /// <param name="userId">The userID to link.</param>
+        /// <param name="totalScore">The users score in the session.</param>
+        /// <returns>The outcome of the operation.</returns>
+        public async Task<Result<CreateUserSessionResultModel, string>> AddUser(
+            int sessionId,
+            int userId,
+            int totalScore)
+        {
+            using (this.logger.BeginScope(
+                $"Adding user with id {userId} to session with id {sessionId}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                if (await context.Users.FindAsync(userId) == null)
+                {
+                    return Result
+                        .Err($"User not found.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                if (await context.Sessions.FindAsync(sessionId) == null)
+                {
+                    return Result
+                        .Err($"Session not found.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                if (await context.UserSessions.FindAsync(userId, sessionId) != null)
+                {
+                    return Result
+                        .Err($"User already has information within session with id {sessionId}.")
+                        .OnErr(e => this.logger.LogWarning(e));
+                }
+
+                await context.UserSessions.AddAsync(new UserSessionEntity(userId, sessionId, totalScore));
+                await context.SaveChangesAsync();
+
+                return new CreateUserSessionResultModel()
+                {
+                    UserId = userId,
+                    SessionId = sessionId,
+                };
             }
         }
     }

@@ -1,0 +1,7 @@
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"ja853@bath.ac.uk\",\"name\":\"James Austen\",\"password\":\"james\"}"
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"lsg38@bath.ac.uk\",\"name\":\"Lucy Green\",\"password\":\"lucy\"}"
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"jm2787@bath.ac.uk\",\"name\":\"Jake Mifsud\",\"password\":\"jake\"}"
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"snm48@bath.ac.uk\",\"name\":\"Soren Mortensen\",\"password\":\"soren\"}"
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"oof26@bath.ac.uk\",\"name\":\"Oisin OFlaherty\",\"password\":\"oisin\"}"
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"sr2058@bath.ac.uk\",\"name\":\"Sam Rosenthal\",\"password\":\"sam\"}"
+curl -X POST "http://localhost:5000/users" -H "accept: text/plain" -H "Content-Type: application/json" -d "{\"email\":\"gjcr20@bath.ac.uk\",\"name\":\"Geordie Ross\",\"password\":\"geordie\"}"

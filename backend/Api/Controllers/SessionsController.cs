@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
@@ -55,6 +57,42 @@ namespace Api.Controllers
             return (await sessionService.GetSessionAsync(id))
                 .Map(SessionOutputType.FromModel)
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Get the user sessions associated with a session.
+        /// </summary>
+        /// <param name="id">The unique identifier of the session.</param>
+        /// <param name="sessionService">The session service.</param>
+        /// <returns>The user sessions associated with the session.</returns>
+        [HttpGet("{id}/users")]
+        public async Task<ActionResult<Result<IEnumerable<UserSessionOutputType>, string>>>
+        GetSessionsUsers(
+            [FromRoute] int id,
+            [FromServices] SessionService sessionService)
+        {
+            return (await sessionService.GetUserSessions(id))
+                .Map(models => models
+                    .Select(model => UserSessionOutputType.FromModel(model))
+                    .ToList())
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Give a session a users information.
+        /// </summary>
+        /// <param name="id">The session id to be used.</param>
+        /// <param name="userSessionInput">Details of the session and user.</param>
+        /// <param name="sessionService">The session service.</param>
+        /// <returns>The result of the operation.</returns>
+        [HttpPost("{id}/users")]
+        public async Task<ActionResult<Result<CreateUserSessionResultType, string>>> AddUserSession(
+            [FromRoute] int id,
+            [FromBody] CreateUserSessionInput userSessionInput,
+            [FromServices] SessionService sessionService)
+        {
+            return (await sessionService.AddUser(id, userSessionInput.UserId, userSessionInput.TotalScore))
+                .Map(CreateUserSessionResultType.FromModel);
         }
     }
 }
