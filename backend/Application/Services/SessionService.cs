@@ -75,8 +75,8 @@ namespace Application.Services
             using (this.logger.BeginScope($"Finalizing session with id {id}."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
-
                 var league = context.Sessions.FindAsync(id).Result.League;
+
                 switch (league.Type)
                 {
                     case LeagueType.Cash:

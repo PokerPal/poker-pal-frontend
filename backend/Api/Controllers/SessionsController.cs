@@ -6,6 +6,7 @@ using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
 
+using Application.Models.Result;
 using Application.Services;
 
 using Microsoft.AspNetCore.Mvc;
@@ -76,6 +77,21 @@ namespace Api.Controllers
                     .Select(model => UserSessionOutputType.FromModel(model))
                     .ToList())
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Finalize a session.
+        /// </summary>
+        /// <param name="id">the ID of the session to finalize.</param>
+        /// <param name="sessionService">The session service.</param>
+        /// <returns>The result of the creation of the user.</returns>
+        [HttpPost("{id}/finalize")]
+        public async Task<ActionResult<Result<FinalizeSessionResultType, string>>> CreateUser(
+            [FromRoute] int id,
+            [FromServices] SessionService sessionService)
+        {
+            return (await sessionService.FinalizeSession(id))
+                .Map(FinalizeSessionResultType.FromModel);
         }
 
         /// <summary>
