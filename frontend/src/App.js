@@ -68,7 +68,7 @@ function HomeContainer(){
               <a href="/mainLeague">Main League</a>|
               <a href="/sideLeague">Side League</a>|
               <a href="/adminOptions">Admin options</a>|
-              <a href="/tournDataIn" >Tournament Data Input</a>|
+              {/*<a href="/tournDataIn" >Tournament Data Input</a>|*/}
               <a href="/userSettings" >Settings</a>
             </b>
           </ul>
