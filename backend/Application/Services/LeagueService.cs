@@ -101,7 +101,8 @@ namespace Application.Services
                     us => us.UserId.Equals(userId) && us.Session.LeagueId.Equals(leagueId));
                 var userLeagueHistoryOutputModels = userSessions
                     .Select(us => new UserLeagueHistoryOutputModel(
-                    userId, leagueId, us.SessionId, us.EndScore)).ToList();
+                        userId, leagueId, us.SessionId, us.EndScore))
+                    .ToList();
 
                 return userLeagueHistoryOutputModels;
             }
