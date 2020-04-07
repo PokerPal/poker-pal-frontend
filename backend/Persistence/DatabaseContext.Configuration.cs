@@ -30,6 +30,9 @@ namespace Persistence
 
             modelBuilder.Entity<UserBadgeEntity>()
                 .HasKey(ub => new { ub.UserId, ub.BadgeId });
+
+            modelBuilder.Entity<UserLeagueEntity>()
+                .HasKey(ul => new { ul.UserId, ul.LeagueId });
         }
 
         /// <summary>
@@ -62,6 +65,16 @@ namespace Persistence
                 .HasOne(ub => ub.User)
                 .WithMany(u => u.UserBadges)
                 .HasForeignKey(ub => ub.UserId);
+
+            modelBuilder.Entity<UserLeagueEntity>()
+                .HasOne(ul => ul.User)
+                .WithMany(u => u.UserLeagues)
+                .HasForeignKey(ul => ul.UserId);
+
+            modelBuilder.Entity<UserLeagueEntity>()
+                .HasOne(ul => ul.League)
+                .WithMany(l => l.UserLeagues)
+                .HasForeignKey(ul => ul.LeagueId);
         }
     }
 }

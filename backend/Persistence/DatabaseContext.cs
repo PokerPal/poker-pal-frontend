@@ -45,5 +45,10 @@ namespace Persistence
         /// Gets or sets the set of all user-badge link entities in the database.
         /// </summary>
         public DbSet<UserBadgeEntity> UserBadges { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of all user-league link entities in the database.
+        /// </summary>
+        public DbSet<UserLeagueEntity> UserLeagues { get; set; }
     }
 }

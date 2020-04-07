@@ -97,5 +97,11 @@ namespace Persistence.Entities
         /// from the database, null otherwise.
         /// </summary>
         public virtual IEnumerable<UserBadgeEntity> UserBadges { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets the list of user leagues that have occurred in this league; autofilled when
+        /// fetched from the database, null otherwise.
+        /// </summary>
+        public virtual IEnumerable<UserLeagueEntity> UserLeagues { get; set; } = null;
     }
 }
