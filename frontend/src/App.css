@@ -40,6 +40,15 @@
   font-family: 'Poppins', Arial, sans-serif;
 }
 
+.dashboard-header {
+  height: 20%;
+  padding: 20px;
+  font-size: calc(0px + 15vmin);
+  color: #0013ae;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+
 .side-custom-header {
   text-align: left;
   height: 10%;

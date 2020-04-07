@@ -3,6 +3,7 @@ import './Tournaments.css';
 import MainLeagueLeaderboard from './MainLeagueLeaderboard'
 import {Line} from 'react-chartjs-2';
 import Cookies from 'universal-cookie';
+
 export function MainLeaguePage() {
     const cookies = new Cookies();
     cookies.set('id', '1234', { path: '/' });

@@ -65,6 +65,50 @@ namespace Application.Services
         }
 
         /// <summary>
+        /// Attempt to log in with the provided email and password, returning an error if incorrect
+        /// or user not found.
+        /// </summary>
+        /// <param name="email">The email provided by the user.</param>
+        /// <param name="password">The password provided by the user.</param>
+        /// <returns>The details of the user, if credentials were correct.</returns>
+        public async Task<Result<LogInResultModel, string>> VerifyUserAsync(
+            string email,
+            string password)
+        {
+            using (this.logger.BeginScope($"Verifying provided credentials for {email}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                return Result<UserEntity, string>
+                    .FromNullableOr(
+                        await context.Users.Where(u => u.Email == email).FirstOrDefaultAsync(),
+                        "User not found or password incorrect.")
+                    .OnErr(e => this.logger.LogWarning(
+                        $"User with email {email} not found."))
+                    .AndThen<LogInResultModel>(user =>
+                    {
+                        var salt = this.cryptoService.DecompressSalt(user.PasswordHash);
+
+                        var testHash = this.cryptoService.CalculateHash(password, salt);
+                        var testSalted = this.cryptoService.CompressHash(salt, testHash);
+
+                        if (testSalted == user.PasswordHash)
+                        {
+                            return new LogInResultModel
+                            {
+                                Id = user.Id,
+                                Email = user.Email,
+                            };
+                        }
+
+                        this.logger.LogWarning(
+                            $"Incorrect password provided for user with email {email}");
+                        return "User not found or password incorrect.";
+                    });
+            }
+        }
+
+        /// <summary>
         /// Delete a user from the database.
         /// </summary>
         /// <param name="id">The unique identifier of the user.</param>
@@ -175,7 +219,7 @@ namespace Application.Services
                     .Map(u => u.UserSessions
                         .Select(us => us.Session)
                         .Select(s => new SessionOutputModel(
-                            s.Id, s.StartDate, s.EndDate, s.Frequency, s.Venue)));
+                            s.Id, s.StartDate, s.EndDate, s.Frequency, s.Venue, s.Finalized)));
             }
         }
 
