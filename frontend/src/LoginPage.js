@@ -146,10 +146,7 @@ class RegisterForm extends Component {
                 "\"name\":\""+this.state.firstName+" "+this.state.lastName+"\"," +
                 "\"password\":\""+this.state.password+"\"" +
                 "}");
-        }/*else{ // TODO clear passwords on invalid input?
-            this.state.password = '';
-            this.state.confirmPassword = '';
-        }*/
+        }
 
     }
 
@@ -192,7 +189,6 @@ class LoginForm extends Component {
         console.log("username: " + this.state.username);
         console.log("password: " + this.state.password);
 
-        // TODO password stuff when added to API
         let valid = true;
         if (this.state.username.length === 0
             || this.state.password.length === 0) {
@@ -200,16 +196,19 @@ class LoginForm extends Component {
             valid = false;
         }
 
+        let email = this.state.username;
+        let username = email.split('@')[0];
+        if (email.length !== username.length) {
+            this.state.username = username;
+        }
+
         event.preventDefault();
-        if (valid) { // TODO passwords should most probably be encrypted somehow before here
+        if (valid) {
             Login("{" +
-                "\"email\":\""+ this.state.username +"@bath.ac.uk\"," +
-                "\"password\":\""+this.state.password+"\"" +
+                "\"email\": \""+ this.state.username +"@bath.ac.uk\", " +
+                "\"password\": \""+this.state.password+"\"" +
                 "}");
-        }/*else{ // TODO clear passwords on invalid input?
-            this.state.password = '';
-            this.state.confirmPassword = '';
-        }*/
+        }
 
     }
 
@@ -234,12 +233,7 @@ function Register(pars) {
 
     const method = "POST";
     const url = "http://localhost:5000/users";
-    /*let params = "{" +
-        "\"email\": \"fart2@farty.com\"," +
-        "\"name\": \"asdf2\"," +
-        "\"password\": \"asdfasdf2\"" +
-        "}";
-    params = pars;*/
+
     let request = new XMLHttpRequest();
     request.open(method, url, true);
     request.setRequestHeader('Content-type', 'application/json');
@@ -250,21 +244,24 @@ function Register(pars) {
 
 }
 
-function Login() {
+function Login(pars) {
+    const method = "POST";
+    const url = "http://localhost:5000/users/logIn";
+    console.log(pars);
     let request = new XMLHttpRequest();
-    request.open('GET', "http://localhost:5000/users/1");
+    request.open(method, url, true);
+    request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
         let data = JSON.parse(this.response);
+        console.log("data: ",data);
         if (data.error == null) {
-            console.log(data.value.id);
-            console.log(data.value.name);
-            console.log(data.value.email);
-            console.log(data.value.joined);
-            console.log(data.value.authLevel);
             const cookies = new Cookies();
-            cookies.set('userName', data.value.name, { path: '/' });
+            cookies.set('userName', data.value.email, { path: '/' });
             cookies.set('userID', data.value.id, { path: '/' });
+            console.log("login success")
+        } else {
+            alert(data.error)
         }
     };
-    request.send();
+    request.send(pars);
 }
