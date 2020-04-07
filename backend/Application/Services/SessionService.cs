@@ -1,14 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 using Application.Models.Output;
 using Application.Models.Result;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
 
 using Persistence;
@@ -61,7 +60,7 @@ namespace Application.Services
                         $"Session with id {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(t => new SessionOutputModel(
-                        t.Id, t.StartDate, t.EndDate, t.Frequency, t.Venue));
+                        t.Id, t.StartDate, t.EndDate, t.Frequency, t.Venue, t.Finalized));
             }
         }
 
@@ -75,26 +74,55 @@ namespace Application.Services
             using (this.logger.BeginScope($"Finalizing session with id {id}."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
-                var league = context.Sessions.FindAsync(id).Result.League;
-
-                switch (league.Type)
+                var session = context.Sessions.FindAsync(id).Result;
+                if (session.Finalized)
                 {
-                    case LeagueType.Cash:
-                        Console.WriteLine("cash");
-                        break;
-                    case LeagueType.Points:
-                        Console.WriteLine("points");
-                        break;
-                    default:
-                        this.logger.LogWarning("no league type found");
-                        break;
+                    return "Error";
                 }
 
-                return new FinalizeSessionResultModel()
+                session.Finalized = true;
+                var league =
+                    context.Leagues.FindAsync(context.Sessions.FindAsync(id).Result.LeagueId).Result;
+                var userSessions = context.UserSessions
+                    .Where(us => us.SessionId.Equals(id))
+                    .ToList();
+
+                foreach (var userSession in userSessions)
                 {
-                    Id = id,
-                };
+                    var userLeagues = context.UserLeagues.FirstOrDefault(ul => ul.UserId == userSession
+                        .UserId && ul.LeagueId == league.Id);
+                    if (userLeagues == null)
+                    {
+                        userLeagues = new UserLeagueEntity(
+                            userSession.UserId,
+                            league.Id,
+                            league.StartingAmount);
+
+                        await context.UserLeagues.AddAsync(userLeagues);
+                        await context.SaveChangesAsync();
+                    }
+
+                    switch (league.Type)
+                    {
+                        case LeagueType.Cash:
+                            userLeagues.TotalScore += userSession.TotalScore;
+                            break;
+                        case LeagueType.Points:
+                            userLeagues.TotalScore += userSession.TotalScore;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    userSession.EndScore = userLeagues.TotalScore;
+                    await context.SaveChangesAsync();
+                }
             }
+
+            return new FinalizeSessionResultModel()
+            {
+                Id = id,
+            };
         }
 
         /// <summary>

@@ -15,18 +15,21 @@ namespace Application.Models.Output
         /// <param name="endDate">The end date of the session.</param>
         /// <param name="frequency">How often the session occurs.</param>
         /// <param name="venue">Where the session takes place.</param>
+        /// <param name="finalized">Whether or not the session has been finalized.</param>
         public SessionOutputModel(
             int id,
             DateTime startDate,
             DateTime endDate,
             int? frequency,
-            string venue)
+            string venue,
+            bool? finalized)
         {
             this.Id = id;
             this.StartDate = startDate;
             this.EndDate = endDate;
             this.Frequency = frequency;
             this.Venue = venue;
+            this.Finalized = finalized;
         }
 
         /// <summary>
@@ -53,5 +56,10 @@ namespace Application.Models.Output
         /// The session's venue.
         /// </summary>
         public string Venue { get; }
+
+        /// <summary>
+        /// Whether or not the session has been finalized.
+        /// </summary>
+        public bool? Finalized { get; }
     }
 }

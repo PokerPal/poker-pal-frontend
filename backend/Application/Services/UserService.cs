@@ -175,7 +175,7 @@ namespace Application.Services
                     .Map(u => u.UserSessions
                         .Select(us => us.Session)
                         .Select(s => new SessionOutputModel(
-                            s.Id, s.StartDate, s.EndDate, s.Frequency, s.Venue)));
+                            s.Id, s.StartDate, s.EndDate, s.Frequency, s.Venue, s.Finalized)));
             }
         }
 

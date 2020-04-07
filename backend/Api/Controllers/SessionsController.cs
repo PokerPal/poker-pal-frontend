@@ -86,7 +86,7 @@ namespace Api.Controllers
         /// <param name="sessionService">The session service.</param>
         /// <returns>The result of the creation of the user.</returns>
         [HttpPost("{id}/finalize")]
-        public async Task<ActionResult<Result<FinalizeSessionResultType, string>>> CreateUser(
+        public async Task<ActionResult<Result<FinalizeSessionResultType, string>>> FinalizeSession(
             [FromRoute] int id,
             [FromServices] SessionService sessionService)
         {
