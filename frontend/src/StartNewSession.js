@@ -74,15 +74,15 @@ function EndSession(){
 function SendDataToAPI(pars) {
   console.log("SendDataToAPI");
   console.log(pars);
-/*
+
   const method = "POST";
-  const url = "http://localhost:5000/users";
-  /!*let params = "{" +
+  const url = "http://localhost:5000/sessions";
+  /*let params = "{" +
       "\"email\": \"fart2@farty.com\"," +
       "\"name\": \"asdf2\"," +
       "\"password\": \"asdfasdf2\"" +
       "}";
-  params = pars;*!/
+  params = pars;*/
   let request = new XMLHttpRequest();
   request.open(method, url, true);
   request.setRequestHeader('Content-type', 'application/json');
@@ -90,7 +90,7 @@ function SendDataToAPI(pars) {
     console.log(request.responseText)
     // TODO cookie set here
   };
-  request.send(pars)*/
+  request.send(pars);
 
   const cookies = new Cookies();
   cookies.set('sessionID', '1', { path: '/' });
@@ -130,13 +130,13 @@ class NewSessionForm extends Component {
       /*valid = false;*/ // TODO - UNCOMMENT ME WHEN DONE TESTING
     }
 
-    if (valid) { // TODO passwords should most probably be encrypted somehow before here
+    if (valid) {
       SendDataToAPI("{" +
-        "\"startDate\":\""+ this.state.startDate +
-        "\"endDate\":\""+ this.state.endDate +
-        "\"frequency\":\""+this.state.frequency+
-        "\"venue\":\""+this.state.venue+
-        "\"leagueID\":\""+this.state.leagueID+"\"" +
+        "\"startDate\":\""+ this.state.startDate + "\"," +
+        "\"endDate\":\""+ this.state.endDate + "\"," +
+        "\"frequency\":\""+this.state.frequency + "\"," +
+        "\"venue\":\""+this.state.venue + "\"," +
+        "\"leagueID\":\""+this.state.leagueID+ "\"," +
         "}");
     }
 

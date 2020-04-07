@@ -14,22 +14,15 @@ export function StartNewLeague() {
 function SendDataToAPI(pars) {
   console.log("SendDataToAPI");
   console.log(pars);
-  /*
     const method = "POST";
-    const url = "http://localhost:5000/users";
-    /!*let params = "{" +
-        "\"email\": \"fart2@farty.com\"," +
-        "\"name\": \"asdf2\"," +
-        "\"password\": \"asdfasdf2\"" +
-        "}";
-    params = pars;*!/
+    const url = "http://localhost:5000/leagues";
     let request = new XMLHttpRequest();
     request.open(method, url, true);
     request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
       console.log(request.responseText)
     };
-    request.send(pars)*/
+    request.send(pars)
 
 }
 
@@ -64,13 +57,19 @@ class NewLeagueForm extends Component {
     }
 
     if (valid) { // TODO passwords should most probably be encrypted somehow before here
-      SendDataToAPI("{" +
+      /*SendDataToAPI("{" +
         "\"name\":\""+ this.state.name +
         "\"startingAmount\":\""+ this.state.startingAmount +
         "\"allowChanges\":\""+this.state.allowChanges +
         "\"type\":\""+this.state.type +"\"" +
         "}");
+    }*/
+
+      SendDataToAPI("{" +
+        "\"name\":\""+ this.state.name + "\"" + "}"
+      );
     }
+
   }
 
   render() {
