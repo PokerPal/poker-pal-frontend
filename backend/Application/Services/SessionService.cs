@@ -223,14 +223,27 @@ namespace Application.Services
                         .OnErr(e => this.logger.LogWarning(e));
                 }
 
-                if (await context.UserSessions.FindAsync(userId, sessionId) != null)
+                var userSession = context.UserSessions.FirstOrDefault(
+                    us => us.UserId == userId && us.SessionId == sessionId);
+                if (userSession != null)
                 {
-                    return Result
-                        .Err($"User already has information within session with id {sessionId}.")
-                        .OnErr(e => this.logger.LogWarning(e));
+                    if (context.Leagues.FindAsync(
+                        context.Sessions.FindAsync(sessionId).Result.LeagueId).Result.AllowChanges)
+                    {
+                        userSession.TotalScore += totalScore;
+                    }
+                    else
+                    {
+                        return Result
+                            .Err($"User already has information within session with id {sessionId}.")
+                            .OnErr(e => this.logger.LogWarning(e));
+                    }
+                }
+                else
+                {
+                    await context.UserSessions.AddAsync(new UserSessionEntity(userId, sessionId, totalScore));
                 }
 
-                await context.UserSessions.AddAsync(new UserSessionEntity(userId, sessionId, totalScore));
                 await context.SaveChangesAsync();
 
                 return new CreateUserSessionResultModel()
