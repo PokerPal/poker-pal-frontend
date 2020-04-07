@@ -15,7 +15,7 @@ export function SideLeaguePage() {
     var userID  = cookies.get('userID'); 
     var userName = cookies.get('userName');
     var hPlace = 10
-    var cPlace = 10
+    var cPlace = getCurrPlace();
     var lastUpdate = "11/10/20"
     var bHistory = {
         labels: ["January", "February", "March", "April", "May", "June", "July"], //WHAT DO WE WANT ON AXIS?
@@ -26,6 +26,18 @@ export function SideLeaguePage() {
             borderColor: '#0013ae',
             data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
         }]
+    }
+    function getCurrPlace() {
+        let request = new XMLHttpRequest();
+        request.open('GET', "http://localhost:5000/leagues/2/user/"+userID, false);
+        request.onload = function(){
+            let data = JSON.parse(this.response);
+            if (data.error == null) {
+                console.log(data.value.totalScore);
+                return data.value.totalScore;
+            }
+        };
+        request.send();
     }
     return (
         <div className="Tournament">
