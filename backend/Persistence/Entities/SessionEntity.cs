@@ -32,6 +32,7 @@ namespace Persistence.Entities
             this.Frequency = frequency;
             this.Venue = venue;
             this.LeagueId = leagueId;
+            this.Finalized = false;
         }
 
         /// <summary>
@@ -64,6 +65,11 @@ namespace Persistence.Entities
         /// Gets or sets the ID of the league this session belongs to.
         /// </summary>
         public int LeagueId { get; set; }
+
+        /// <summary>
+        /// Whether or not this session has been finalized.
+        /// </summary>
+        public bool Finalized { get; set; }
 
         /// <summary>
         /// Gets or sets the user-session relations this session belongs to; autofilled when

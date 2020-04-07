@@ -2,6 +2,8 @@ using System;
 
 using Application.Models.Output;
 
+using Persistence.Entities;
+
 namespace Api.ModelTypes.Output
 {
     /// <summary>
@@ -25,6 +27,21 @@ namespace Api.ModelTypes.Output
         /// The league's name.
         /// </summary>
         public string Name => this.Model.Name;
+
+        /// <summary>
+        /// The starting amount for users in this tournament.
+        /// </summary>
+        public int StartingAmount => this.Model.StartingAmount;
+
+        /// <summary>
+        /// Whether or not entities linked to this league can be changed.
+        /// </summary>
+        public bool AllowChanges => this.Model.AllowChanges;
+
+        /// <summary>
+        /// The type of the league.
+        /// </summary>
+        public LeagueType Type => this.Model.Type;
 
         internal LeagueOutputModel Model { get; set; }
     }
