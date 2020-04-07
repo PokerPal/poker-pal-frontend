@@ -7,6 +7,8 @@ export function StartNewLeague() {
       <br/>
       <p><b>CREATE NEW LEAGUE</b></p>
       <NewLeagueForm/>
+      <br/>
+      <button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>
     </div>
   )
 }
@@ -55,19 +57,23 @@ class NewLeagueForm extends Component {
       window.alert("Please fill in all fields");
       valid = false;
     }
+    let type = this.state.type;
+    let changes = this.state.allowChanges;
+    if (type !== "Cash" && type !== "Points") {
+      window.alert("Please enter 'Cash' or 'Points' ");
+      valid = false;
+    } else if (changes !== "true" && changes !== "false"){
+      window.alert("Please enter 'true' or 'false' ");
+      valid = false;
+    }
 
-    if (valid) { // TODO passwords should most probably be encrypted somehow before here
-      /*SendDataToAPI("{" +
-        "\"name\":\""+ this.state.name +
-        "\"startingAmount\":\""+ this.state.startingAmount +
-        "\"allowChanges\":\""+this.state.allowChanges +
-        "\"type\":\""+this.state.type +"\"" +
-        "}");
-    }*/
-
+    if (valid) {
       SendDataToAPI("{" +
-        "\"name\":\""+ this.state.name + "\"" + "}"
-      );
+        "\"name\":\""+ this.state.name + "\"," +
+        "\"startingAmount\":"+ this.state.startingAmount + "," +
+        "\"allowChanges\":"+this.state.allowChanges + "," +
+        "\"type\":\""+this.state.type + "\"" +
+        "}");
     }
 
   }

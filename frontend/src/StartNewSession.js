@@ -23,8 +23,8 @@ export function StartNewSession() {
           <Route exact path="/adminOptions/createNewSession">
             <p><b>CREATE NEW SESSION</b></p>
             <NewSessionForm/>
-
-            <button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>
+            <br/>
+            <br/><button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>
 
 
             {/*<div className="adminLeftSection">

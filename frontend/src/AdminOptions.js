@@ -50,7 +50,7 @@ function MainScreen() {
         <div>
           <p><b>ADMIN OPTIONS</b></p> <br/>
 
-          <div className="break-line"/> <br/>
+          <div className="break-line-right"/> <br/>
 
           <label className="adminButtons"><a href="/adminOptions/createNewSession">Create New Session</a></label> <br/> <br/>
           <CurrentSessionID/>
@@ -61,7 +61,11 @@ function MainScreen() {
 
           <label className="adminButtons"><a href="/adminOptions/createNewLeague">Create New League</a></label> <br/> <br/>
 
+          <div className="break-line-right"/> <br/>
+
           <button className="Login-button"><a className="backLink" href="/adminOptions/deleteUser">Delete User </a></button> <br/> <br/>
+
+          <div className="break-line-right"/> <br/>
 
         </div>
       </div>
