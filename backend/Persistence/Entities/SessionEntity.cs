@@ -32,6 +32,7 @@ namespace Persistence.Entities
             this.Frequency = frequency;
             this.Venue = venue;
             this.LeagueId = leagueId;
+            this.Finalized = false;
         }
 
         /// <summary>

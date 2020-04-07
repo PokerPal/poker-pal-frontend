@@ -51,7 +51,7 @@ namespace Api.Controllers
         }
 
         /// <summary>
-        /// Get the details of the user leagues within this league.
+        /// Get the details of a user's standing within a league.
         /// </summary>
         /// <param name="leagueId">The unique identifier of the league.</param>
         /// <param name="userId">The information of the user.</param>

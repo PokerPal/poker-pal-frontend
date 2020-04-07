@@ -14,8 +14,8 @@ namespace Api.ModelTypes.Output
         /// type.
         /// </summary>
         public static readonly Func<UserLeagueHistoryOutputModel, UserLeagueHistoryOutputType>
-        FromModel
-            = model => new UserLeagueHistoryOutputType { Model = model };
+            FromModel
+                 = model => new UserLeagueHistoryOutputType { Model = model };
 
         /// <summary>
         /// The session's unique identifier.

@@ -22,7 +22,7 @@ namespace Application.Models.Output
             DateTime endDate,
             int? frequency,
             string venue,
-            bool? finalized)
+            bool finalized)
         {
             this.Id = id;
             this.StartDate = startDate;
@@ -60,6 +60,6 @@ namespace Application.Models.Output
         /// <summary>
         /// Whether or not the session has been finalized.
         /// </summary>
-        public bool? Finalized { get; }
+        public bool Finalized { get; }
     }
 }

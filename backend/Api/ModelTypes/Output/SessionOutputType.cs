@@ -44,7 +44,7 @@ namespace Api.ModelTypes.Output
         /// <summary>
         /// Whether or not the session has been finalized.
         /// </summary>
-        public bool? Finalized => this.Model.Finalized;
+        public bool Finalized => this.Model.Finalized;
 
         internal SessionOutputModel Model { get; set; }
     }
