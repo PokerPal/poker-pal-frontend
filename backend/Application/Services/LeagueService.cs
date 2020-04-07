@@ -78,7 +78,7 @@ namespace Application.Services
                     .FromNullableOr(league, "league not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(l => l.UserLeagues
-                        .Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalStore)));
+                        .Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore)));
             }
         }
 
@@ -100,7 +100,7 @@ namespace Application.Services
                         $"User league with league id {leagueId} and user Id {userId} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(ul => new UserLeagueOutputModel(
-                        ul.UserId, ul.LeagueId, ul.TotalStore));
+                        ul.UserId, ul.LeagueId, ul.TotalScore));
             }
         }
 

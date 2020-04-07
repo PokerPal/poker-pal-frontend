@@ -14,6 +14,7 @@ namespace Application.Models.Output
         /// <param name="name">The name of the league.</param>
         /// <param name="startingAmount">The starting amount for users in the tournament.</param>
         /// <param name="allowChanges">If the session linked to this leagues, entities can be changed.</param>
+        /// <param name="type">The type of this league. If it is a cash or points game.</param>
         public LeagueOutputModel(int id, string name, int startingAmount, bool allowChanges, LeagueType type)
         {
             this.Id = id;
