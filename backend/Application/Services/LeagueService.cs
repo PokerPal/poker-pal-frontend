@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Application.Models.Output;
 using Application.Models.Result;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Logging;
 
 using Persistence;
@@ -79,6 +81,28 @@ namespace Application.Services
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(l => l.UserLeagues
                         .Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore)));
+            }
+        }
+
+        /// <summary>
+        /// Get all the user sessions within a session.
+        /// </summary>
+        /// <param name="leagueId">The league unique Id.</param>
+        /// <param name="userId">The user unique Id.</param>
+        /// <returns>All of user sessions associated with a session.</returns>
+        public async Task<Result<IEnumerable<UserLeagueHistoryOutputModel>, string>>
+            GetUserLeagueHistory(int leagueId, int userId)
+        {
+            using (this.logger.BeginScope(
+                $"Getting user {userId} history associated with league: {leagueId}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+                var userSessions = context.UserSessions.Where(
+                    us => us.UserId.Equals(userId) && us.Session.LeagueId.Equals(leagueId));
+                var userLeagueHistoryOutputModels = userSessions.Select(us => new UserLeagueHistoryOutputModel(
+                    userId, leagueId, us.SessionId, us.EndScore)).ToList();
+
+                return userLeagueHistoryOutputModels;
             }
         }
 
