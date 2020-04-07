@@ -17,6 +17,9 @@ function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
   console.log("place",place);
 }
 
+/**
+ * @return {string}
+ */
 function GetUNamesFromBE() {
   /*let request = new XMLHttpRequest();
   request.open('GET', "http://localhost:5000/users", false);
@@ -32,7 +35,7 @@ function GetUNamesFromBE() {
     }
   };
   request.send();*/
-  console.log("fart");
+  console.log("MLI get names");
   return "fart";
 }
 
