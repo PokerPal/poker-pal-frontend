@@ -158,6 +158,31 @@ namespace Application.Services
         }
 
         /// <summary>
+        /// Search for users whose names or emails contain the given query string.
+        /// </summary>
+        /// <param name="query">The string to search for in users' names and emails.</param>
+        /// <returns>The list of matching users.</returns>
+        public async Task<Result<IEnumerable<UserOutputModel>, string>> SearchUsersAsync(
+            string query)
+        {
+            using (this.logger.BeginScope($"Searching users with query {query}"))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var queryUpper = query.ToUpper();
+                this.logger.LogInformation($"Processed query string: {queryUpper}");
+
+                return context.Users
+                    .Where(u =>
+                        u.Name.ToUpper().Contains(queryUpper) ||
+                        u.Email.ToUpper().Contains(queryUpper))
+                    .Select(u => new UserOutputModel(
+                        u.Id, u.Email, u.Name, u.Joined, u.AuthLevel))
+                    .ToList();
+            }
+        }
+
+        /// <summary>
         /// Create a new user entity in the database.
         /// </summary>
         /// <param name="email">The user's email address.</param>
