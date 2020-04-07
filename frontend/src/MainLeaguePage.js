@@ -38,13 +38,12 @@ export function MainLeaguePage() {
 
     }
     function getCurrPlace() {
-        alert("CALLED");
         let request = new XMLHttpRequest();
         request.open('GET', "http://localhost:5000/leagues/1/user/"+userID, false);
         request.onload = function(){
             let data = JSON.parse(this.response);
             if (data.error == null) {
-                console.log("DATA");
+                console.log(data.value.totalScore);
                 return data.value.totalScore;
             }
         };
