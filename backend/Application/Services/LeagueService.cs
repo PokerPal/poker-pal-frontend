@@ -99,8 +99,8 @@ namespace Application.Services
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
                 var userSessions = context.UserSessions.Where(
                     us => us.UserId.Equals(userId) && us.Session.LeagueId.Equals(leagueId));
-                var userLeagueHistoryOutputModels = userSessions.Select(
-                    us => new UserLeagueHistoryOutputModel(
+                var userLeagueHistoryOutputModels = userSessions
+                    .Select(us => new UserLeagueHistoryOutputModel(
                     userId, leagueId, us.SessionId, us.EndScore)).ToList();
 
                 return userLeagueHistoryOutputModels;
