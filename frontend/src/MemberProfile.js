@@ -9,6 +9,8 @@ import Cookies from 'universal-cookie';
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
 import "./slider.css";
+//import "./AppContrast.css";
+import "./App.css"
 import MainLeagueLeaderboard from "./MainLeagueLeaderboard";
 
 export function MemberProfile() {
@@ -25,7 +27,7 @@ export function MemberProfile() {
         }]
     }
     return (
-        <div className="App">
+        <div className="AppContrast">
             <div className="side-custom-header">
                 <b>Profile</b>
             </div>
@@ -62,11 +64,12 @@ export function MemberProfile() {
                     <br></br>
                     <br></br>
 
-                    <div className="button">
 
-                        <b>High contrast mode</b>
-
-                    </div>
+                    <p id="button" onClick="ChangeContrast()">
+                        <div className="button">
+                            <b>High contrast mode</b>
+                        </div>
+                    </p>
 
                 </div>
 
@@ -93,10 +96,10 @@ export function MemberProfile() {
     );
 }
 
-
-
-
-
+function ChangeContrast(){
+    //import "./AppContrast.css";
+    window.location.reload(true)
+}
 
 
 function GetUserName(){
@@ -128,7 +131,8 @@ function GetRank(){
         let rank = data.rank;
         if (data.error == null) {
             console.log(data);
-            let rank = data.rank; // TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
+            let rank = data.rank;// TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
+
             /*const cookies = new Cookies();*/ // TODO - DECIDE IF COOKIES HAVE TO BE SET HERE
             /*cookies.set('userName', data.value.name, { path: '/' });
             cookies.set('userID', data.value.id, { path: '/' });*/
