@@ -74,52 +74,64 @@ namespace Application.Services
             using (this.logger.BeginScope($"Finalizing session with id {id}."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
-                var session = context.Sessions.FindAsync(id).Result;
-                if (session.Finalized)
+
+                var session = await context.Sessions
+                    .Include(s => s.UserSessions)
+                    .Include(s => s.League)
+                    .Where(s => s.Id == id)
+                    .FirstOrDefaultAsync();
+
+                if (session == null)
                 {
-                    return "Error";
+                    this.logger.LogWarning($"Session with id {id} not found.");
+                    return $"Session with id {id} not found.";
                 }
 
-                session.Finalized = true;
-                var league =
-                    context.Leagues.FindAsync(context.Sessions.FindAsync(id).Result.LeagueId).Result;
-                var userSessions = context.UserSessions
-                    .Where(us => us.SessionId.Equals(id))
-                    .ToList();
-
-                foreach (var userSession in userSessions)
+                if (session.Finalized)
                 {
-                    var userLeagues = context.UserLeagues.FirstOrDefault(ul => ul.UserId == userSession
-                        .UserId && ul.LeagueId == league.Id);
-                    if (userLeagues == null)
+                    this.logger.LogWarning($"Session {id} has already been finalized.");
+                    return $"Session {id} has already been finalized.";
+                }
+
+                // Actually finalize the session.
+                session.Finalized = true;
+
+                var league = session.League;
+
+                foreach (var userSession in session.UserSessions)
+                {
+                    var userLeague = await context.UserLeagues
+                        .FirstOrDefaultAsync(ul =>
+                            ul.UserId == userSession.UserId &&
+                            ul.LeagueId == league.Id);
+
+                    if (userLeague == null)
                     {
-                        userLeagues = new UserLeagueEntity(
+                        userLeague = new UserLeagueEntity(
                             userSession.UserId,
                             league.Id,
                             league.StartingAmount);
 
-                        await context.UserLeagues.AddAsync(userLeagues);
-                        await context.SaveChangesAsync();
+                        await context.UserLeagues.AddAsync(userLeague);
                     }
 
                     switch (league.Type)
                     {
                         case LeagueType.Cash:
-                            userLeagues.TotalScore += userSession.TotalScore;
+                            userLeague.TotalScore += userSession.TotalScore;
                             break;
                         case LeagueType.Points:
-                            userLeagues.TotalScore += userSession.TotalScore;
-                            break;
-                        default:
+                            userLeague.TotalScore += userSession.TotalScore;
                             break;
                     }
 
-                    userSession.EndScore = userLeagues.TotalScore;
-                    await context.SaveChangesAsync();
+                    userSession.EndScore = userLeague.TotalScore;
                 }
+
+                await context.SaveChangesAsync();
             }
 
-            return new FinalizeSessionResultModel()
+            return new FinalizeSessionResultModel
             {
                 Id = id,
             };
