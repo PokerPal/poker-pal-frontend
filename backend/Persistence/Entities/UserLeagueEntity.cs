@@ -10,12 +10,12 @@
         /// </summary>
         /// <param name="userId">The users unique identification.</param>
         /// <param name="leagueId">The leagues unique identification.</param>
-        /// <param name="totalStore">The users total score in the league.</param>
-        public UserLeagueEntity(int userId, int leagueId, int totalStore)
+        /// <param name="totalScore">The users total score in the league.</param>
+        public UserLeagueEntity(int userId, int leagueId, int totalScore)
         {
             this.UserId = userId;
             this.LeagueId = leagueId;
-            this.TotalStore = totalStore;
+            this.TotalScore = totalScore;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         /// <summary>
         /// Gets or sets the total score.
         /// </summary>
-        public int TotalStore { get; set; }
+        public int TotalScore { get; set; }
 
         /// <summary>
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the
