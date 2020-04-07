@@ -1,17 +1,12 @@
-import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-
-/*import Redirect from "react-router-dom/es/Redirect";*/
-import {MainLeaguePage} from "./MainLeaguePage";
-
-import Autosuggest from 'react-autosuggest';
-
 import Cookies from "universal-cookie";
+
 import {SLI} from './SLI'
 import {MLI} from "./MLI";
 import {StartNewSession} from "./StartNewSession";
 import {StartNewLeague} from "./StartNewLeague";
+import {DeleteUser} from './DeleteUser'
 
 
 export function AdminOptions() {
@@ -31,6 +26,12 @@ export function AdminOptions() {
           <Route exact path="/adminOptions/createNewLeague">
             <StartNewLeague />
           </Route>
+
+          <Route exact path="/adminOptions/deleteUser">
+            <DeleteUser />
+          </Route>
+
+
 
         </Switch>
       </Router>
@@ -53,13 +54,14 @@ function MainScreen() {
 
           <label className="adminButtons"><a href="/adminOptions/createNewSession">Create New Session</a></label> <br/> <br/>
           <CurrentSessionID/>
-          <button type="submit" value="Submit" className="Login-button" onClick={EndSession}>Finish Session</button> <br/> <br/>
+          <button type="submit" value="Submit" className="Login-button" onClick={EndMainSession}>Finish Main Session</button> <br/> <br/>
+          <button type="submit" value="Submit" className="Login-button" onClick={EndSideSession}>Finish Side Session</button> <br/> <br/>
 
           <div className="break-line-right"/> <br/>
 
           <label className="adminButtons"><a href="/adminOptions/createNewLeague">Create New League</a></label> <br/> <br/>
 
-          {/*<label className="adminButtons"><a href="/adminOptions/createNewLeague">Delete User </a></label> <br/> <br/>*/}
+          <button className="Login-button"><a className="backLink" href="/adminOptions/deleteUser">Delete User </a></button> <br/> <br/>
 
         </div>
       </div>
@@ -72,13 +74,23 @@ function MainScreen() {
     </div>
   )
 }
-
-function EndSession() {
+function EndMainSession() {
   const cookies = new Cookies();
-  let seshID = cookies.get('sessionID');
+  let MainSeshID = cookies.get('mainSessionID');
+  cookies.remove('mainSessionID');
+  EndSession(MainSeshID)
+}
+function EndSideSession() {
+  const cookies = new Cookies();
+  let SideSeshID = cookies.get('sideSessionID');
+  cookies.remove('sideSessionID');
+  EndSession(SideSeshID)
+}
 
+function EndSession(idToEnd) {
+  const cookies = new Cookies();
   const method = "POST";
-  const url = "http://localhost:5000/sessions/" + seshID + "/finalize";
+  const url = "http://localhost:5000/sessions/" + idToEnd + "/finalize";
 
   let request = new XMLHttpRequest();
   request.open(method, url, true);

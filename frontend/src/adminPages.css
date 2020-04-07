@@ -16,6 +16,10 @@
     text-decoration: none !important;
 }
 
+.warning-message{
+    color: red !important;
+}
+
 .adminRightSection {
     border-color: #222222;
     /*background-color: #777;*/
@@ -80,4 +84,15 @@
     height: 5px;
     width: 30%;
     float: right;
+}
+
+.Login-button-red {
+    cursor: pointer;
+    background-color: red;
+    height: 50px;
+    width: 100px;
+    font-size: medium;
+    text-align: center;
+    color: white;
+    border-radius: .25rem;
 }
