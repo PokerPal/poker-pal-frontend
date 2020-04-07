@@ -21,11 +21,16 @@ export function StartNewSession() {
         <Switch>
 
           <Route exact path="/adminOptions/createNewSession">
-            <p><b>CREATE NEW SESSION</b></p>
-            <NewSessionForm/>
+            <div className="adminLeftSection">
+              <p><b>CREATE NEW SESSION</b></p>
+              <NewSessionForm/>
+            </div>
+            <div className="adminRightSection">
+              list here
+            </div>
           </Route>
 
-          <Route exact path="/adminOptions/enterSessionData/">
+{/*          <Route exact path="/adminOptions/enterSessionData/">
             <ThisHome />
           </Route>
 
@@ -35,7 +40,7 @@ export function StartNewSession() {
 
           <Route exact path="/adminOptions/enterSessionData/enterSideLeague">
             <SLI />
-          </Route>
+          </Route>*/}
 
         </Switch>
       </Router>
@@ -46,30 +51,6 @@ export function StartNewSession() {
     </div>
   )
 }
-
-function ThisHome() {
-  return (
-    <div>
-      <p><b>CREATE NEW SESSION</b></p>
-      <NewSessionForm/>
-    </div>
-  )
-}
-
-function GoToDataInput() {
-  return (
-    <div>
-      <label className="adminButtons"><a href="/adminOptions/enterSessionData/enterMainLeague">Enter places in Main League</a></label> <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterSessionData/enterSideLeague">Enter in/out in Side League</a></label> <br/> <br/>
-      <button type="submit" value="Submit" className="Login-button" onClick={EndSession}>Finish Session</button> <br/> <br/>
-    </div>
-  )
-}
-
-function EndSession(){
-  console.log("END SESSION")
-}
-
 
 function SendDataToAPI(pars) {
   console.log("SendDataToAPI");
