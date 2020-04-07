@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -6,6 +7,7 @@ using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
 
+using Application.Models.Result;
 using Application.Services;
 
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +36,21 @@ namespace Api.Controllers
         {
             return (await userService.CreateUserAsync(user.Email, user.Name, user.Password))
                 .Map(CreateUserResultType.FromModel);
+        }
+
+        /// <summary>
+        /// Attempt to log in with the provided details.
+        /// </summary>
+        /// <param name="logIn">The credentials provided by the user.</param>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The result of the attempt to log in.</returns>
+        [HttpPost("logIn")]
+        public async Task<ActionResult<Result<LogInResultType, string>>> LogIn(
+            [FromBody] LogInInputType logIn,
+            [FromServices] UserService userService)
+        {
+            return (await userService.VerifyUserAsync(logIn.Email, logIn.Password))
+                .Map(LogInResultType.FromModel);
         }
 
         /// <summary>
