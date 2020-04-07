@@ -18,7 +18,7 @@ function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
 }
 
 function GetUNamesFromBE() {
-  let request = new XMLHttpRequest();
+  /*let request = new XMLHttpRequest();
   request.open('GET', "http://localhost:5000/users", false);
   let dataReturn;
   request.onload = function () {
@@ -31,9 +31,9 @@ function GetUNamesFromBE() {
       return data.value;
     }
   };
-  request.send();
+  request.send();*/
   console.log("fart");
-  return dataReturn;
+  return "fart";
 }
 
 const userNames = GetUNamesFromBE();

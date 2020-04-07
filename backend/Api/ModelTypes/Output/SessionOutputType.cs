@@ -41,6 +41,11 @@ namespace Api.ModelTypes.Output
         /// </summary>
         public string Venue => this.Model.Venue;
 
+        /// <summary>
+        /// Whether or not the session has been finalized.
+        /// </summary>
+        public bool Finalized => this.Model.Finalized;
+
         internal SessionOutputModel Model { get; set; }
     }
 }

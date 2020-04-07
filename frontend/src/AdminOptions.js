@@ -1,8 +1,10 @@
+import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 /*import Redirect from "react-router-dom/es/Redirect";*/
 import {MainLeaguePage} from "./MainLeaguePage";
+
 import Autosuggest from 'react-autosuggest';
 
 import Cookies from "universal-cookie";
