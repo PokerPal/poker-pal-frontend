@@ -91,6 +91,7 @@
 }
 
 .Login-button {
+  cursor: pointer;
   background-color: #0013ae;
   height: 50px;
   width: 100px;
