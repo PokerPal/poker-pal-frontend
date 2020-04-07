@@ -4,10 +4,11 @@ import dunce from "./Dunce.png"
 import nine from "./9.png"
 import fifty from "./50.png"
 
-import React from "react";
+import React, {Component} from "react";
 import Cookies from 'universal-cookie';
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
+import "./slider.css";
 import MainLeagueLeaderboard from "./MainLeagueLeaderboard";
 
 export function MemberProfile() {
@@ -45,13 +46,28 @@ export function MemberProfile() {
                         <br></br>
                         <br></br>
                         <br></br>
-                        <br></br>
                         <b>Badges</b>
                     </div>
                     <img src={medal} className="circle" alt="circle" align="left"/>
                     <img src={dunce} className="circle" alt="circle" align="left"  />
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
+
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
+                    <div className="button">
+
+                        <b>High contrast mode</b>
+
+                    </div>
+
                 </div>
 
                 <div className="memberRightSection">
@@ -78,6 +94,11 @@ export function MemberProfile() {
 }
 
 
+
+
+
+
+
 function GetUserName(){
     const cookies = new Cookies();
     /*cookies.set('myCat', 'Pacman', { path: '/' });*/
@@ -100,14 +121,14 @@ function GetRank(){
     let request = new XMLHttpRequest();
     let filePath = "";
     // TODO - GET CURRENT RANK FROM MAIN LEAGUE
-    /*request.open('GET', "http://localhost:5000/"+filePath+"/"+userID, true);*/
-    request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
+    request.open('GET', "http://localhost:5000/"+filePath+"/"+userID, true);
+    //request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
     request.onload = function(){
         let data = JSON.parse(this.response);
-        let rank = 1;
+        let rank = data.rank;
         if (data.error == null) {
             console.log(data);
-            let rank = 1; // TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
+            let rank = data.rank; // TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
             /*const cookies = new Cookies();*/ // TODO - DECIDE IF COOKIES HAVE TO BE SET HERE
             /*cookies.set('userName', data.value.name, { path: '/' });
             cookies.set('userID', data.value.id, { path: '/' });*/
@@ -127,7 +148,7 @@ function GetRank(){
 
     return ( // this is currently getting returned, not ideal. TODO - sort. Could be that a cookie is set then read immediately
       <div className="smaller-text">
-          <p>rank = {"1"}</p>
+          <p>rank = {"why"}</p>
       </div>
     )
 }
@@ -140,9 +161,9 @@ function GetBalance(){
     console.log(cookies.get('userName'));
     let name = cookies.get('userName');
     return (
-      <div className="sub-section-header">
-          <b>{name}</b>
-      </div>
+        <div className="sub-section-header">
+            <b>{name}</b>
+        </div>
     )
 }
 
@@ -154,8 +175,8 @@ function GetNumWins(){
     console.log(cookies.get('userName'));
     let name = cookies.get('userName');
     return (
-      <div className="sub-section-header">
-          <b>{name}</b>
-      </div>
+        <div className="sub-section-header">
+            <b>{name}</b>
+        </div>
     )
 }
