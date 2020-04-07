@@ -100,34 +100,57 @@ function EndSession() {
  */
 function DisplayLIs() {
   const cookies = new Cookies();
-  let seshID = cookies.get('sessionID');
+  let MainSeshID = cookies.get('mainSessionID');
+  let SideSeshID = cookies.get('sideSessionID');
   /*console.log("seshID: ",seshID);*/
-  if (seshID !== undefined){
+  if (MainSeshID !== undefined && SideSeshID !== undefined){
     return (
       <div>
         <MLI/>
         <br/><div className="break-line-left"/>
         <SLI/>
         <br/>
-
       </div>
     )
-  }else{
+  } else if (MainSeshID !== undefined && SideSeshID === undefined) {
+    return (
+      <div>
+        <MLI/>
+        <br/><div className="break-line-left"/>
+
+        <br/>
+      </div>
+    )
+  } else if (MainSeshID === undefined && SideSeshID !== undefined) {
+    return (
+      <div>
+
+        <br/><div className="break-line-left"/>
+        <SLI/>
+        <br/>
+      </div>
+    )
+  } else{
     return null
   }
 }
 
 function CurrentSessionID() {
-  let seshID = 1;
   const cookies = new Cookies();
-  seshID = cookies.get('sessionID');
-  console.log("seshID: ",seshID);
-  if (seshID === undefined){
-    seshID = "No Session in Current Use"
+  let MseshID = cookies.get('mainSessionID');
+  let SseshID = cookies.get('sideSessionID');
+  console.log("MseshID: ",MseshID);
+  console.log("SseshID: ",SseshID);
+  if (MseshID === undefined){
+    MseshID = "No Session in Current Use"
+  }
+  if (SseshID === undefined){
+    SseshID = "No Session in Current Use"
   }
   return (
     <div>
-      <p>Current session ID: {seshID}</p>
+      <p>Current Main League Session ID: {MseshID}</p>
+      <p>Current Side League Session ID: {SseshID}</p>
     </div>
   )
 }

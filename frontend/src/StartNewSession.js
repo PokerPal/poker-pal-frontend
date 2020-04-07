@@ -21,26 +21,20 @@ export function StartNewSession() {
         <Switch>
 
           <Route exact path="/adminOptions/createNewSession">
-            <div className="adminLeftSection">
+            <p><b>CREATE NEW SESSION</b></p>
+            <NewSessionForm/>
+
+            <button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>
+
+
+            {/*<div className="adminLeftSection">
               <p><b>CREATE NEW SESSION</b></p>
               <NewSessionForm/>
             </div>
             <div className="adminRightSection">
-              list here
-            </div>
-          </Route>
 
-{/*          <Route exact path="/adminOptions/enterSessionData/">
-            <ThisHome />
+            </div>*/}
           </Route>
-
-          <Route exact path="/adminOptions/enterSessionData/enterMainLeague">
-            <MLI />
-          </Route>
-
-          <Route exact path="/adminOptions/enterSessionData/enterSideLeague">
-            <SLI />
-          </Route>*/}
 
         </Switch>
       </Router>
@@ -52,29 +46,63 @@ export function StartNewSession() {
   )
 }
 
-function SendDataToAPI(pars) {
-  console.log("SendDataToAPI");
-  console.log(pars);
+function CheckLeagueDetails(sessionIDCookie,leagueIDforCookie) {
+  const cookies = new Cookies();
+  const method = "GET";
+  const url = "http://localhost:5000/leagues/"+leagueIDforCookie;
 
-  const method = "POST";
-  const url = "http://localhost:5000/sessions";
-  /*let params = "{" +
-      "\"email\": \"fart2@farty.com\"," +
-      "\"name\": \"asdf2\"," +
-      "\"password\": \"asdfasdf2\"" +
-      "}";
-  params = pars;*/
   let request = new XMLHttpRequest();
   request.open(method, url, true);
   request.setRequestHeader('Content-type', 'application/json');
   request.onload = function(){
-    console.log(request.responseText)
+    console.log(request.responseText);
+    let data = JSON.parse(this.response);
+    let name = data.value.name;
+    let type = data.value.type;
+    console.log("[name,type]: ",[name,type]);
+    /*return [name,type];*/
+
+    if(type === "Points") {
+      cookies.set('mainSessionID', sessionIDCookie, {path: '/'});
+      console.log("setMain")
+    } else if (type === "Cash"){
+      cookies.set('sideSessionID', sessionIDCookie, {path: '/'});
+      console.log("setSide")
+    }
+
+
+    /*let check = confirm("are  you sure you want to create a session in league name: "+name+"and type: "+type+"?");
+    console.log("check: ",check);*/
+    //return check;
+  };
+  request.send();
+}
+
+function SendDataToAPI(pars,leagueIDforCookie) {
+  const cookies = new Cookies();
+  console.log("SendDataToAPI");
+  console.log(pars);
+  const method = "POST";
+  const url = "http://localhost:5000/sessions";
+  let request = new XMLHttpRequest();
+  request.open(method, url, true);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.onload = function(){
+    console.log(request.responseText);
+    let data = JSON.parse(this.response);
+    console.log("DATA: ",data);
+    let sessionIDforCookie = data.value.id;
+
+    CheckLeagueDetails(sessionIDforCookie,leagueIDforCookie)
+    /*cookies.set('mainSessionID', IDforCookie, { path: '/' });*/
+
     // TODO cookie set here
   };
   request.send(pars);
 
-  const cookies = new Cookies();
+
   cookies.set('sessionID', '1', { path: '/' });
+  alert("Session created!");
 
 }
 
@@ -107,18 +135,35 @@ class NewSessionForm extends Component {
       || this.state.frequency.length === 0
       || this.state.venue.length === 0
       || this.state.leagueID.length === 0) {
-      /*window.alert("Please fill in all fields");*/
-      /*valid = false;*/ // TODO - UNCOMMENT ME WHEN DONE TESTING
+      window.alert("Please fill in all fields");
+      valid = false;
     }
+
+
+    /*let l = CheckLeagueDetails(this.state.leagueID);
+    console.log("GOT HERE ");
+    let check = confirm("are  you sure you want to create a session in league name: "+l[0]+"and type: "+l[1]+"?");
+    console.log("check: ",check);
+
+    console.log("returned check: ",check);
+    if(!check){
+      /!*valid = false;*!/
+      console.log("Re-enter details")
+    }else{
+      console.log("Go ahead and create session");
+    }*/
 
     if (valid) {
       SendDataToAPI("{" +
         "\"startDate\":\""+ this.state.startDate + "\"," +
         "\"endDate\":\""+ this.state.endDate + "\"," +
-        "\"frequency\":\""+this.state.frequency + "\"," +
+        "\"frequency\":"+this.state.frequency + "," +
         "\"venue\":\""+this.state.venue + "\"," +
-        "\"leagueID\":\""+this.state.leagueID+ "\"," +
-        "}");
+        "\"leagueID\":"+this.state.leagueID+ "" +
+        "}",this.state.leagueID);
+      /*const cookies = new Cookies();
+      cookies.set('sessionID', '1', { path: '/' });
+      alert("Session created!");*/
     }
 
     /*return <GoToDataInput/>*/
@@ -135,7 +180,7 @@ class NewSessionForm extends Component {
           <input type="text" name="venue" className="Input-box" placeholder="Venue" value={this.state.venue} onChange={this.handleChange}/> <br/>
           <input type="number" name="leagueID" className="Input-box" placeholder="League ID" value={this.state.leagueID} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button" >Create</button>
-          <button type="submit" value="Submit" className="Login-button" ><a className="backLink" href="/adminOptions">Back</a></button>
+          {/*<button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>*/}
         </form>
       </div>
     );
