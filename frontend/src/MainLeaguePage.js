@@ -11,10 +11,11 @@ import {
 } from "react-router-dom";
 export function MainLeaguePage() {
     const cookies = new Cookies();
-    var userID  = cookies.get('userID'); 
+    //var userID  = cookies.get('userID'); 
+    var userID = 1;
     var userName = cookies.get('userName');
     var hPlace = 10 //NEED TO GET FROM API
-    var cPlace = 10 //NEED TO GET FROM API
+    var cPlace = getCurrPlace() //NEED TO GET FROM API
     var lastUpdate = "11/10/20"
     var pHistory = {
         labels: ["January", "February", "March", "April", "May", "June", "July"], //GET FROM API
@@ -35,6 +36,19 @@ export function MainLeaguePage() {
             ]
         },
 
+    }
+    function getCurrPlace() {
+        alert("CALLED");
+        let request = new XMLHttpRequest();
+        request.open('GET', "http://localhost:5000/leagues/1/user/"+userID, false);
+        request.onload = function(){
+            let data = JSON.parse(this.response);
+            if (data.error == null) {
+                console.log("DATA");
+                return data.value.totalScore;
+            }
+        };
+        request.send();
     }
     return (
         <div className="Tournament">
