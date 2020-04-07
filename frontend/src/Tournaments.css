@@ -31,13 +31,16 @@
     border-radius: .25rem;
   }
 .graph-button{
-    background-color: #0013ae;
+    background-color: white;
     height: 30px;
     width: 80px;
     font-size: medium;
     text-align: center;
     color: white;
     border-radius: .25rem;
+}
+.tournamentLink{
+    color: white;
 }
 #title {
     text-align: center;

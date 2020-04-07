@@ -3,7 +3,12 @@ import './Tournaments.css';
 import MainLeagueLeaderboard from './MainLeagueLeaderboard'
 import {Line} from 'react-chartjs-2';
 import Cookies from 'universal-cookie';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 export function MainLeaguePage() {
     const cookies = new Cookies();
     var userID  = cookies.get('userID'); 
@@ -42,7 +47,11 @@ export function MainLeaguePage() {
                         <p>{hPlace}</p>
                         <p><strong>Last Updated</strong></p>
                         <p>{lastUpdate}</p>
-                        <p><button className="session-button" >Add Session Data</button></p>
+                        <p>
+                            <button className="session-button" >
+                                <a href="/adminOptions/enterMainLeague" className="tournamentLink">Add Session Data</a>
+                            </button>
+                        </p>
                     </div>
                     <div className="tournamentRightSection">
                             <p><strong>Place History </strong></p>

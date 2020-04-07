@@ -4,6 +4,12 @@ import './Tournaments.css'
 import {Line} from 'react-chartjs-2';
 import SideLeagueLeaderboard from "./SideLeagueLeaderboard";
 import Cookies from 'universal-cookie';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 export function SideLeaguePage() {
     const cookies = new Cookies();
     var userID  = cookies.get('userID'); 
@@ -32,8 +38,11 @@ export function SideLeaguePage() {
                         <p>{hPlace}</p>
                         <p><strong>Last Updated</strong></p>
                         <p>{lastUpdate}</p>
-                        <p><button className="session-button">Add Session Data</button></p>
-                    </div>
+                        <p>
+                            <button className="session-button" >
+                                <a href="/adminOptions/enterSideLeague" className="tournamentLink">Add Session Data</a>
+                            </button>
+                        </p>                    </div>
                     <div className="tournamentRightSection">
                             <p><strong>Balance History</strong></p>
                             <Line data={bHistory}/>                                    
