@@ -19,7 +19,7 @@ namespace Api.ModelTypes.Result
         private readonly LogInResultModel model;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateUserResultType"/> class.
+        /// Initializes a new instance of the <see cref="LogInResultType"/> class.
         /// </summary>
         /// <param name="model">The model to wrap.</param>
         public LogInResultType(LogInResultModel model)
