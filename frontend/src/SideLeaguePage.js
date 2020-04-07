@@ -16,6 +16,7 @@ export function SideLeaguePage() {
         datasets: [{
             label : 'Place History',
             backgroundColor: '#0013ae',
+            fill : false,
             borderColor: '#0013ae',
             data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
         }]
