@@ -9,6 +9,9 @@ export function DeleteUser() {
 
       <GetIDForm />
 
+      <br/>
+      <button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>
+
 
     </div>
   )
