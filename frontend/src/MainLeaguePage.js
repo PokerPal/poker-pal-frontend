@@ -16,9 +16,20 @@ export function MainLeaguePage() {
         datasets: [{
             label : 'Place History',
             backgroundColor: '#0013ae',
+            fill: false,
             borderColor: '#0013ae',
             data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
-        }]
+        }],
+    }
+    var graphOptions = {
+        scales: {
+            yAxes: [
+                {ticks: 
+                    {reverse: true}
+                }
+            ]
+        },
+
     }
     return (
         <div className="Tournament">
@@ -35,7 +46,7 @@ export function MainLeaguePage() {
                     </div>
                     <div className="tournamentRightSection">
                             <p><strong>Place History </strong></p>
-                            <Line data={pHistory}/>                                   
+                            <Line data={pHistory} options={graphOptions}/>                                   
                             <p>
                             <strong>Leaderboard </strong></p>
                             <MainLeagueLeaderboard/>
