@@ -4,10 +4,16 @@ import './Tournaments.css'
 import {Line} from 'react-chartjs-2';
 import SideLeagueLeaderboard from "./SideLeagueLeaderboard";
 import Cookies from 'universal-cookie';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 export function SideLeaguePage() {
     const cookies = new Cookies();
-    cookies.set('id', '1234', { path: '/' });
-    var userID = cookies.get('id'); // Pacman
+    var userID  = cookies.get('userID'); 
+    var userName = cookies.get('userName');
     var hPlace = 10
     var cPlace = 10
     var lastUpdate = "11/10/20"
@@ -16,6 +22,7 @@ export function SideLeaguePage() {
         datasets: [{
             label : 'Place History',
             backgroundColor: '#0013ae',
+            fill : false,
             borderColor: '#0013ae',
             data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
         }]
@@ -31,7 +38,11 @@ export function SideLeaguePage() {
                         <p>{hPlace}</p>
                         <p><strong>Last Updated</strong></p>
                         <p>{lastUpdate}</p>
-                    </div>
+                        <p>
+                            <button className="session-button" >
+                                <a href="/adminOptions/enterSideLeague" className="tournamentLink">Add Session Data</a>
+                            </button>
+                        </p>                    </div>
                     <div className="tournamentRightSection">
                             <p><strong>Balance History</strong></p>
                             <Line data={bHistory}/>                                    
