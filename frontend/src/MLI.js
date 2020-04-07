@@ -1,49 +1,10 @@
-import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {MainLeaguePage} from "./MainLeaguePage";
+import Autosuggest from "react-autosuggest";
 
-import Autosuggest from 'react-autosuggest';
-import Cookies from "universal-cookie";
-import {SLI} from './SLI'
-
-
-export function AdminOptions() {
+export function MLI() {
   return (
     <div>
-
-      {/*<Router>
-        <Switch>
-          <Route exact path="/adminOptions">
-            <MainScreen />
-          </Route>
-
-          <Route exact path="/adminOptions/enterMainLeague">
-            <MainLeagueDataEntryForm />
-          </Route>
-
-          <Route exact path="/adminOptions/enterSideLeague">
-            <SLI />
-          </Route>
-
-        </Switch>
-      </Router>*/}
-
-    </div>
-
-
-  );
-}
-
-function MainScreen() {
-  return(
-    <div>
-      <br/>
-      ADMIN OPTIONS <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterMainLeague">Enter places in Main League</a></label> <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterSideLeague">Enter in/out in Side League</a></label> <br/> <br/>
-      <b>FINISHED SESSION BUTTON HERE</b>
-      <br/>
+      <MainLeagueDataEntryForm/>
     </div>
   )
 }
@@ -175,7 +136,7 @@ class MainLeagueDataEntryForm extends Component {
       <div>
         <br/>
         <form onSubmit={this.handleSubmit}>
-          <p><b>Enter Nam: e</b></p>
+          <p><b>Enter Name:</b></p>
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -192,5 +153,3 @@ class MainLeagueDataEntryForm extends Component {
     );
   }
 }
-
-
