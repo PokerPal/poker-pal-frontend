@@ -1,5 +1,12 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Cookies from 'universal-cookie';
+
+/*import Redirect from "react-router-dom/es/Redirect";*/ // fucked
+
+
+import './adminPages.css';
+
 import {MLI} from "./MLI";
 import {SLI} from "./SLI";
 import {StartNewLeague} from "./StartNewLeague";
@@ -10,8 +17,18 @@ export function StartNewSession() {
     <div>
       <br/>
 
-      {/*<Router>
+      <Router>
         <Switch>
+
+          <Route exact path="/adminOptions/createNewSession">
+            <p><b>CREATE NEW SESSION</b></p>
+            <NewSessionForm/>
+          </Route>
+
+          <Route exact path="/adminOptions/enterSessionData/">
+            <ThisHome />
+          </Route>
+
           <Route exact path="/adminOptions/enterSessionData/enterMainLeague">
             <MLI />
           </Route>
@@ -20,16 +37,8 @@ export function StartNewSession() {
             <SLI />
           </Route>
 
-          <Route exact path="/adminOptions/enterSessionData">
-            <ThisHome />
-          </Route>
-
-          <Route exact path="/adminOptions/createNewSession">
-            <StartNewSession />
-          </Route>
-
         </Switch>
-      </Router>*/}
+      </Router>
 
       {/*<ThisHome/>*/}
 
@@ -79,8 +88,12 @@ function SendDataToAPI(pars) {
   request.setRequestHeader('Content-type', 'application/json');
   request.onload = function(){
     console.log(request.responseText)
+    // TODO cookie set here
   };
   request.send(pars)*/
+
+  const cookies = new Cookies();
+  cookies.set('sessionID', '1', { path: '/' });
 
 }
 
@@ -105,6 +118,7 @@ class NewSessionForm extends Component {
   }
 
   handleSubmit(event) {
+    console.log("huge fart");
     event.preventDefault();
     let valid = true;
     if (this.state.startDate.length === 0
@@ -112,8 +126,8 @@ class NewSessionForm extends Component {
       || this.state.frequency.length === 0
       || this.state.venue.length === 0
       || this.state.leagueID.length === 0) {
-      window.alert("Please fill in all fields");
-      valid = false;
+      /*window.alert("Please fill in all fields");*/
+      /*valid = false;*/ // TODO - UNCOMMENT ME WHEN DONE TESTING
     }
 
     if (valid) { // TODO passwords should most probably be encrypted somehow before here
@@ -124,8 +138,10 @@ class NewSessionForm extends Component {
         "\"venue\":\""+this.state.venue+
         "\"leagueID\":\""+this.state.leagueID+"\"" +
         "}");
-      GoToDataInput()
     }
+
+    /*return <GoToDataInput/>*/
+    /*return <Redirect to="/adminOptions/enterSessionData/"/>;*/
   }
 
   render() {
@@ -138,9 +154,9 @@ class NewSessionForm extends Component {
           <input type="text" name="venue" className="Input-box" placeholder="Venue" value={this.state.venue} onChange={this.handleChange}/> <br/>
           <input type="number" name="leagueID" className="Input-box" placeholder="League ID" value={this.state.leagueID} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button" >Create</button>
+          <button type="submit" value="Submit" className="Login-button" ><a className="backLink" href="/adminOptions">Back</a></button>
         </form>
       </div>
     );
   }
-
 }

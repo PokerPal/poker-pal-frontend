@@ -1,33 +1,37 @@
-import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {MainLeaguePage} from "./MainLeaguePage";
 
+/*import Redirect from "react-router-dom/es/Redirect";*/
+import {MainLeaguePage} from "./MainLeaguePage";
 import Autosuggest from 'react-autosuggest';
+
 import Cookies from "universal-cookie";
 import {SLI} from './SLI'
+import {MLI} from "./MLI";
+import {StartNewSession} from "./StartNewSession";
+import {StartNewLeague} from "./StartNewLeague";
 
 
 export function AdminOptions() {
   return (
     <div>
 
-      {/*<Router>
+      <Router>
         <Switch>
           <Route exact path="/adminOptions">
             <MainScreen />
           </Route>
 
-          <Route exact path="/adminOptions/enterMainLeague">
-            <MainLeagueDataEntryForm />
+          <Route exact path="/adminOptions/createNewSession">
+            <StartNewSession />
           </Route>
 
-          <Route exact path="/adminOptions/enterSideLeague">
-            <SLI />
+          <Route exact path="/adminOptions/createNewLeague">
+            <StartNewLeague />
           </Route>
 
         </Switch>
-      </Router>*/}
+      </Router>
 
     </div>
 
@@ -39,15 +43,76 @@ function MainScreen() {
   return(
     <div>
       <br/>
-      ADMIN OPTIONS <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterMainLeague">Enter places in Main League</a></label> <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterSideLeague">Enter in/out in Side League</a></label> <br/> <br/>
-      <b>FINISHED SESSION BUTTON HERE</b>
+      <div className="adminLeftSection">
+        <div>
+          <p><b>ADMIN OPTIONS</b></p> <br/>
+          {/*<label className="adminButtons"><a href="/adminOptions/enterMainLeague">Enter places in Main League</a></label> <br/> <br/>
+          <label className="adminButtons"><a href="/adminOptions/enterSideLeague">Enter in/out in Side League</a></label> <br/> <br/>
+          <b>FINISHED SESSION BUTTON HERE</b> <br/> <br/>*/}
+
+          <div className="break-line"/> <br/>
+
+          <label className="adminButtons"><a href="/adminOptions/createNewSession">Create New Session</a></label> <br/> <br/>
+          <CurrentSessionID/>
+          <button type="submit" value="Submit" className="Login-button" /*onClick={EndSession}*/>Finish Session</button> <br/> <br/>
+
+          <div className="break-line-right"/> <br/>
+
+          <label className="adminButtons"><a href="/adminOptions/createNewLeague">Create New League</a></label> <br/> <br/>
+
+        </div>
+      </div>
+
+      <div className="adminRightSection">
+        <DisplayLIs/>
+      </div>
+
       <br/>
     </div>
   )
 }
 
+function DisplayLIs() {
+  const cookies = new Cookies();
+  let seshID = cookies.get('sessionID');
+  /*console.log("seshID: ",seshID);*/
+  if (seshID !== undefined){
+    return (
+      <div>
+        <MLI/>
+        <br/><div className="break-line-left"/>
+        <SLI/>
+        <br/>*
+
+        {/*<div className="InputLeftSection">
+
+        </div>
+
+        <div className="InputRightSection">
+          <SLI/>
+        </div>*/}
+
+      </div>
+    )
+  }
+}
+
+function CurrentSessionID() {
+  let seshID = 1;
+  const cookies = new Cookies();
+  seshID = cookies.get('sessionID');
+  console.log("seshID: ",seshID);
+  if (seshID === undefined){
+    seshID = "No Session in Current Use"
+  }
+  return (
+    <div>
+      <p>Current session ID: {seshID}</p>
+    </div>
+  )
+}
+
+/*
 function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
   console.log("STUFF TO SEND TO BACKEND");
   console.log(un);
@@ -139,7 +204,7 @@ class MainLeagueDataEntryForm extends Component {
 
   handleChange(event) { // FROM LOGIN
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
+    /!*this.setState({value1: event.target.value1});*!/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmit(event) {
@@ -152,8 +217,8 @@ class MainLeagueDataEntryForm extends Component {
 
     event.preventDefault();
     if (valid) {
-      /*console.log(this.state.place);
-      console.log(this.state.value);*/
+      /!*console.log(this.state.place);
+      console.log(this.state.value);*!/
       SendToBackEnd(this.state.value, this.state.place)
 
     }
@@ -191,6 +256,6 @@ class MainLeagueDataEntryForm extends Component {
       </div>
     );
   }
-}
+}*/
 
 

@@ -6,7 +6,7 @@ export function StartNewLeague() {
     <div>
       <br/>
       <p><b>CREATE NEW LEAGUE</b></p>
-      {/*<NewLeagueForm/>*/}
+      <NewLeagueForm/>
     </div>
   )
 }

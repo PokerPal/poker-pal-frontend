@@ -5,9 +5,8 @@ import Autosuggest from "react-autosuggest";
 export function SLI() {
   return (
     <div>
-
+      <p><b>SIDE LEAGUE DATA INPUT</b></p>
       <CurrencyIOControl/>
-
     </div>
   )
 }
