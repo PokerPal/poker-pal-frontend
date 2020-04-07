@@ -1,9 +1,12 @@
-.adminButtons {
-    height: 0px;
-    width: 0px;
+.adminButtons { /*used for nothing? */
+    height: 10px;
+    width: 100px;
     font-size: 15px;
+    color: #0013ae;
+    background: #0013ae;
     align-content:  center;
     text-align: center;
     align-items: center;
     alignment: center;
 }
+
