@@ -30,6 +30,15 @@
     color: white;
     border-radius: .25rem;
   }
+.graph-button{
+    background-color: #0013ae;
+    height: 30px;
+    width: 80px;
+    font-size: medium;
+    text-align: center;
+    color: white;
+    border-radius: .25rem;
+}
 #title {
     text-align: center;
     font-family: arial, sans-serif;

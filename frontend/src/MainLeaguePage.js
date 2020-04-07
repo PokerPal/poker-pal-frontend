@@ -30,10 +30,10 @@ export function MainLeaguePage() {
                         <p>{hPlace}</p>
                         <p><strong>Last Updated</strong></p>
                         <p>{lastUpdate}</p>
-                        {/*<p><button className="session-button" >Add Session Data</button></p>*/}
+                        <p><button className="session-button" >Add Session Data</button></p>
                     </div>
                     <div className="tournamentRightSection">
-                            <p><strong>Place History</strong></p>
+                            <p><strong>Place History </strong></p>
                             <Line data={pHistory}/>                                   
                             <p>
                             <strong>Leaderboard </strong></p>
