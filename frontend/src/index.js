@@ -13,8 +13,8 @@ const store = createStore(rootReducer, initialStore);*/
 
 ReactDOM.render(
   <CookiesProvider>
-    {/*<LoginPage/>*/}
-    <App />
+    <LoginPage/>
+    {/*<App />*/}
   </CookiesProvider>,
   document.getElementById('root')
 );

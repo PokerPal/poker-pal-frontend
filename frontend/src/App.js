@@ -43,7 +43,7 @@ function HomeContainer(){
         <div className="headerRight">
           <ul className="navBar">
             <b>
-              <a href="/dashboard">Dashboard</a>|
+              <a href="/">Dashboard</a>|
               <a href="/login">Login</a>|
               <a href="/memberProfile">Profile</a>|
               <a href="/mainLeague">Main League</a>|
@@ -63,7 +63,7 @@ function HomeContainer(){
 
         <Router>
           <Switch>
-            <Route exact path="/dashboard">
+            <Route exact path="/">
               <Dashboard />
             </Route>
 
