@@ -23,10 +23,9 @@ export function SideLeaguePage() {
             <body>
                 <div>
                     <div className="tournamentLeftSection">
-                        <p><strong>Current Balance</strong></p>
-                        <CurrBalance/>
-                        <p><strong>Highest Balance</strong></p>
-                        <HighestBalance/>
+                        <p><strong>Current Place</strong></p>
+                        <CurrPlace/>
+                        <BalanceValues/>
                         <p><strong>Last Updated</strong></p>
                         <LastUpdated/>
                         <p>
@@ -48,7 +47,7 @@ export function SideLeaguePage() {
     );
 }
 
-class CurrBalance extends React.Component{
+class CurrPlace extends React.Component{
     constructor(props){
         super(props);
         var cookies = new Cookies();
@@ -105,12 +104,13 @@ class LastUpdated extends React.Component{
         );
     }
 }
-class HighestBalance extends React.Component{
+class BalanceValues extends React.Component{
     constructor(props){
         super(props);
         var cookies = new Cookies();
         this.state = {
-            highPlace: -1,
+            highBal: -1,
+            currBal:-1,
             userID: cookies.get('userID')
         }
     }
@@ -120,8 +120,12 @@ class HighestBalance extends React.Component{
         axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
           .then((response) => {
               var sessions = response.data.value
-              var maxPlace = sessions.reduce((max, p) => p.totalScore > max ? p.totalScore : max, sessions[0].totalScore); //Formula I stole online to get max place not sure if/how it works
-              this.setState({lastUpdate: maxPlace});
+              var currBalance = response.data.value[sessions.length-1].totalScore
+              var maxBal = sessions.reduce((max, p) => p.totalScore > max ? p.totalScore : max, sessions[0].totalScore); //Formula I stole online to get max place not sure if/how it works
+              this.setState({
+                  highBal: maxBal,
+                  currBal: currBalance
+                });
           }, (error) => {
             console.log(error);
           });
@@ -129,9 +133,17 @@ class HighestBalance extends React.Component{
     }
     render(){
         return(
-            <p>
-                {this.state.lastUpdate}
-            </p>
+            <div>
+                <p><strong>Current Balance</strong></p>
+                <p>
+                    {this.state.currBal}
+                </p>
+                <p><strong>Highest Balance</strong></p>
+                <p>
+                    {this.state.highBal}
+                </p>
+            </div>
+           
         );
     }
 }
