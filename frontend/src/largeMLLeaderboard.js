@@ -21,8 +21,8 @@ export function  LargeMLLeaderboard(){
         Header: "Main League",
         columns: [
           {
-            Header: "User ID",
-            accessor: "userId"
+            Header: "User Name",
+            accessor: "userName"
           },
           {
             Header: "Points",
