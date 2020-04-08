@@ -16,7 +16,6 @@ export function MainLeaguePage() {
     //var userID  = cookies.get('userID'); 
     const userID = 1;
     var userName = cookies.get('userName');
-    var hPlace = 10 //NEED TO GET FROM API
     var lastUpdate = "11/10/20"    
     return (
         <div className="Tournament">
@@ -53,13 +52,11 @@ class CurrPlace extends React.Component{
         super(props);
         var cookies = new Cookies();
         this.state = {
-            currPlace: -1,
+            currPlace: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
-    
     async componentDidMount(){
-        this.setState({currPlace:2})
         axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
           .then((response) => {
             this.setState({currPlace: response.data.value.totalScore});
@@ -81,7 +78,7 @@ class LastUpdated extends React.Component{
         super(props);
         var cookies = new Cookies();
         this.state = {
-            lastUpdate: -1,
+            lastUpdate: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
@@ -111,18 +108,17 @@ class HighestPlace extends React.Component{
         super(props);
         var cookies = new Cookies();
         this.state = {
-            highPlace: -1,
+            highPlace: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
     
     async componentDidMount(){
-        this.setState({currPlace:2})
         axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID+'/history')
           .then((response) => {
               var sessions = response.data.value
               var maxPlace = sessions.reduce((min, p) => p.totalScore < min ? p.totalScore : min, sessions[0].totalScore); //Formula I stole online to get min place not sure if/how it works
-              this.setState({lastUpdate: maxPlace});
+              this.setState({highPlace: maxPlace});
           }, (error) => {
             console.log(error);
           });
@@ -131,7 +127,7 @@ class HighestPlace extends React.Component{
     render(){
         return(
             <p>
-                {this.state.lastUpdate}
+                {this.state.highPlace}
             </p>
         );
     }
