@@ -99,16 +99,11 @@ window.onload = function()
     document.getElementById("button").onclick = ChangeContrast;
 };
 
-function Reload(){
-    //import "./AppContrast.css";
-    window.location.reload(true)
-}
 
 function ChangeContrast(sheet){
-    document.body.style.background= "#FCFF90";
+    //document.body.style.background= "#FCFF90";
     document.body.style.fontWeight= "bolder";
-    document.body.style.fontSize = "100px"
-    //document.body.style.cssText = "color: black";
+    document.body.style.fontSize = "200px";
     document.getElementById('pagestyle').setAttribute('href', sheet);
 }
 
