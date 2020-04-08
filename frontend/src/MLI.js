@@ -13,41 +13,84 @@ export function MLI() {
 function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
   console.log("STUFF TO SEND TO BACKEND");
   console.log(un);
-  console.log(place)
+  console.log(place);
+  let request = new XMLHttpRequest();
+  let q = "?" + "j";
+  request.open('GET', "http://localhost:5000/users" + q, true);
+  request.setRequestHeader('Content-type', 'application/json');
+  let dataReturn = [];
+  request.onload = function () {
+    let data = JSON.parse(this.response);
+    if (data.error == null) {
+      let numEntries = data.value.length; // how many users
+      console.log("numEntries: ",numEntries);
+      console.log("data.value: ",data.value);
+      console.log("data.value[0].name: ",data.value[0].name);
+      for (let i = 0;i<numEntries;i++){
+        dataReturn.push(data.value[i])
+      }
+      /*dataReturn = data.value;*/
+      return dataReturn
+    }
+  };
+  request.send();
+
 }
 
 /**
  * @return {string}
  */
-function GetUNamesFromBE() {
-  /*let request = new XMLHttpRequest();
-  request.open('GET', "http://localhost:5000/users", false);
-  let dataReturn;
+async function GetUNamesFromBE() {
+  console.log("HUGE FART");
+  let request = new XMLHttpRequest();
+  let q = "?" + "j";
+  request.open('GET', "http://localhost:5000/users" + q, true);
+  request.setRequestHeader('Content-type', 'application/json');
+  let dataReturn = [];
   request.onload = function () {
     let data = JSON.parse(this.response);
     if (data.error == null) {
       let numEntries = data.value.length; // how many users
-      console.log(data.value);
-      console.log(data.value[0].name);
-      dataReturn = data.value;
-      return data.value;
+      console.log("numEntries: ",numEntries);
+      console.log("data.value: ",data.value);
+      console.log("data.value[0].name: ",data.value[0].name);
+      for (let i = 0;i<numEntries;i++){
+        dataReturn.push(data.value[i])
+      }
+      /*dataReturn = data.value;*/
+      return dataReturn
     }
   };
-  request.send();
-  return dataReturn;*/
+  request.send("{}");
+  await sleep(500);
   console.log("MLI get names");
-  return "fart";
+  console.log(dataReturn);
+  return dataReturn;
 }
 
-const userNames = GetUNamesFromBE();
-console.log("userNames:",userNames);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+
+let userNames = GetUNamesFromBE();
+console.log("userNamessssssssssss:",userNames);
+userNames = [
+{id: 1, email: "ja853@bath.ac.uk", name: "James Austen", joined: "2020-04-08T12:53:09.6840892+01:00", authLevel: "User"},
+{id: 2, email: "lsg38@bath.ac.uk", name: "Lucy Green", joined: "2020-04-08T12:53:09.7889493+01:00", authLevel: "User"},
+{id: 3, email: "jm2787@bath.ac.uk", name: "Jake Mifsud", joined: "2020-04-08T12:53:09.8037499+01:00", authLevel: "User"},
+{id: 4, email: "snm48@bath.ac.uk", name: "Soren Mortensen", joined: "2020-04-08T12:53:09.8199115+01:00", authLevel: "User"},
+{id: 5, email: "oof26@bath.ac.uk", name: "Oisin OFlaherty", joined: "2020-04-08T12:53:09.8358016+01:00", authLevel: "User"},
+{id: 6, email: "sr2058@bath.ac.uk", name: "Sam Rosenthal", joined: "2020-04-08T12:53:09.8519434+01:00", authLevel: "User"},
+{id: 7, email: "gjcr20@bath.ac.uk", name: "Geordie Ross", joined: "2020-04-08T12:53:09.8681587+01:00", authLevel: "User"}
+];
+console.log("DATA ASDFASDF2:",userNames);
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
-
+  //usernames =GetUNamesFromBE()
   return inputLength === 0 ? [] : userNames.filter(lang =>
     lang.name.toLowerCase().slice(0, inputLength) === inputValue
   );
@@ -105,6 +148,7 @@ class MainLeagueDataEntryForm extends Component {
   };
 
   handleChange(event) { // FROM LOGIN
+    console.log("userNamessssssssssss:",userNames);
     this.setState({ [event.target.name]: event.target.value});
     /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
