@@ -143,25 +143,18 @@ namespace Application.Services
                     return "no user league found";
                 }
 
-                IEnumerable<UserLeagueEntity> userLeagueEntities;
-                if (places > 0)
-                {
-                     var aboveUserLeague = context.UserLeagues.OrderBy(ul => ul.TotalScore)
-                        .Where(ul => ul.TotalScore > userLeague.TotalScore).ToList();
+                var aboveUserLeague = context.UserLeagues.OrderBy(ul => ul.TotalScore)
+                    .Where(ul => ul.TotalScore > userLeague.TotalScore).ToList();
 
-                     aboveUserLeague = aboveUserLeague.GetRange(0, Math.Min(places, aboveUserLeague.Count));
+                aboveUserLeague = aboveUserLeague.GetRange(0, Math.Min(places, aboveUserLeague.Count));
 
-                     var underUserLeague = context.UserLeagues.OrderByDescending(ul => ul.TotalScore)
-                        .Where(ul => ul.TotalScore <= userLeague.TotalScore).ToList();
+                var underUserLeague = context.UserLeagues.OrderByDescending(ul => ul.TotalScore)
+                    .Where(ul => ul.TotalScore <= userLeague.TotalScore).ToList();
 
-                     underUserLeague = underUserLeague.GetRange(0, Math.Min(places + 1, underUserLeague.Count));
-                     userLeagueEntities = aboveUserLeague.Concat(underUserLeague).OrderByDescending(ul =>
-                      ul.TotalScore);
-                }
-                else
-                {
-                     userLeagueEntities = context.UserLeagues.Where(ul => ul.LeagueId == leagueId && ul.UserId == userId).ToList();
-                }
+                underUserLeague = underUserLeague.GetRange(0, Math.Min(places + 1, underUserLeague.Count));
+
+                IEnumerable<UserLeagueEntity> userLeagueEntities = aboveUserLeague.Concat(underUserLeague).OrderByDescending(ul =>
+                    ul.TotalScore);
 
                 return userLeagueEntities.Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore, ul.User.Name)).ToList();
             }
