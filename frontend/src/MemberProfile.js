@@ -6,6 +6,7 @@ import fifty from "./50.png"
 
 import React from "react";
 import Cookies from 'universal-cookie';
+import ProfileComparison from './ProfileComparison'
 
 export function MemberProfile() {
     return (
@@ -50,9 +51,14 @@ export function MemberProfile() {
                     <div className="smaller-text">
                         {/*<p>rank = </p>*/}
                         <GetRank/>
-                        <p>balance = </p>
-                        <p>wins = </p>
+                        <p>balance = 4</p>
+                        <p>wins = 1</p>
                     </div>
+                    <div className="tournamentRightSection">
+                        <p><strong>Compare with other Players</strong></p>
+                        <ProfileComparison/>
+                    </div>
+
 
                 </div>
             </div>
@@ -109,7 +115,7 @@ function GetRank(){
 
     return ( // this is currently getting returned, not ideal. TODO - sort. Could be that a cookie is set then read immediately
       <div className="smaller-text">
-          <p>rank = {"1"}</p>
+          <p>rank = {"5"}</p>
       </div>
     )
 }
