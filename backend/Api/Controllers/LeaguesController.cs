@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,8 +6,11 @@ using System.Threading.Tasks;
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
+
 using Application.Services;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Utility.ResultModel;
 
 namespace Api.Controllers
@@ -91,19 +95,45 @@ namespace Api.Controllers
         /// <summary>
         /// Get the details of a user league within this league.
         /// </summary>
+        /// <param name="startPlace">
+        /// The lowest-numbered place value to include in the results. Defaults to 1.
+        /// </param>
+        /// <param name="endPlace">
+        /// The highest-numbered place value to include in the results. Defaults to last place.
+        /// </param>
         /// <param name="id">The unique identifier of the league.</param>
         /// <param name="leagueService">The league service.</param>
         /// <returns>The details of the user leagues within the league.</returns>
         [HttpGet("{id}/users")]
-        public async Task<ActionResult<Result<IEnumerable<UserLeagueOutputType>, string>>> GetUsersLeagues(
-            [FromRoute] int id,
-            [FromServices] LeagueService leagueService)
+        public async Task<ActionResult<Result<IEnumerable<UserLeagueOutputType>, string>>>
+            GetUsersLeagues(
+                int? startPlace,
+                int? endPlace,
+                [FromRoute] int id,
+                [FromServices] LeagueService leagueService)
         {
             return (await leagueService.GetUserLeagues(id))
                 .Map(models => models
                     .Select(model => UserLeagueOutputType.FromModel(model))
                     .ToList())
-                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+                .AndThen<IEnumerable<UserLeagueOutputType>>(userLeagues =>
+                    {
+                        // The provided indices are all 1-indexed, because they refer to "place
+                        // value" rather than an index - so convert them to zero-based and also
+                        // calculate defaults if they weren't provided.
+                        var start = (startPlace ?? 1) - 1;
+                        var end = Math.Min(endPlace ?? userLeagues.Count, userLeagues.Count);
+
+                        if (start >= end)
+                        {
+                            return "Cannot get a list of user leagues with start place " +
+                                   $"{start} > end place {end - 1}";
+                        }
+
+                        userLeagues = userLeagues.GetRange(start, end - start);
+
+                        return Result.Ok(userLeagues.AsEnumerable());
+                    });
         }
     }
 }
