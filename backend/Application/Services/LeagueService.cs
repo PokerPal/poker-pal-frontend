@@ -74,6 +74,7 @@ namespace Application.Services
 
                 var league = await context.Leagues
                     .Include(l => l.UserLeagues)
+                    .ThenInclude(ul => ul.User)
                     .SingleOrDefaultAsync(l => l.Id == id);
 
                 return Result<LeagueEntity, string>
@@ -81,7 +82,7 @@ namespace Application.Services
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(l => l.UserLeagues
                         .Select(ul =>
-                            new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore))
+                            new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore, ul.User.Name))
                         .OrderByDescending(ul => ul.TotalScore).AsEnumerable())
                     .OnErr(e => this.logger.LogWarning(e));
             }
@@ -122,14 +123,14 @@ namespace Application.Services
             using (this.logger.BeginScope($"Getting user league with league id {leagueId} and user Id {userId}."))
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
-
+                var user = await context.Users.FindAsync(userId);
                 return Result<UserLeagueEntity, string>
                     .FromNullableOr(
                         await context.UserLeagues.FindAsync(userId, leagueId),
                         $"Details for user {userId} in league {leagueId} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(ul => new UserLeagueOutputModel(
-                        ul.UserId, ul.LeagueId, ul.TotalScore));
+                        ul.UserId, ul.LeagueId, ul.TotalScore, user.Name));
             }
         }
 

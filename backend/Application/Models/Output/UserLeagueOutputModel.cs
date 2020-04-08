@@ -11,11 +11,13 @@
         /// <param name="userId">The users unique id.</param>
         /// <param name="leagueId">The sessions unique id.</param>
         /// <param name="totalScore">The users total score for the league.</param>
-        public UserLeagueOutputModel(int userId, int leagueId, int totalScore)
+        /// <param name="userName">The users name.</param>
+        public UserLeagueOutputModel(int userId, int leagueId, int totalScore, string userName)
         {
             this.UserId = userId;
             this.LeagueId = leagueId;
             this.TotalScore = totalScore;
+            this.UserName = userName;
         }
 
         /// <summary>
@@ -32,5 +34,10 @@
         /// The total score of the user in this league.
         /// </summary>
         public int TotalScore { get; }
+
+        /// <summary>
+        /// The unique identifier of the linked user.
+        /// </summary>
+        public string UserName { get; }
     }
 }
