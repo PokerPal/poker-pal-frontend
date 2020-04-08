@@ -17,6 +17,7 @@ import {AdminOptions} from "./AdminOptions";
 import {UserSettings} from "./UserSettings";
 import {TournDataIn} from "./TournDataIn";
 import {Dashboard} from "./Dashboard";
+import {Logout} from "./Logout";
 
 import Cookies from 'universal-cookie';
 
@@ -49,8 +50,8 @@ function HomeContainer(){
               <a href="/mainLeague">Main League</a>|
               <a href="/sideLeague">Side League</a>|
               <a href="/adminOptions">Admin Options</a>|
-              {/*<a href="/tournDataIn" >Tournament Data Input</a>|*/}
-              <a href="/userSettings" >Settings</a>
+              <a href="/userSettings" >Settings</a>|
+              <a href="/logout" >Logout</a>
             </b>
           </ul>
         </div>
@@ -102,6 +103,10 @@ function HomeContainer(){
 
             <Route path="/userSettings">
               <UserSettings />
+            </Route>
+
+            <Route path="/logout">
+              <Logout />
             </Route>
           </Switch>
         </Router>
