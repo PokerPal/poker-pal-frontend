@@ -11,66 +11,6 @@ namespace Application.Services
     /// </summary>
     public class PointsService
     {
-        private ILogger<PointsService> logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PointsService"/> class.
-        /// </summary>
-        /// <param name="logger">Logger for this class.</param>
-        public PointsService(ILogger<PointsService> logger)
-        {
-            this.logger = logger;
-        }
-
-        /// <summary>
-        /// Calculate the number of points to award a player finishing in place
-        /// <paramref name="place"/>, given that <paramref name="total"/> players participated.
-        /// </summary>
-        /// <param name="place">The finishing place to calculate points for.</param>
-        /// <param name="total">The total number of players who participated in the session.</param>
-        /// <returns>The number of points to award for the given finishing place.</returns>
-        public int CalculatePoints(int place, int total)
-        {
-            using (this.logger.BeginScope($"Calculating points for place {place}/{total}."))
-            {
-                // Round the total number of players to the nearest 10.
-                var roundedTotal =
-                    (int)(Math.Round((decimal)total / 10, MidpointRounding.AwayFromZero) * 10);
-
-                this.logger.LogInformation(
-                    $"Rounded total number of places {total} to {roundedTotal}.");
-
-                if (roundedTotal == 0)
-                {
-                    this.logger.LogWarning("Rounded total was 0, using 10.");
-                    roundedTotal = 10;
-                }
-                else if (roundedTotal > 300)
-                {
-                    this.logger.LogWarning($"Rounded total was {roundedTotal}, using 300.");
-                    roundedTotal = 300;
-                }
-
-                if (!Points.TryGetValue(roundedTotal, out var points))
-                {
-                    this.logger.LogError(
-                        $"Tried to access points allocation list for total " +
-                        $"{roundedTotal} that was not in the dictionary.");
-                    return 0;
-                }
-
-                if (place > points.Count)
-                {
-                    this.logger.LogInformation(
-                        $"Place {place} is outside bubble of size {points.Count} for " +
-                        $"{total} total players.");
-                    return 0;
-                }
-
-                return points[place - 1];
-            }
-        }
-
         /// <summary>
         /// List of points assigned to each place value in the bubble, keyed by the number of total
         /// participants.
@@ -804,5 +744,65 @@ namespace Application.Services
                     4,
                 },
             };
+
+        private readonly ILogger<PointsService> logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PointsService"/> class.
+        /// </summary>
+        /// <param name="logger">Logger for this class.</param>
+        public PointsService(ILogger<PointsService> logger)
+        {
+            this.logger = logger;
+        }
+
+        /// <summary>
+        /// Calculate the number of points to award a player finishing in place
+        /// <paramref name="place"/>, given that <paramref name="total"/> players participated.
+        /// </summary>
+        /// <param name="place">The finishing place to calculate points for.</param>
+        /// <param name="total">The total number of players who participated in the session.</param>
+        /// <returns>The number of points to award for the given finishing place.</returns>
+        public int CalculatePoints(int place, int total)
+        {
+            using (this.logger.BeginScope($"Calculating points for place {place}/{total}."))
+            {
+                // Round the total number of players to the nearest 10.
+                var roundedTotal =
+                    (int)(Math.Round((decimal)total / 10, MidpointRounding.AwayFromZero) * 10);
+
+                this.logger.LogInformation(
+                    $"Rounded total number of places {total} to {roundedTotal}.");
+
+                if (roundedTotal == 0)
+                {
+                    this.logger.LogWarning("Rounded total was 0, using 10.");
+                    roundedTotal = 10;
+                }
+                else if (roundedTotal > 300)
+                {
+                    this.logger.LogWarning($"Rounded total was {roundedTotal}, using 300.");
+                    roundedTotal = 300;
+                }
+
+                if (!Points.TryGetValue(roundedTotal, out var points))
+                {
+                    this.logger.LogError(
+                        $"Tried to access points allocation list for total " +
+                        $"{roundedTotal} that was not in the dictionary.");
+                    return 0;
+                }
+
+                if (place > points.Count)
+                {
+                    this.logger.LogInformation(
+                        $"Place {place} is outside bubble of size {points.Count} for " +
+                        $"{total} total players.");
+                    return 0;
+                }
+
+                return points[place - 1];
+            }
+        }
     }
 }
