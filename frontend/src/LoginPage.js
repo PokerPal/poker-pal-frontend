@@ -6,28 +6,87 @@ import Cookies from 'universal-cookie';
 import "./slider.css";
 import "./App.css";
 import "./Layout.css";
+import App from "./App";
+
+let loggedIn = false;
 
 export function LoginPage() {
     return (
         <div className="App">
 
-            <div className="custom-header">
-                <b>Bluff Bath</b>
-            </div>
-
-            <div className="section">
-
-                <div className="leftSection">
-                    <img src={logo} className="App-logo-large" alt="logo" />
-                </div>
-
-                <div className="rightSection">
-                    <LoginControl/>
-                </div>
-
-            </div>
+            <UiControl/>
+            {/*{!loggedIn && <LoginUI />}
+            {loggedIn && <App />}*/}
         </div>
     );
+}
+
+
+class UiControl extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleLogoutClick = this.handleLogoutClick.bind(this);
+        this.state = {isLoggedIn: false};
+    }
+
+    handleLoginClick() {
+        this.setState({isLoggedIn: true});
+    }
+
+    handleLogoutClick() {
+        this.setState({isLoggedIn: false});
+    }
+
+    render() {
+        const isLoggedIn = this.state.isLoggedIn;
+        let toDisplay;
+        if (!isLoggedIn) {
+            toDisplay = <Change onClick={this.handleLoginClick()} />;
+        } else {
+            toDisplay = <Change />;
+        }
+
+        return (
+          <div>
+              {/*{toDisplay}*/}
+              <Change onClick={() => this.handleLoginClick()} />
+          </div>
+        );
+    }
+}
+
+function Change(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (!isLoggedIn) {
+        return <LoginUI />;
+    }
+    return <App />;
+}
+
+function LoginUI() {
+    return (
+      <div>
+
+          <div className="custom-header">
+              <b>Bluff Bath</b>
+          </div>
+
+          <div className="section">
+
+            <div className="leftSection">
+              <img src={logo} className="App-logo-large" alt="logo" />
+            </div>
+
+            <div className="rightSection">
+              <LoginControl/>
+            </div>
+
+          </div>
+
+      </div>
+    )
+
 }
 
 class LoginControl extends React.Component {
@@ -244,6 +303,10 @@ function Register(pars) {
 
 }
 
+let something = () => {
+    this.handleLoginClick();
+};
+
 function Login(pars) {
     const method = "POST";
     const url = "http://localhost:5000/users/logIn";
@@ -258,10 +321,16 @@ function Login(pars) {
             const cookies = new Cookies();
             cookies.set('userName', data.value.email, { path: '/' });
             cookies.set('userID', data.value.id, { path: '/' });
-            console.log("login success")
+            console.log("login success");
+            loggedIn = true;
+            something()
         } else {
             alert(data.error)
         }
     };
     request.send(pars);
+    /*handleLoginClick()*/
+    console.log("here");
+
+
 }

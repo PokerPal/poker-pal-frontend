@@ -3,7 +3,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
 import BluffBathLogo from './bluffBathLogo.png';
 import './App.css';
@@ -31,27 +32,6 @@ class App extends Component {
     }
 }
 
-export default (App);
-
-/*function Dashboard() {
-    return (
-        <div>
-            <h2>Dashboard</h2>
-        </div>
-    );
-}*/
-
-/**
- * @return {null}
- */
-function CookieTest() {
-  const cookies = new Cookies();
-  cookies.set('myCat', 'Pacman', { path: '/' });
-  console.log(cookies.get('myCat')); // Pacman
-
-  return null;
-}
-
 function HomeContainer(){
   return (
     <div>
@@ -63,7 +43,7 @@ function HomeContainer(){
         <div className="headerRight">
           <ul className="navBar">
             <b>
-              <a href="/">Dashboard</a>|
+              <a href="/dashboard">Dashboard</a>|
               <a href="/login">Login</a>|
               <a href="/memberProfile">Profile</a>|
               <a href="/mainLeague">Main League</a>|
@@ -79,13 +59,11 @@ function HomeContainer(){
 
       <div className="hrLine"/>
 
-      <CookieTest/>
-
       <section className="section">
 
         <Router>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/dashboard">
               <Dashboard />
             </Route>
 
@@ -123,3 +101,6 @@ function HomeContainer(){
     </div>
   )
 }
+
+
+export default (App);
