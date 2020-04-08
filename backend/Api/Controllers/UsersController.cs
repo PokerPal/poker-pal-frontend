@@ -7,6 +7,7 @@ using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
 
+using Application.Models.Output;
 using Application.Models.Result;
 using Application.Services;
 
@@ -87,15 +88,23 @@ namespace Api.Controllers
         /// <summary>
         /// Get the details of all users.
         /// </summary>
+        /// <param name="q">Search query to filter users.</param>
         /// <param name="userService">The user service.</param>
         /// <returns>The details of the user.</returns>
         [HttpGet("")]
-        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetAllUsers(
+        public async Task<ActionResult<Result<IEnumerable<UserOutputType>, string>>> GetUsers(
+            string q,
             [FromServices] UserService userService)
         {
-            return (await userService.GetAllUsersAsync())
-                .Map(users => users.Select(UserOutputType.FromModel))
-                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+            if (string.IsNullOrEmpty(q))
+            {
+                return (await userService.GetAllUsersAsync())
+                    .Map(users => users.Select(UserOutputType.FromModel))
+                    .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+            }
+
+            return (await userService.SearchUsersAsync(q))
+                .Map(users => users.Select(UserOutputType.FromModel));
         }
 
         /// <summary>

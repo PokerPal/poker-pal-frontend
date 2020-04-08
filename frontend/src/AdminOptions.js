@@ -1,11 +1,14 @@
-import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {MainLeaguePage} from "./MainLeaguePage";
-
-import Autosuggest from 'react-autosuggest';
 import Cookies from "universal-cookie";
+
+import './App.css'
+
 import {SLI} from './SLI'
+import {MLI} from "./MLI";
+import {StartNewSession} from "./StartNewSession";
+import {StartNewLeague} from "./StartNewLeague";
+import {DeleteUser} from './DeleteUser'
 
 
 export function AdminOptions() {
@@ -18,13 +21,19 @@ export function AdminOptions() {
             <MainScreen />
           </Route>
 
-          <Route exact path="/adminOptions/enterMainLeague">
-            <MainLeagueDataEntryForm />
+          <Route exact path="/adminOptions/createNewSession">
+            <StartNewSession />
           </Route>
 
-          <Route exact path="/adminOptions/enterSideLeague">
-            <SLI />
+          <Route exact path="/adminOptions/createNewLeague">
+            <StartNewLeague />
           </Route>
+
+          <Route exact path="/adminOptions/deleteUser">
+            <DeleteUser />
+          </Route>
+
+
 
         </Switch>
       </Router>
@@ -39,158 +48,128 @@ function MainScreen() {
   return(
     <div>
       <br/>
-      ADMIN OPTIONS <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterMainLeague">Enter places in Main League</a></label> <br/> <br/>
-      <label className="adminButtons"><a href="/adminOptions/enterSideLeague">Enter in/out in Side League</a></label> <br/> <br/>
-      <b>FINISHED SESSION BUTTON HERE</b>
+      <div className="adminLeftSection">
+        <div>
+          <p><b>ADMIN OPTIONS</b></p> <br/>
+
+          <div className="break-line-right"/> <br/>
+
+          <label className="adminButtons"><a href="/adminOptions/createNewSession">Create New Session</a></label> <br/> <br/>
+
+          <CurrentSessionID/>
+          <button type="submit" value="Submit" className="Login-button" onClick={EndMainSession}>Finish Main Session</button> <br/> <br/>
+          <button type="submit" value="Submit" className="Login-button" onClick={EndSideSession}>Finish Side Session</button> <br/> <br/>
+
+          <div className="break-line-right"/> <br/>
+
+          <label className="adminButtons"><a href="/adminOptions/createNewLeague">Create New League</a></label> <br/> <br/>
+
+          <div className="break-line-right"/> <br/>
+
+          <button className="Login-button"><a className="backLink" href="/adminOptions/deleteUser">Delete User </a></button> <br/> <br/>
+
+          <div className="break-line-right"/> <br/>
+
+        </div>
+      </div>
+
+      <div className="adminRightSection">
+        <DisplayLIs/>
+      </div>
+
       <br/>
     </div>
   )
 }
-
-function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
-  console.log("STUFF TO SEND TO BACKEND");
-  console.log(un);
-  console.log(place)
+function EndMainSession() {
+  const cookies = new Cookies();
+  let MainSeshID = cookies.get('mainSessionID');
+  cookies.remove('mainSessionID');
+  EndSession(MainSeshID)
+}
+function EndSideSession() {
+  const cookies = new Cookies();
+  let SideSeshID = cookies.get('sideSessionID');
+  cookies.remove('sideSessionID');
+  EndSession(SideSeshID)
 }
 
-function GetUNamesFromBE() {
-  /*let request = new XMLHttpRequest();
-  request.open('GET', "http://localhost:5000/users", false);
-  let dataReturn;
-  request.onload = function () {
-    let data = JSON.parse(this.response);
-    if (data.error == null) {
-      let numEntries = data.value.length; // how many users
-      console.log(data.value);
-      console.log(data.value[0].name);
-      dataReturn = data.value;
-      return data.value;
-    }
+function EndSession(idToEnd) {
+  const cookies = new Cookies();
+  const method = "POST";
+  const url = "http://localhost:5000/sessions/" + idToEnd + "/finalize";
+
+  let request = new XMLHttpRequest();
+  request.open(method, url, true);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.onload = function(){
+    console.log(request.responseText)
+
   };
-  request.send();*/
-  return "fart";
+  request.send();
+
+  cookies.remove('sessionID');
+  console.log("cookie val: ", cookies.get('seshID'));
+
+  window.location.reload(true)
 }
 
-const userNames = GetUNamesFromBE();
-console.log("userNames:",userNames);
-
-
-// Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0 ? [] : userNames.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
-  );
-};
-
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
-
-// Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.name}
-  </div>
-);
-
-class MainLeagueDataEntryForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      place: '',
-      value: '',
-      suggestions: []
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
-    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
-
-  }
-
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
-    });
-  };
-
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
-
-  // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
-
-  handleChange(event) { // FROM LOGIN
-    this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
-  }
-
-  handleSubmit(event) {
-    let valid = true;
-    if (this.state.value.length === 0
-      || this.state.place.length === 0) {
-      window.alert("Please fill in all fields");
-      valid = false;
-    }
-
-    event.preventDefault();
-    if (valid) {
-      /*console.log(this.state.place);
-      console.log(this.state.value);*/
-      SendToBackEnd(this.state.value, this.state.place)
-
-    }
-
-  }
-
-  render() {
-    const { value, suggestions } = this.state;
-
-    // Autosuggest will pass through all these props to the input.
-    const inputProps = {
-      placeholder: 'Enter a username',
-      value,
-      onChange: this.onChange,
-      className: 'Input-box'
-    };
-
+/**
+ * @return {null}
+ */
+function DisplayLIs() {
+  const cookies = new Cookies();
+  let MainSeshID = cookies.get('mainSessionID');
+  let SideSeshID = cookies.get('sideSessionID');
+  /*console.log("seshID: ",seshID);*/
+  if (MainSeshID !== undefined && SideSeshID !== undefined){
     return (
       <div>
+        <MLI/>
+        <br/><div className="break-line-left"/>
+        <SLI/>
         <br/>
-        <form onSubmit={this.handleSubmit}>
-          <p><b>Enter Nam: e</b></p>
-          <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-          />
-          <p><b>Enter Place: </b></p>
-          <input type="number" name="place" className="Input-box" placeholder="Place" value={this.state.place} onChange={this.handleChange}/> <br/> <br/>
-          <button type="submit" value="Submit" className="Login-button">Submit</button>
-        </form>
       </div>
-    );
+    )
+  } else if (MainSeshID !== undefined && SideSeshID === undefined) {
+    return (
+      <div>
+        <MLI/>
+        <br/><div className="break-line-left"/>
+
+        <br/>
+      </div>
+    )
+  } else if (MainSeshID === undefined && SideSeshID !== undefined) {
+    return (
+      <div>
+
+        <br/><div className="break-line-left"/>
+        <SLI/>
+        <br/>
+      </div>
+    )
+  } else{
+    return null
   }
 }
 
-
+function CurrentSessionID() {
+  const cookies = new Cookies();
+  let MseshID = cookies.get('mainSessionID');
+  let SseshID = cookies.get('sideSessionID');
+  console.log("MseshID: ",MseshID);
+  console.log("SseshID: ",SseshID);
+  if (MseshID === undefined){
+    MseshID = "No Session in Current Use"
+  }
+  if (SseshID === undefined){
+    SseshID = "No Session in Current Use"
+  }
+  return (
+    <div>
+      <p>Current Main League Session ID: {MseshID}</p>
+      <p>Current Side League Session ID: {SseshID}</p>
+    </div>
+  )
+}
