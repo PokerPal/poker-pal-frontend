@@ -31,6 +31,11 @@ namespace Api.ModelTypes.Output
         /// </summary>
         public int TotalScore => this.Model.TotalScore;
 
+        /// <summary>
+        /// The user's name.
+        /// </summary>
+        public string UserName => this.Model.UserName;
+
         internal UserLeagueOutputModel Model { get; set; }
     }
 }
