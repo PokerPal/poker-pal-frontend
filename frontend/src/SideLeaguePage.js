@@ -31,7 +31,7 @@ export function SideLeaguePage() {
                         <LastUpdated/>
                         <p>
                             <button className="session-button" >
-                                <a href="/adminOptions/enterMainLeague" className="tournamentLink">Add Session Data</a>
+                                <a href="/adminOptions/enterSideLeague" className="tournamentLink">Add Session Data</a>
                             </button>
                         </p>
                     </div>
