@@ -113,24 +113,24 @@ class WinStreak extends React.Component{constructor(props){
     }
 }
 
-async componentDidMount(){
-    this.setState({currPlace:2})
-    axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
-      .then((response) => {
-          this.setState({
-              streak: response.data.value.streak,
-              WL: response.data.value.streakType
-            });
-      }, (error) => {
-        console.log(error);
-      });
-    
-}
-render(){
-    return(
-        <p>
-            {this.state.streak + " " + this.state.WL}
-        </p>
-    );
-}
+    async componentDidMount(){
+        this.setState({currPlace:2})
+        axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+        .then((response) => {
+            this.setState({
+                streak: response.data.value.streak,
+                WL: response.data.value.streakType
+                });
+        }, (error) => {
+            console.log(error);
+        });
+        
+    }
+    render(){
+        return(
+            <p>
+                {this.state.streak + " " + this.state.WL}
+            </p>
+        );
+    }
 }
