@@ -8,7 +8,7 @@ import React from "react";
 import Cookies from 'universal-cookie';
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
-import MainLeagueLeaderboard from "./MainLeagueLeaderboard";
+import LargeMLLeaderboard from "./LargeMLLeaderboard";
 
 export function MemberProfile() {
     var hPlace = 10 //NEED TO GET FROM API
