@@ -54,6 +54,7 @@ export function MemberProfile() {
                     <img src={dunce} className="circle" alt="circle" align="left"  />
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
+
                     <br></br>
                     <br></br>
                     <br></br>
@@ -68,25 +69,9 @@ export function MemberProfile() {
                             <b>High contrast mode</b>
                         </div>
                     </p>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
 
-                    <link id="pagestyle" rel="stylesheet" type="text/css" href="App.css"/>
-
-                    <p id="button" onClick="ChangeContrast('AppContrast.css')">
-                        <div className="button">
-                            <b>High contrast mode</b>
-                        </div>
-                    </p>
-
-
-                    <input type="checkbox" id="checkbox" name="highContrast" value="contrast"/>
-                        <label htmlFor="uni"> uni </label>
+                    {/*<input type="checkbox" id="checkbox" name="highContrast" value="contrast"/>*/}
+                    {/*    <label htmlFor="uni"> uni </label>*/}
 
                 </div>
 

@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import "./slider.css";
 import "./App.css";
 import "./Layout.css";
+import "./adminPages.css";
 import App from "./App";
 
 
@@ -56,7 +57,7 @@ class LoginForm extends Component {
         /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
     }
 
-    handleLoginSubmit(event) {
+    async handleLoginSubmit(event) {
         console.log("username: " + this.state.username);
         console.log("password: " + this.state.password);
 
@@ -73,19 +74,23 @@ class LoginForm extends Component {
             this.state.username = username;
         }
 
+        const cookies = new Cookies();
         event.preventDefault();
         if (valid) {
             let pars = "{" +
-              "\"email\": \""+ this.state.username +"@bath.ac.uk\", " +
-              "\"password\": \""+this.state.password+"\"" +
+              "\"email\": \"" + this.state.username + "@bath.ac.uk\", " +
+              "\"password\": \"" + this.state.password + "\"" +
               "}";
             console.log(pars);
             let res = LoginRequest(pars);
-            console.log("res: ",res);
-            if(res){
+            console.log("res: ", res);
+            if (res) {
                 console.log("success innit ");
-                this.setState({isLoggedIn:true})
-            }else{
+                await sleep(300);
+                if (cookies.get('loggedIn') !== undefined) {
+                    this.setState({isLoggedIn: true})
+                }
+            } else {
                 console.log("not quick enough ")
             }
 
@@ -162,24 +167,28 @@ class LoginForm extends Component {
                       <div className="custom-header">
                           <b>Bluff Bath</b>
                       </div>
+
                       <div className="section">
-                          <div className="leftSection">
-                              <img src={logo} className="App-logo-large" alt="logo" />
-                          </div>
+                          <div className="main-container">
+                              <div>
+                                  <div className="leftSection">
+                                      <img src={logo} className="App-logo-large" alt="logo" />
+                                  </div>
 
-                          <div className="rightSection">
-                              {button}
-                              <p><b>REGISTER</b></p>
-                              <form onSubmit={this.handleRegisterSubmit}>
-                                  <input type="text" name="firstName" className="Input-box" placeholder="First Name" value={this.state.firstName} onChange={this.handleChange}/> <br/>
-                                  <input type="text" name="lastName" className="Input-box" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange}/> <br/>
-                                  <input type="text" name="newUsername" className="Input-box" placeholder="Bath username" value={this.state.newUsername} onChange={this.handleChange}/> <br/>
-                                  <input type="password" name="newPassword" className="Input-box" placeholder="Password" value={this.state.newPassword} onChange={this.handleChange}/> <br/>
-                                  <input type="password" name="confirmPassword" className="Input-box" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleChange}/> <br/> <br/>
-                                  <button type="submit" value="Submit" className="Login-button" >Register</button>
-                              </form>
+                                  <div className="rightSection">
+                                      {button}
+                                      <p><b>REGISTER</b></p>
+                                      <form onSubmit={this.handleRegisterSubmit}>
+                                          <input type="text" name="firstName" className="Input-box" placeholder="First Name" value={this.state.firstName} onChange={this.handleChange}/> <br/>
+                                          <input type="text" name="lastName" className="Input-box" placeholder="Last Name" value={this.state.lastName} onChange={this.handleChange}/> <br/>
+                                          <input type="text" name="newUsername" className="Input-box" placeholder="Bath username" value={this.state.newUsername} onChange={this.handleChange}/> <br/>
+                                          <input type="password" name="newPassword" className="Input-box" placeholder="Password" value={this.state.newPassword} onChange={this.handleChange}/> <br/>
+                                          <input type="password" name="confirmPassword" className="Input-box" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleChange}/> <br/> <br/>
+                                          <button type="submit" value="Submit" className="Login-button" >Register</button>
+                                      </form>
+                                  </div>
+                              </div>
                           </div>
-
                       </div>
 
                   </div>
@@ -193,23 +202,26 @@ class LoginForm extends Component {
                       </div>
 
                       <div className="section">
+                          <div className="main-container">
+                              <div>
 
-                          <div className="leftSection">
-                              <img src={logo} className="App-logo-large" alt="logo" />
+                                  <div className="leftSection">
+                                      <img src={logo} className="App-logo-large" alt="logo" />
+                                  </div>
+
+                                  <div className="rightSection">
+                                      {button}
+                                      <p><b>LOGIN</b></p>
+                                      <form onSubmit={this.handleLoginSubmit}>
+                                          <input type="text" name="username" className="Input-box" placeholder="Bath username"
+                                                 value={this.state.username} onChange={this.handleChange}/> <br/>
+                                          <input type="password" name="password" className="Input-box" placeholder="Password"
+                                                 value={this.state.password} onChange={this.handleChange}/> <br/> <br/>
+                                          <button type="submit" value="Submit" className="Login-button">Login</button>
+                                      </form>
+                                  </div>
+                              </div>
                           </div>
-
-                          <div className="rightSection">
-                              {button}
-                              <p><b>LOGIN</b></p>
-                              <form onSubmit={this.handleLoginSubmit}>
-                                  <input type="text" name="username" className="Input-box" placeholder="Bath username"
-                                         value={this.state.username} onChange={this.handleChange}/> <br/>
-                                  <input type="password" name="password" className="Input-box" placeholder="Password"
-                                         value={this.state.password} onChange={this.handleChange}/> <br/> <br/>
-                                  <button type="submit" value="Submit" className="Login-button">Login</button>
-                              </form>
-                          </div>
-
                       </div>
 
                   </div>
@@ -258,7 +270,7 @@ function RegisterButton(props) {
 async function LoginRequest(pars) {
     const method = "POST";
     const url = "http://localhost:5000/users/logIn";
-
+    let success = false;
     let request = new XMLHttpRequest();
     request.open(method, url, true);
     request.setRequestHeader('Content-type', 'application/json');
@@ -266,29 +278,29 @@ async function LoginRequest(pars) {
         let data = JSON.parse(this.response);
         console.log("data: ", data);
         if (data.error == null) {
+            /*if (data.error != )*/
             const cookies = new Cookies();
             cookies.set('userName', data.value.email.split('@')[0], {path: '/'});
             cookies.set('userID', data.value.id, {path: '/'});
             cookies.set('loggedIn', true, {path: '/'});
             console.log("login success");
             console.log("request.status: ", request.status);
-            return true;
+            success = true;
+            /*return true;*/
         } else {
             alert(data.error);
-            return false;
+            success = false;
+            /*return false;*/
         }
     };
     request.send(pars);
     console.log("before");
     await sleep(10000);
     console.log("after");
-    if (request.status === 200) {
-        console.log("wooo");
+    /*if (request.status === 200) {*/
+    if (success){
         return true
     } else {
-        console.log("ooow");
-        console.log(request.status);
-        console.log("request.onload: ", request.onload);
         return false
     }
 
