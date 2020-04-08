@@ -136,7 +136,9 @@ namespace Application.Services
                     .Include(l => l.UserLeagues)
                     .ThenInclude(ul => ul.User)
                     .SingleOrDefaultAsync(l => l.Id == leagueId);
+
                 var userLeague = await context.UserLeagues.FindAsync(userId, leagueId);
+
                 if (userLeague == null)
                 {
                     this.logger.LogWarning($"no user league found for user{userId} within league {leagueId}");
