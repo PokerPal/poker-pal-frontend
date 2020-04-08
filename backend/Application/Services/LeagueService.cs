@@ -137,15 +137,26 @@ namespace Application.Services
                     .ThenInclude(ul => ul.User)
                     .SingleOrDefaultAsync(l => l.Id == leagueId);
                 var userLeague = await context.UserLeagues.FindAsync(userId, leagueId);
+                if (userLeague == null)
+                {
+                    this.logger.LogWarning($"no user league found for user{userId} within league {leagueId}");
+                    return "no user league found";
+                }
+
                 IEnumerable<UserLeagueEntity> userLeagueEntities;
                 if (places > 0)
                 {
-                     var aboveUserLeague = context.UserLeagues.OrderByDescending(ul => ul.TotalScore)
-                        .Where(ul => ul.TotalScore > userLeague.TotalScore).ToList().GetRange(0, places);
+                     var aboveUserLeague = context.UserLeagues.OrderBy(ul => ul.TotalScore)
+                        .Where(ul => ul.TotalScore > userLeague.TotalScore).ToList();
+
+                     aboveUserLeague = aboveUserLeague.GetRange(0, Math.Min(places, aboveUserLeague.Count));
+
                      var underUserLeague = context.UserLeagues.OrderByDescending(ul => ul.TotalScore)
-                        .Where(ul => ul.TotalScore < userLeague.TotalScore).ToList().GetRange(0, places);
-                     aboveUserLeague.Append(userLeague);
-                     userLeagueEntities = aboveUserLeague.Concat(underUserLeague);
+                        .Where(ul => ul.TotalScore <= userLeague.TotalScore).ToList();
+
+                     underUserLeague = underUserLeague.GetRange(0, Math.Min(places + 1, underUserLeague.Count));
+                     userLeagueEntities = aboveUserLeague.Concat(underUserLeague).OrderByDescending(ul =>
+                      ul.TotalScore);
                 }
                 else
                 {
