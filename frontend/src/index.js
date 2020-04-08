@@ -4,20 +4,38 @@ import App from './App';
 import {CookiesProvider, Provider} from 'react-cookie';
 import './index.css';
 import {LoginPage} from "./LoginPage";
-// import BrowserRouter from "react-router-dom/modules/BrowserRouter";
+import Cookies from 'universal-cookie';
 
-/*let initialStore = {
+const cookies = new Cookies();
+let logged = cookies.get('loggedIn');
 
-};
-const store = createStore(rootReducer, initialStore);*/
+if (!logged){
+  ReactDOM.render(
+    <CookiesProvider>
+      <LoginPage/>
+    </CookiesProvider>,
+    document.getElementById('root')
+  );
+} else {
+  ReactDOM.render(
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>,
+    document.getElementById('root')
+  );
+}
 
+
+/*
 ReactDOM.render(
   <CookiesProvider>
-    <LoginPage/>
-    {/*<App />*/}
+    <ToRender />
+    {/!*<LoginPage/>*!/}
+    {/!*<App />*!/}
   </CookiesProvider>,
   document.getElementById('root')
 );
+*/
 
 
 /* past, unchanged

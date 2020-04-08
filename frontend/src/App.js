@@ -43,8 +43,8 @@ function HomeContainer(){
         <div className="headerRight">
           <ul className="navBar">
             <b>
-              <a href="/">Dashboard</a>|
-              <a href="/login">Login</a>|
+              <a href="/dashboard">Dashboard</a>|
+              {/*<a href="/login">Login</a>|*/}
               <a href="/memberProfile">Profile</a>|
               <a href="/mainLeague">Main League</a>|
               <a href="/sideLeague">Side League</a>|
@@ -65,11 +65,16 @@ function HomeContainer(){
           <Switch>
             <Route exact path="/">
               <Dashboard />
+              {/*<LoginPage/>*/}
             </Route>
 
-            <Route path="/login">
-              <LoginPage />
+            <Route exact path="/dashboard">
+              <Dashboard />
             </Route>
+
+            {/*<Route path="/login">
+              <LoginPage />
+            </Route>*/}
 
             <Route path="/memberProfile">
               <MemberProfile />

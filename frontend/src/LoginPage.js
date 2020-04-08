@@ -85,6 +85,8 @@ class LoginForm extends Component {
             if(res){
                 console.log("success innit ");
                 this.setState({isLoggedIn:true})
+            }else{
+                console.log("not quick enough ")
             }
 
 
@@ -253,7 +255,7 @@ function RegisterButton(props) {
 /**
  * @return {boolean}
  */
-function LoginRequest(pars) {
+async function LoginRequest(pars) {
     const method = "POST";
     const url = "http://localhost:5000/users/logIn";
 
@@ -267,6 +269,7 @@ function LoginRequest(pars) {
             const cookies = new Cookies();
             cookies.set('userName', data.value.email.split('@')[0], {path: '/'});
             cookies.set('userID', data.value.id, {path: '/'});
+            cookies.set('loggedIn', true, {path: '/'});
             console.log("login success");
             console.log("request.status: ", request.status);
             return true;
@@ -276,11 +279,13 @@ function LoginRequest(pars) {
         }
     };
     request.send(pars);
-
+    console.log("before");
+    await sleep(10000);
+    console.log("after");
     if (request.status === 200) {
         console.log("wooo");
         return true
-    }else{
+    } else {
         console.log("ooow");
         console.log(request.status);
         console.log("request.onload: ", request.onload);
@@ -292,4 +297,8 @@ function LoginRequest(pars) {
     }
     console.log("done waiting")*/
 
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
