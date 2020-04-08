@@ -265,7 +265,7 @@ function LoginRequest(pars) {
         console.log("data: ", data);
         if (data.error == null) {
             const cookies = new Cookies();
-            cookies.set('userName', data.value.email, {path: '/'});
+            cookies.set('userName', data.value.email.split('@')[0], {path: '/'});
             cookies.set('userID', data.value.id, {path: '/'});
             console.log("login success");
             console.log("request.status: ", request.status);
