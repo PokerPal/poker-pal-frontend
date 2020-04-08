@@ -55,6 +55,7 @@ export function MemberProfile() {
                     <img src={dunce} className="circle" alt="circle" align="left"  />
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
+
                     <br></br>
                     <br></br>
                     <br></br>
@@ -69,6 +70,10 @@ export function MemberProfile() {
                             <b>High contrast mode</b>
                         </div>
                     </p>
+
+                    {/*<input type="checkbox" id="checkbox" name="highContrast" value="contrast"/>*/}
+                    {/*    <label htmlFor="uni"> uni </label>*/}
+
                 </div>
 
                 <div className="memberRightSection">
@@ -109,6 +114,21 @@ function ChangeContrast(sheet){
 
 
 
+window.onload = function() {
+    document.getElementById("button").onclick = ChangeContrast;
+};
+
+function Reload(){
+    //import "./AppContrast.css";
+    window.location.reload(true)
+}
+
+function ChangeContrast(sheet){
+    document.body.style.background= "#FCFF90";
+    document.body.style.fontWeight= "bold";
+    //document.body.style.cssText = "color: black";
+    document.getElementById('pagestyle').setAttribute('href', sheet);
+}
 
 function GetUserName(){
     const cookies = new Cookies();
@@ -134,10 +154,15 @@ function GetRank(){
     let url = "http://localhost:5000/"+leagueID+"/user/"+userID;
 
     let request = new XMLHttpRequest();
+    let filePath = "";
+    // TODO - GET CURRENT RANK FROM MAIN LEAGUE
+    //request.open('GET', "http://localhost:5000/"+filePath+"/"+userID, true);
+    //request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
     request.open(method, url, true);
     let rank;
     request.onload = function(){
         let data = JSON.parse(this.response);
+        let rank = data.rank;
         if (data.error == null) {
             console.log(data);
             let rank = data.value.totalScore;// TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED

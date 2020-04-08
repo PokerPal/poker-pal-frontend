@@ -122,8 +122,8 @@ namespace Application.Services
 
                 return Result<UserLeagueEntity, string>
                     .FromNullableOr(
-                        await context.UserLeagues.FindAsync(leagueId, userId),
-                        $"User league with league id {leagueId} and user Id {userId} not found.")
+                        await context.UserLeagues.FindAsync(userId, leagueId),
+                        $"Details for user {userId} in league {leagueId} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(ul => new UserLeagueOutputModel(
                         ul.UserId, ul.LeagueId, ul.TotalScore));

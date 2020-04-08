@@ -3,7 +3,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
 import BluffBathLogo from './bluffBathLogo.png';
 import './App.css';
@@ -16,6 +17,7 @@ import {AdminOptions} from "./AdminOptions";
 import {UserSettings} from "./UserSettings";
 import {TournDataIn} from "./TournDataIn";
 import {Dashboard} from "./Dashboard";
+import {Logout} from "./Logout";
 
 import Cookies from 'universal-cookie';
 
@@ -31,27 +33,6 @@ class App extends Component {
     }
 }
 
-export default (App);
-
-/*function Dashboard() {
-    return (
-        <div>
-            <h2>Dashboard</h2>
-        </div>
-    );
-}*/
-
-/**
- * @return {null}
- */
-function CookieTest() {
-  const cookies = new Cookies();
-  cookies.set('myCat', 'Pacman', { path: '/' });
-  console.log(cookies.get('myCat')); // Pacman
-
-  return null;
-}
-
 function HomeContainer(){
   return (
     <div>
@@ -63,14 +44,14 @@ function HomeContainer(){
         <div className="headerRight">
           <ul className="navBar">
             <b>
-              <a href="/">Dashboard</a>|
-              <a href="/login">Login</a>|
+              <a href="/dashboard">Dashboard</a>|
+              {/*<a href="/login">Login</a>|*/}
               <a href="/memberProfile">Profile</a>|
               <a href="/mainLeague">Main League</a>|
               <a href="/sideLeague">Side League</a>|
               <a href="/adminOptions">Admin Options</a>|
-              {/*<a href="/tournDataIn" >Tournament Data Input</a>|*/}
-              <a href="/userSettings" >Settings</a>
+              <a href="/userSettings" >Settings</a>|
+              <a href="/logout" >Logout</a>
             </b>
           </ul>
         </div>
@@ -78,8 +59,6 @@ function HomeContainer(){
       </header>
 
       <div className="hrLine"/>
-
-      <CookieTest/>
 
       <section className="section">
         <br/>
@@ -91,11 +70,16 @@ function HomeContainer(){
           <Switch>
             <Route exact path="/">
               <Dashboard />
+              {/*<LoginPage/>*/}
             </Route>
 
-            <Route path="/login">
-              <LoginPage />
+            <Route exact path="/dashboard">
+              <Dashboard />
             </Route>
+
+            {/*<Route path="/login">
+              <LoginPage />
+            </Route>*/}
 
             <Route path="/memberProfile">
               <MemberProfile />
@@ -120,6 +104,10 @@ function HomeContainer(){
             <Route path="/userSettings">
               <UserSettings />
             </Route>
+
+            <Route path="/logout">
+              <Logout />
+            </Route>
           </Switch>
         </Router>
 
@@ -129,3 +117,6 @@ function HomeContainer(){
     </div>
   )
 }
+
+
+export default (App);
