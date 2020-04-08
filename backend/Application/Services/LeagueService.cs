@@ -144,12 +144,13 @@ namespace Application.Services
                 }
 
                 var aboveUserLeague = context.UserLeagues.OrderBy(ul => ul.TotalScore)
-                    .Where(ul => ul.TotalScore > userLeague.TotalScore).ToList();
+                    .Where(ul => ul.TotalScore > userLeague.TotalScore && ul.LeagueId == leagueId)
+                    .ToList();
 
                 aboveUserLeague = aboveUserLeague.GetRange(0, Math.Min(places, aboveUserLeague.Count));
 
                 var underUserLeague = context.UserLeagues.OrderByDescending(ul => ul.TotalScore)
-                    .Where(ul => ul.TotalScore <= userLeague.TotalScore).ToList();
+                    .Where(ul => ul.TotalScore <= userLeague.TotalScore && ul.LeagueId == leagueId).ToList();
 
                 underUserLeague = underUserLeague.GetRange(0, Math.Min(places + 1, underUserLeague.Count));
 
