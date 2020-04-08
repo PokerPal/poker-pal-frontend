@@ -22,10 +22,10 @@ export function MainLeaguePage() {
             <body>
                 <div>
                     <div className="tournamentLeftSection">
-                        <p><strong>Current Place</strong></p>
+                        <p><strong>Current Points</strong></p>
                         <CurrPlace/>
-                        <p><strong>Highest Place</strong></p>
-                        <HighestPlace/>
+                        <p><strong>Win Streak</strong></p>
+                        <WinStreak/>
                         <p><strong>Last Updated</strong></p>
                         <LastUpdated/>
                         <p>
@@ -103,7 +103,7 @@ class LastUpdated extends React.Component{
         );
     }
 }
-class HighestPlace extends React.Component{
+class WinStreak extends React.Component{
     constructor(props){
         super(props);
         var cookies = new Cookies();
