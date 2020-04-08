@@ -1,9 +1,26 @@
+:root{
+  --uniColour: #0013ae;
+
+}
+
+
+
+input[type="checkbox"]:not(:checked) + label[for="uni"] {
+  --uniColour: #0013ae;
+  color: var(--uniColour);
+}
+
+input[type="checkbox"]:checked + label[for="uni"] {
+  --uniColour: black;
+  color: black;
+}
+
 .App {
   text-align: center;
 }
 
 .universalTextColour {
-  color: #0013ae;
+  color: var(--uniColour);
   font-family: 'Poppins', Arial, sans-serif;
 }
 
@@ -20,11 +37,11 @@
 }
 
 .Page-header {
-  color: #0013ae;
+  color: var(--uniColour);
 }
 
 .App-header {
-  background-color: #0013ae;
+  background-color: var(--uniColour);
   height: 30%;
   padding: 20px;
   font-size: 150px;
@@ -36,7 +53,7 @@
   height: 30%;
   padding: 20px;
   font-size: calc(0px + 15vmin);
-  color: #0013ae;
+  color: var(--uniColour);
   font-family: 'Poppins', Arial, sans-serif;
 }
 
@@ -44,7 +61,7 @@
   height: 20%;
   padding: 20px;
   font-size: calc(0px + 15vmin);
-  color: #0013ae;
+  color: var(--uniColour);
   font-family: 'Poppins', Arial, sans-serif;
 }
 
@@ -54,7 +71,7 @@
   height: 10%;
   padding: 5px;
   font-size: 60px;
-  color: #0013ae;
+  color: var(--uniColour);
   font-family: Arial;
 }
 
@@ -72,14 +89,14 @@
   height: 10%;
 
   font-size: 20px;
-  color: #0013ae;
+  color: var(--uniColour);
   font-family: Arial;
 }
 
 .App-intro {
   font-size: 50pt;
   font-weight: 600;
-  color: #0013ae;
+  color: var(--uniColour);
 }
 
 .Input-box {
@@ -91,7 +108,7 @@
 }
 
 .Login-button {
-  background-color: #0013ae;
+  background-color: var(--uniColour);
   height: 50px;
   width: 100px;
   font-size: medium;
@@ -121,7 +138,7 @@ padding: 20px;
   float:left;
   width: 40%;
   text-align: left;
-  color: #0013ae
+  color: var(--uniColour);
 }
 
 .button {
@@ -144,9 +161,10 @@ padding: 20px;
 
 }
 
-.button:d {
 
-}
+
+
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

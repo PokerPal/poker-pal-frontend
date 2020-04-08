@@ -4,7 +4,7 @@ import dunce from "./Dunce.png"
 import nine from "./9.png"
 import fifty from "./50.png"
 
-import React, {Component} from "react";
+import * as React from "react";
 import Cookies from 'universal-cookie';
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
@@ -25,9 +25,9 @@ export function MemberProfile() {
             borderColor: '#0013ae',
             data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
         }]
-    }
+    };
     return (
-        <div className="AppContrast">
+        <div className="App">
             <div className="side-custom-header">
                 <b>Profile</b>
             </div>
@@ -54,8 +54,6 @@ export function MemberProfile() {
                     <img src={dunce} className="circle" alt="circle" align="left"  />
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
-
-
                     <br></br>
                     <br></br>
                     <br></br>
@@ -64,12 +62,17 @@ export function MemberProfile() {
                     <br></br>
                     <br></br>
 
+                    <link id="pagestyle" rel="stylesheet" type="text/css" href="App.css"/>
 
-                    <p id="button" onClick="ChangeContrast()">
+                    <p id="button" onClick="ChangeContrast('AppContrast.css')">
                         <div className="button">
                             <b>High contrast mode</b>
                         </div>
                     </p>
+                    
+
+                    <input type="checkbox" id="checkbox" name="highContrast" value="contrast"/>
+                        <label htmlFor="uni"> uni </label>
 
                 </div>
 
@@ -96,10 +99,25 @@ export function MemberProfile() {
     );
 }
 
-function ChangeContrast(){
+window.onload = function()
+{
+
+    document.getElementById("button").onclick = ChangeContrast;
+};
+
+function Reload(){
     //import "./AppContrast.css";
     window.location.reload(true)
 }
+
+function ChangeContrast(sheet){
+    document.body.style.background= "#FCFF90";
+    document.body.style.fontWeight= "bold";
+    //document.body.style.cssText = "color: black";
+    document.getElementById('pagestyle').setAttribute('href', sheet);
+}
+
+
 
 
 function GetUserName(){
