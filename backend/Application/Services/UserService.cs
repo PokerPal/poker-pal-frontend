@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,6 +62,60 @@ namespace Application.Services
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(u => new UserOutputModel(
                         u.Id, u.Email, u.Name, u.Joined, u.AuthLevel));
+            }
+        }
+
+        /// <summary>
+        /// Get the details of a users streak from the database.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user.</param>
+        /// <param name="leagueId">The unique identifier of the league.</param>
+        /// <returns>The user's streak details, if found.</returns>
+        public async Task<Result<UserStreakOutputModel, string>> GetUserStreakAsync(int userId, int leagueId)
+        {
+            using (this.logger.BeginScope($"Getting users streak with id {userId} within the league {leagueId}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+                var league = await context.Leagues
+                    .Include(l => l.Sessions)
+                    .Where(l => l.Id == leagueId)
+                    .FirstOrDefaultAsync();
+                if (league == null)
+                {
+                    this.logger.LogWarning($"league with id {leagueId} not found.");
+                    return $"League with id {leagueId} not found.";
+                }
+
+                if (await context.Users.FindAsync(userId) == null)
+                {
+                    this.logger.LogWarning($"User with id {userId} not found.");
+                    return $"User with id {userId} not found.";
+                }
+
+                var streak = 0;
+                var streakType = StreakType.Loss;
+                foreach (var session in league.Sessions.OrderByDescending(s => s.StartDate))
+                {
+                    var userSession = await context.UserSessions
+                        .FirstOrDefaultAsync(us =>
+                            us.UserId == userId &&
+                            us.SessionId == session.Id);
+                    if (userSession != null)
+                    {
+                        if (streak == 0)
+                        {
+                            streakType = userSession.EndScore > 0 ? StreakType.Win : StreakType.Loss;
+                        }
+
+                        if ((userSession.EndScore > 0 && streakType == StreakType.Win)
+                            || (userSession.EndScore <= 0 && streakType == StreakType.Loss))
+                        {
+                            streak += 1;
+                        }
+                    }
+                }
+
+                return new UserStreakOutputModel(userId, leagueId, streak, streakType);
             }
         }
 
