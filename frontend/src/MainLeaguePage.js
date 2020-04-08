@@ -1,6 +1,6 @@
 import React from "react";
 import './Tournaments.css';
-import MainLeagueLeaderboard from './MainLeagueLeaderboard'
+import SmallMLLeaderboard from './SmallMLLeaderboard'
 import MainLeagueGraph from './MainLeagueGraph.js'
 import Cookies from 'universal-cookie';
 import {
@@ -40,7 +40,7 @@ export function MainLeaguePage() {
                             <MainLeagueGraph/>
                             <p>
                             <strong>Leaderboard </strong></p>
-                            <MainLeagueLeaderboard/>
+                            <SmallMLLeaderboard/>
                     </div>
                 </div>
             </body>

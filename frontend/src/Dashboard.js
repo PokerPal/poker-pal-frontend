@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "universal-cookie";
 import {Line} from "react-chartjs-2";
-import MainLeagueLeaderboard from "./MainLeagueLeaderboard";
+import LargeMLLeaderboard from "./LargeMLLeaderboard";
 
 export function Dashboard() {
   const cookies = new Cookies();
@@ -30,7 +30,7 @@ export function Dashboard() {
           <div className="tournamentRightSection">
 
             <p><strong>Main League Leaderboard</strong></p>
-            <MainLeagueLeaderboard/>
+            <LargeMLLeaderboard/>
           </div>
         </div>
       </body>
