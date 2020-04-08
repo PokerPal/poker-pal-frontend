@@ -36,7 +36,7 @@
         public int TotalScore { get; }
 
         /// <summary>
-        /// The unique identifier of the linked user.
+        /// The user names.
         /// </summary>
         public string UserName { get; }
     }

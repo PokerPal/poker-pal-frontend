@@ -32,7 +32,7 @@ namespace Api.ModelTypes.Output
         public int TotalScore => this.Model.TotalScore;
 
         /// <summary>
-        /// The user's total score in this league.
+        /// The user's name.
         /// </summary>
         public string UserName => this.Model.UserName;
 

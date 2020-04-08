@@ -124,6 +124,12 @@ namespace Application.Services
             {
                 await using var context = this.databaseContextFactory.CreateDatabaseContext();
                 var user = await context.Users.FindAsync(userId);
+                if (user == null)
+                {
+                    this.logger.LogWarning($"user with it {userId} not found");
+                    return "user not found";
+                }
+
                 return Result<UserLeagueEntity, string>
                     .FromNullableOr(
                         await context.UserLeagues.FindAsync(userId, leagueId),
