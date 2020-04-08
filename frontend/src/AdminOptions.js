@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Cookies from "universal-cookie";
 
 import './App.css'
+import './adminPages.css'
 
 import {SLI} from './SLI'
 import {MLI} from "./MLI";
@@ -66,7 +67,7 @@ function MainScreen() {
 
           <div className="break-line-right"/> <br/>
 
-          <button className="Login-button"><a className="backLink" href="/adminOptions/deleteUser">Delete User </a></button> <br/> <br/>
+          <label className="adminButtons"><a className="backLink" href="/adminOptions/deleteUser">Delete User </a></label> <br/> <br/>
 
           <div className="break-line-right"/> <br/>
 
