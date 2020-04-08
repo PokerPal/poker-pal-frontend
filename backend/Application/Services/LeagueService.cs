@@ -77,10 +77,13 @@ namespace Application.Services
                     .SingleOrDefaultAsync(l => l.Id == id);
 
                 return Result<LeagueEntity, string>
-                    .FromNullableOr(league, "league not found.")
+                    .FromNullableOr(league, $"League with ID {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(l => l.UserLeagues
-                        .Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore)));
+                        .Select(ul =>
+                            new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore))
+                        .OrderByDescending(ul => ul.TotalScore).AsEnumerable())
+                    .OnErr(e => this.logger.LogWarning(e));
             }
         }
 
