@@ -139,26 +139,21 @@ function GetRank(){
     console.log(cookies.get('userID')); // TODO - REMOVE WHEN DONE TESTING
     let userID = cookies.get('userID');
 
+    const method = "GET";
+    const leagueID = 1;
+    let url = "http://localhost:5000/"+leagueID+"/user/"+userID;
+
     let request = new XMLHttpRequest();
-    let filePath = "";
-    // TODO - GET CURRENT RANK FROM MAIN LEAGUE
-    request.open('GET', "http://localhost:5000/"+filePath+"/"+userID, true);
-    //request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
+    request.open(method, url, true);
+    let rank;
     request.onload = function(){
         let data = JSON.parse(this.response);
-        let rank = data.rank;
         if (data.error == null) {
             console.log(data);
-            let rank = data.rank;// TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
+            let rank = data.value.totalScore;// TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
 
-            /*const cookies = new Cookies();*/ // TODO - DECIDE IF COOKIES HAVE TO BE SET HERE
-            /*cookies.set('userName', data.value.name, { path: '/' });
-            cookies.set('userID', data.value.id, { path: '/' });*/
-            /*return (
-              <div className="smaller-text">
-                  <p>rank = {rank}</p>
-              </div>
-            )*/
+            const cookies = new Cookies(); // TODO - DECIDE IF COOKIES HAVE TO BE SET HERE
+            cookies.set('mainLeagueStanding', rank, { path: '/' });
         }
         return (
           <div className="smaller-text">

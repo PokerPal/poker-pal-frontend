@@ -3,7 +3,9 @@
 
 }
 
-
+* {
+  font-family: 'Poppins', Arial, sans-serif;
+}
 
 input[type="checkbox"]:not(:checked) + label[for="uni"] {
   --uniColour: #0013ae;
@@ -17,6 +19,8 @@ input[type="checkbox"]:checked + label[for="uni"] {
 
 .App {
   text-align: center;
+  color: var(--uniColour);
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .universalTextColour {
@@ -38,6 +42,7 @@ input[type="checkbox"]:checked + label[for="uni"] {
 
 .Page-header {
   color: var(--uniColour);
+  font-family: 'Poppins', Arial, sans-serif;
 }
 
 .App-header {
