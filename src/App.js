@@ -37,7 +37,9 @@ function HomeContainer(){
           <img src={BluffBathLogo} className="App-logo-small" alt="App-logo-small"/>
         </div>
 
-        <div className="headerRight">
+        <ShowNavBar />
+
+        {/*<div className="headerRight">
           <ul className="navBar">
             <b>
               <a href="/dashboard">Dashboard</a>|
@@ -49,7 +51,7 @@ function HomeContainer(){
               <a href="/logout" >Logout</a>
             </b>
           </ul>
-        </div>
+        </div>*/}
 
       </header>
 
@@ -104,5 +106,43 @@ function HomeContainer(){
   )
 }
 
+function ShowNavBar() {
+  const cookies = new Cookies();
+  let userid = cookies.get('userID')
+  if (userid === 1 || userid === 7){
+    return (
+      <div className="headerRight">
+        <ul className="navBar">
+          <b>
+            <a href="/dashboard">Dashboard</a>|
+            <a href="/memberProfile">Profile</a>|
+            <a href="/mainLeague">Main League</a>|
+            <a href="/sideLeague">Side League</a>|
+            <a href="/adminOptions">Admin Options</a>|
+            <a href="/userSettings" >Settings</a>|
+            <a href="/logout" >Logout</a>
+          </b>
+        </ul>
+      </div>
+    )
+  } else {
+    return (
+      <div className="headerRight">
+        <ul className="navBar">
+          <b>
+            <a href="/dashboard">Dashboard</a>|
+            <a href="/memberProfile">Profile</a>|
+            <a href="/mainLeague">Main League</a>|
+            <a href="/sideLeague">Side League</a>|
+            {/*<a href="/adminOptions">Admin Options</a>|*/}
+            <a href="/userSettings" >Settings</a>|
+            <a href="/logout" >Logout</a>
+          </b>
+        </ul>
+      </div>
+    )
+  }
+
+}
 
 export default (App);
