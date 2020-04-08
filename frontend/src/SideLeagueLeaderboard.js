@@ -14,7 +14,6 @@ class SideLeagueLeaderboard extends Component{
     }
     sortBy(key){
         //SORT DATA 
-        alert(key)
     }
     renderTableData(){
         return this.state.leaderboardEntry.map((student,index) => {
