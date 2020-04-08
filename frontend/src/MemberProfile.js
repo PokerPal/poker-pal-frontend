@@ -64,17 +64,11 @@ export function MemberProfile() {
                     <br></br>
 
                     <link id="pagestyle" rel="stylesheet" type="text/css" href="App.css"/>
-
                     <p id="button" onClick="ChangeContrast('AppContrast.css')">
                         <div className="button">
                             <b>High contrast mode</b>
                         </div>
                     </p>
-                    
-
-                    <input type="checkbox" id="checkbox" name="highContrast" value="contrast"/>
-                        <label htmlFor="uni"> uni </label>
-
                 </div>
 
                 <div className="memberRightSection">
@@ -113,15 +107,11 @@ window.onload = function()
     document.getElementById("button").onclick = ChangeContrast;
 };
 
-function Reload(){
-    //import "./AppContrast.css";
-    window.location.reload(true)
-}
 
 function ChangeContrast(sheet){
-    document.body.style.background= "#FCFF90";
-    document.body.style.fontWeight= "bold";
-    //document.body.style.cssText = "color: black";
+    //document.body.style.background= "#FCFF90";
+    document.body.style.fontWeight= "bolder";
+    document.body.style.fontSize = "200px";
     document.getElementById('pagestyle').setAttribute('href', sheet);
 }
 

@@ -1,21 +1,10 @@
 :root{
   --uniColour: #0013ae;
-
 }
-
 * {
   font-family: 'Poppins', Arial, sans-serif;
 }
 
-input[type="checkbox"]:not(:checked) + label[for="uni"] {
-  --uniColour: #0013ae;
-  color: var(--uniColour);
-}
-
-input[type="checkbox"]:checked + label[for="uni"] {
-  --uniColour: black;
-  color: black;
-}
 
 .App {
   text-align: center;
@@ -164,11 +153,12 @@ padding: 20px;
 .button {
     background-color: gold;
     border: none;
-    color: white;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    float: left;
     font-size: 16px;
 }
 
@@ -180,9 +170,6 @@ padding: 20px;
   transform: translateY(4px);
 
 }
-
-
-
 
 
 @keyframes App-logo-spin {
