@@ -17,6 +17,7 @@ namespace Application
         {
             services.AddScoped<BadgeService>();
             services.AddScoped<LeagueService>();
+            services.AddScoped<PointsService>();
             services.AddScoped<SessionService>();
             services.AddScoped<UserService>();
         }
