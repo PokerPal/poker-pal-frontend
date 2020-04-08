@@ -6,6 +6,7 @@ import fifty from "./50.png"
 
 import * as React from "react";
 import Cookies from 'universal-cookie';
+import ProfileComparison from './ProfileComparison'
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
 import "./slider.css";
@@ -81,15 +82,14 @@ export function MemberProfile() {
                     </div>
                     <br></br>
                     <div className="smaller-text">
-                        <b>Place History</b>
-                    </div>
-
-                    <Line data={pHistory}/>
+                    {/*<p>rank = </p>*/}
+                    <GetRank/>
+                    <p>balance = 4</p>
+                    <p>wins = 1</p>
+                </div>
                     <div className="smaller-text">
-                        {/*<p>rank = </p>*/}
-                        <GetRank/>
-                        <p>balance = </p>
-                        <p>wins = </p>
+                        <p><strong>Compare with other Players</strong></p>
+                        <ProfileComparison/>
                     </div>
                 </div>
             </div>
@@ -180,7 +180,7 @@ function GetRank(){
 
     return ( // this is currently getting returned, not ideal. TODO - sort. Could be that a cookie is set then read immediately
       <div className="smaller-text">
-          <p>rank = {"why"}</p>
+          <p>rank = {""}</p>
       </div>
     )
 }
