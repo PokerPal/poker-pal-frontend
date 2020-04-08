@@ -83,19 +83,21 @@ export function MemberProfile() {
                     </div>
                     <br></br>
                     <div className="smaller-text">
-                        <b>Place History</b>
-                    </div>
-
-                    <Line data={pHistory}/>
+                    {/*<p>rank = </p>*/}
+                    <GetRank/>
+                    <p>balance = 4</p>
+                    <p>wins = 1</p>
+                </div>
                     <div className="smaller-text">
-                        {/*<p>rank = </p>*/}
-                        <GetRank/>
-                        <p>balance = 4</p>
-                        <p>wins = 1</p>
-                    </div>
-                    <div className="tournamentRightSection">
                         <p><strong>Compare with other Players</strong></p>
                         <ProfileComparison/>
+
+                    </div>
+                    <b>Place History</b>
+                    <Line data={pHistory}/>
+
+                    <div className="tournamentRightSection">
+
                     </div>
 
                 </div>
