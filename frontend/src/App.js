@@ -82,6 +82,10 @@ function HomeContainer(){
       <CookieTest/>
 
       <section className="section">
+        <br/>
+        <br/>
+        <br/>
+        <div className="main-container">
 
         <Router>
           <Switch>
@@ -118,6 +122,8 @@ function HomeContainer(){
             </Route>
           </Switch>
         </Router>
+
+        </div>
 
       </section>
     </div>
