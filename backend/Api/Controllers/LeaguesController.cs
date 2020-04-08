@@ -1,13 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Api.ModelTypes.Input;
 using Api.ModelTypes.Output;
 using Api.ModelTypes.Result;
-
 using Application.Services;
-
 using Microsoft.AspNetCore.Mvc;
-
 using Utility.ResultModel;
 
 namespace Api.Controllers
@@ -31,7 +30,7 @@ namespace Api.Controllers
             [FromServices] LeagueService leagueService)
         {
             return (await leagueService.CreateLeague(
-                    league.Name))
+                    league.Name, league.StartingAmount, league.AllowChanges, league.Type))
                 .Map(CreateLeagueResultType.FromModel);
         }
 
@@ -48,6 +47,62 @@ namespace Api.Controllers
         {
             return (await leagueService.GetLeagueAsync(id))
                 .Map(LeagueOutputType.FromModel)
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Get the details of a user's standing within a league.
+        /// </summary>
+        /// <param name="leagueId">The unique identifier of the league.</param>
+        /// <param name="userId">The information of the user.</param>
+        /// <param name="leagueService">The league service.</param>
+        /// <returns>The details of the user leagues within the league.</returns>
+        [HttpGet("{leagueId}/user/{userId}")]
+        public async Task<ActionResult<Result<UserLeagueOutputType, string>>> GetUserLeague(
+            [FromRoute] int leagueId,
+            [FromRoute] int userId,
+            [FromServices] LeagueService leagueService)
+        {
+            return (await leagueService.GetUserLeague(leagueId, userId))
+                .Map(UserLeagueOutputType.FromModel)
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Get the details of the users history within the league.
+        /// </summary>
+        /// <param name="leagueId">The unique identifier of the league.</param>
+        /// <param name="userId">The information of the user.</param>
+        /// <param name="leagueService">The league service.</param>
+        /// <returns>The details of the users history within the league.</returns>
+        [HttpGet("{leagueId}/user/{userId}/history")]
+        public async Task<ActionResult<Result<UserLeagueHistoryOutputType, string>>> GetUserLeagueHistory(
+            [FromRoute] int leagueId,
+            [FromRoute] int userId,
+            [FromServices] LeagueService leagueService)
+        {
+            return (await leagueService.GetUserLeagueHistory(leagueId, userId))
+                .Map(models => models
+                    .Select(model => UserLeagueHistoryOutputType.FromModel(model))
+                    .ToList())
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
+        /// Get the details of a user league within this league.
+        /// </summary>
+        /// <param name="id">The unique identifier of the league.</param>
+        /// <param name="leagueService">The league service.</param>
+        /// <returns>The details of the user leagues within the league.</returns>
+        [HttpGet("{id}/users")]
+        public async Task<ActionResult<Result<IEnumerable<UserLeagueOutputType>, string>>> GetUsersLeagues(
+            [FromRoute] int id,
+            [FromServices] LeagueService leagueService)
+        {
+            return (await leagueService.GetUserLeagues(id))
+                .Map(models => models
+                    .Select(model => UserLeagueOutputType.FromModel(model))
+                    .ToList())
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
     }

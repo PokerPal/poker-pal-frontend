@@ -34,6 +34,11 @@ namespace Persistence.Entities
         public int TotalScore { get; set; }
 
         /// <summary>
+        /// Gets or sets the users total score in the league this session is associated with.
+        /// </summary>
+        public int EndScore { get; set; }
+
+        /// <summary>
         /// Gets or sets the user entity linked to this entity; autofilled when fetched from the
         /// database, null otherwise.
         /// </summary>

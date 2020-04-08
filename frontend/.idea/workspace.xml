@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="68be0500-0d57-4a13-b2dd-6538ed480da2" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/src/50.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/9.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Dunce.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/medal.png" afterDir="false" />
+=======
+    <list default="true" id="a5d9ad05-a2a8-4a98-965d-abfb19eab729" name="Default Changelist" comment="">
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/src/MemberProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/MemberProfile.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,6 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+<<<<<<< Updated upstream
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="master" />
@@ -48,6 +53,14 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs.jest.jest_package" value="" />
+=======
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1Zzm2JlqVje6JI7ZSsCPPG199yJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+>>>>>>> Stashed changes
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
@@ -62,6 +75,7 @@
       </list>
     </option>
   </component>
+<<<<<<< Updated upstream
   <component name="RunManager">
     <configuration name="App.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
@@ -81,11 +95,14 @@
       </list>
     </recent_temporary>
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< Updated upstream
       <changelist id="68be0500-0d57-4a13-b2dd-6538ed480da2" name="Default Changelist" comment="" />
       <created>1584036847444</created>
       <option name="number" value="Default" />
@@ -111,6 +128,15 @@
       <updated>1584986881706</updated>
     </task>
     <option name="localTasksCounter" value="3" />
+=======
+      <changelist id="a5d9ad05-a2a8-4a98-965d-abfb19eab729" name="Default Changelist" comment="" />
+      <created>1585850088438</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585850088438</updated>
+      <workItem from="1585850092489" duration="1564000" />
+    </task>
+>>>>>>> Stashed changes
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,18 +147,25 @@
       <map>
         <entry key="MAIN">
           <value>
+<<<<<<< Updated upstream
             <State>
               <option name="COLUMN_ORDER" />
             </State>
+=======
+            <State />
+>>>>>>> Stashed changes
           </value>
         </entry>
       </map>
     </option>
   </component>
+<<<<<<< Updated upstream
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="created member profile" />
     <MESSAGE value="test merge" />
     <option name="LAST_COMMIT_MESSAGE" value="test merge" />
   </component>
+=======
+>>>>>>> Stashed changes
 </project>

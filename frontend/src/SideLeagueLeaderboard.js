@@ -12,6 +12,9 @@ class SideLeagueLeaderboard extends Component{
             ]
         }
     }
+    sortBy(key){
+        //SORT DATA 
+    }
     renderTableData(){
         return this.state.leaderboardEntry.map((student,index) => {
             const {id, name, ranking, balance} = student  
@@ -28,7 +31,7 @@ class SideLeagueLeaderboard extends Component{
     renderTableHeader() {
         let header = Object.keys(this.state.leaderboardEntry[0])
         return header.map((key, index) => {
-           return <th key={index}>{key.toUpperCase()}</th>
+           return <th key={index} onClick={() => this.sortBy(key.toUpperCase())}>{key.toUpperCase()}</th>
         })
      }
   

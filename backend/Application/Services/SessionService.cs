@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,8 +60,81 @@ namespace Application.Services
                         $"Session with id {id} not found.")
                     .OnErr(e => this.logger.LogWarning(e))
                     .Map(t => new SessionOutputModel(
-                        t.Id, t.StartDate, t.EndDate, t.Frequency, t.Venue));
+                        t.Id, t.StartDate, t.EndDate, t.Frequency, t.Venue, t.Finalized));
             }
+        }
+
+        /// <summary>
+        /// Finalize a session in the database.
+        /// </summary>
+        /// <param name="id">The unique identifier of the session.</param>
+        /// <returns>The result of finalizing the session.</returns>
+        public async Task<Result<FinalizeSessionResultModel, string>> FinalizeSession(int id)
+        {
+            using (this.logger.BeginScope($"Finalizing session with id {id}."))
+            {
+                await using var context = this.databaseContextFactory.CreateDatabaseContext();
+
+                var session = await context.Sessions
+                    .Include(s => s.UserSessions)
+                    .Include(s => s.League)
+                    .Where(s => s.Id == id)
+                    .FirstOrDefaultAsync();
+
+                if (session == null)
+                {
+                    this.logger.LogWarning($"Session with id {id} not found.");
+                    return $"Session with id {id} not found.";
+                }
+
+                if (session.Finalized)
+                {
+                    this.logger.LogWarning($"Session {id} has already been finalized.");
+                    return $"Session {id} has already been finalized.";
+                }
+
+                // Actually finalize the session.
+                session.Finalized = true;
+
+                var league = session.League;
+
+                foreach (var userSession in session.UserSessions)
+                {
+                    var userLeague = await context.UserLeagues
+                        .FirstOrDefaultAsync(ul =>
+                            ul.UserId == userSession.UserId &&
+                            ul.LeagueId == league.Id);
+
+                    if (userLeague == null)
+                    {
+                        userLeague = new UserLeagueEntity(
+                            userSession.UserId,
+                            league.Id,
+                            league.StartingAmount);
+
+                        await context.UserLeagues.AddAsync(userLeague);
+                    }
+
+                    switch (league.Type)
+                    {
+                        case LeagueType.Cash:
+                            userLeague.TotalScore += userSession.TotalScore;
+                            break;
+                        case LeagueType.Points:
+                            userLeague.TotalScore += userSession.TotalScore;
+                            break;
+                    }
+
+                    userSession.EndScore = userLeague.TotalScore;
+                }
+
+                await context.SaveChangesAsync();
+            }
+
+            return new FinalizeSessionResultModel
+            {
+                Id = id,
+            };
         }
 
         /// <summary>
@@ -161,14 +235,27 @@ namespace Application.Services
                         .OnErr(e => this.logger.LogWarning(e));
                 }
 
-                if (await context.UserSessions.FindAsync(userId, sessionId) != null)
+                var userSession = context.UserSessions.FirstOrDefault(
+                    us => us.UserId == userId && us.SessionId == sessionId);
+                if (userSession != null)
                 {
-                    return Result
-                        .Err($"User already has information within session with id {sessionId}.")
-                        .OnErr(e => this.logger.LogWarning(e));
+                    if (context.Leagues.FindAsync(
+                        context.Sessions.FindAsync(sessionId).Result.LeagueId).Result.AllowChanges)
+                    {
+                        userSession.TotalScore += totalScore;
+                    }
+                    else
+                    {
+                        return Result
+                            .Err($"User already has information within session with id {sessionId}.")
+                            .OnErr(e => this.logger.LogWarning(e));
+                    }
+                }
+                else
+                {
+                    await context.UserSessions.AddAsync(new UserSessionEntity(userId, sessionId, totalScore));
                 }
 
-                await context.UserSessions.AddAsync(new UserSessionEntity(userId, sessionId, totalScore));
                 await context.SaveChangesAsync();
 
                 return new CreateUserSessionResultModel()
