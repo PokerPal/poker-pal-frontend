@@ -51,16 +51,14 @@
     text-align: center;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    border: 3px solid #ddd;
     width: 100%;
 }
 
 #leaderboardEntry td, #leaderboardEntry th {
-    border: 1px solid #ddd;
     padding: 8px;
 }
 
-#leaderboardEntry tr:nth-child(even){
+#leaderboardEntry tr{
     background-color: #f2f2f2;
 }
 

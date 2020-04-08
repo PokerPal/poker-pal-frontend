@@ -30,10 +30,6 @@ export function  LargeMLLeaderboard(){
             accessor: "userId"
           },
           {
-            Header: "League",
-            accessor: "leagueId"
-          },
-          {
             Header: "Points",
             accessor: "totalScore"
           }
