@@ -118,7 +118,7 @@ namespace Application.Services
         /// <param name="leagueId">The leagues unique id.</param>
         /// <param name="userId">The users unique id.</param>
         /// <param name="places">The amount of users above and below the current user to include.</param>
-        /// <returns>The user league's information, if found.</returns>
+        /// <returns>The user league's information, if found along with the context.</returns>
         public async Task<Result<IEnumerable<UserLeagueOutputModel>, string>> GetUserLeague(
             int leagueId, int userId, int places)
         {
