@@ -28,8 +28,6 @@ export function Dashboard() {
             <p>{lastUpdate}</p>
           </div>
           <div className="tournamentRightSection">
-
-            <p><strong>Main League Leaderboard</strong></p>
             <LargeMLLeaderboard/>
           </div>
         </div>
