@@ -32,7 +32,7 @@ export function MemberProfile() {
                 <b>Profile</b>
             </div>
 
-            <div className="section">
+            <div className="">
                 <div className="leftSection">
                     <GetUserName/>
                     {/*<div className="sub-section-header">
