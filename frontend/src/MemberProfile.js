@@ -85,15 +85,7 @@ export function MemberProfile() {
                     <div className="smaller-text">
                         <p><strong>Compare with other Players</strong></p>
                         <ProfileComparison/>
-
                     </div>
-                    <b>Place History</b>
-                    <Line data={pHistory}/>
-
-                    <div className="tournamentRightSection">
-
-                    </div>
-
                 </div>
             </div>
 
@@ -163,7 +155,7 @@ function GetRank(){
 
     return ( // this is currently getting returned, not ideal. TODO - sort. Could be that a cookie is set then read immediately
       <div className="smaller-text">
-          <p>rank = {"why"}</p>
+          <p>rank = {""}</p>
       </div>
     )
 }
