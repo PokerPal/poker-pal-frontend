@@ -1,14 +1,19 @@
-.adminButtons { /*used for nothing? */
+.adminButtons {
     cursor: pointer;
     height: 10px;
     width: 100px;
-    font-size: 15px;
+    /*font-size: 15px;*/
 /*    color: white;
     background: #0013ae;*/
     align-content:  center;
     text-align: center;
     align-items: center;
     alignment: center;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+a {
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
 .backLink {
@@ -95,4 +100,8 @@
     text-align: center;
     color: white;
     border-radius: .25rem;
+}
+
+p{
+    font-family: 'Poppins', Arial, sans-serif;
 }

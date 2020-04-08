@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Cookies from "universal-cookie";
 
+import './App.css'
+
 import {SLI} from './SLI'
 import {MLI} from "./MLI";
 import {StartNewSession} from "./StartNewSession";
@@ -53,6 +55,7 @@ function MainScreen() {
           <div className="break-line-right"/> <br/>
 
           <label className="adminButtons"><a href="/adminOptions/createNewSession">Create New Session</a></label> <br/> <br/>
+
           <CurrentSessionID/>
           <button type="submit" value="Submit" className="Login-button" onClick={EndMainSession}>Finish Main Session</button> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button" onClick={EndSideSession}>Finish Side Session</button> <br/> <br/>

@@ -15,7 +15,7 @@ export function LoginPage() {
                 <b>Bluff Bath</b>
             </div>
 
-            <div className="section">
+            <div className="">
 
                 <div className="leftSection">
                     <img src={logo} className="App-logo-large" alt="logo" />
