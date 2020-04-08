@@ -102,15 +102,20 @@ namespace Application.Services
                             us.SessionId == session.Id);
                     if (userSession != null)
                     {
+                        var currentScore = league.Type == LeagueType.Cash ? userSession.TotalScore : userSession.EndScore;
                         if (streak == 0)
                         {
-                            streakType = userSession.EndScore > 0 ? StreakType.Win : StreakType.Loss;
+                            streakType = currentScore > 0 ? StreakType.Win : StreakType.Loss;
                         }
 
-                        if ((userSession.EndScore > 0 && streakType == StreakType.Win)
-                            || (userSession.EndScore <= 0 && streakType == StreakType.Loss))
+                        if ((currentScore > 0 && streakType == StreakType.Win)
+                            || (currentScore <= 0 && streakType == StreakType.Loss))
                         {
                             streak += 1;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }

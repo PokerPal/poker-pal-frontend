@@ -84,7 +84,7 @@ namespace Api.Controllers
                 .Map(UserOutputType.FromModel)
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
-    
+
         /// <summary>
         /// Get the users win or loss streak from a given league.
         /// </summary>
