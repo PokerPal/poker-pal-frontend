@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "universal-cookie";
 import {Line} from "react-chartjs-2";
-import LargeMLLeaderboard from "./LargeMLLeaderboard";
+import LargeMLLeaderboard from "./largeMLLeaderboard";
 
 export function Dashboard() {
   const cookies = new Cookies();

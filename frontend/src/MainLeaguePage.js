@@ -1,6 +1,6 @@
 import React from "react";
 import './Tournaments.css';
-import SmallMLLeaderboard from './SmallMLLeaderboard'
+import SmallMLLeaderboard from './smallMLLeaderboard'
 import MainLeagueGraph from './MainLeagueGraph.js'
 import Cookies from 'universal-cookie';
 import {

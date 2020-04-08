@@ -8,7 +8,7 @@ import * as React from "react";
 import Cookies from 'universal-cookie';
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
-import LargeMLLeaderboard from "./LargeMLLeaderboard";
+import LargeMLLeaderboard from "./largeMLLeaderboard";
 
 
 export function MemberProfile() {
