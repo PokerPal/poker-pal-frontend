@@ -1,7 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react"
-import './Tournaments.css'
 import axios from 'axios'
+
+import './Tournaments.css'
+
 import Table from './Table'
+
 export function  LargeMLLeaderboard(){
   const [data, setData] = useState([]);
 
@@ -12,7 +15,6 @@ export function  LargeMLLeaderboard(){
     })();
   }, []);
 
-  
   const columns = useMemo(
     () => [
       {

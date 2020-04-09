@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Cookies from 'universal-cookie';
 
 export function Logout(){
@@ -6,7 +6,6 @@ export function Logout(){
     <div>
       <p><b>LOGOUT</b></p>
       <button className="Login-button" onClick={doLogout}>LOGOUT</button>
-
     </div>
   )
 }

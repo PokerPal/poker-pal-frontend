@@ -1,22 +1,18 @@
 import React from "react";
-import './Tournaments.css';
+import axios from 'axios'
+
 import SmallSLLeaderboard from './smallSLLeaderboard'
 import SideLeagueGraph from './SideLeagueGraph.js'
 import Cookies from 'universal-cookie';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-import axios from 'axios'
+
+import './Tournaments.css';
 
 export function SideLeaguePage() {
     const cookies = new Cookies();
-    var userID  = cookies.get('userID'); 
-    var userName = cookies.get('userName');
-    var hPlace = 10 //NEED TO GET FROM API
-    var lastUpdate = "11/10/20"    
+    let userID  = cookies.get('userID');
+    let userName = cookies.get('userName');
+    let hPlace = 10 //NEED TO GET FROM API
+    let lastUpdate = "11/10/20"
     return (
         <div className="Tournament">
             <body>
@@ -49,7 +45,7 @@ export function SideLeaguePage() {
 class LastUpdated extends React.Component{
     constructor(props){
         super(props);
-        var cookies = new Cookies();
+        let cookies = new Cookies();
         this.state = {
             lastUpdate: "User has not joined any sessions",
             userID: cookies.get('userID')
@@ -59,14 +55,14 @@ class LastUpdated extends React.Component{
     async componentDidMount(){
         axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
           .then((response) => {
-              var sessions = response.data.value
-              var recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
+              let sessions = response.data.value
+              let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
               this.setState({lastUpdate: recentSession.toDateString()});
           }, (error) => {
             console.log(error);
           });
-        
     }
+
     render(){
         return(
             <p>
@@ -75,7 +71,9 @@ class LastUpdated extends React.Component{
         );
     }
 }
-class WinStreak extends React.Component{constructor(props){
+
+class WinStreak extends React.Component{
+  constructor(props){
     super(props);
     var cookies = new Cookies();
     this.state = {
@@ -83,29 +81,31 @@ class WinStreak extends React.Component{constructor(props){
         WL: "user is not on a streak",
         userID: cookies.get('userID')
     }
+  }
+
+    async componentDidMount(){
+        this.setState({currPlace:2})
+        axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+          .then((response) => {
+              this.setState({
+                  streak: response.data.value.streak,
+                  WL: response.data.value.streakType
+                });
+          }, (error) => {
+            console.log(error);
+          });
+
+    }
+
+    render(){
+        return(
+            <p>
+                {this.state.streak + " " + this.state.WL}
+            </p>
+        );
+    }
 }
 
-async componentDidMount(){
-    this.setState({currPlace:2})
-    axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
-      .then((response) => {
-          this.setState({
-              streak: response.data.value.streak,
-              WL: response.data.value.streakType
-            });
-      }, (error) => {
-        console.log(error);
-      });
-    
-}
-render(){
-    return(
-        <p>
-            {this.state.streak + " " + this.state.WL}
-        </p>
-    );
-}
-}
 class BalanceValues extends React.Component{
     constructor(props){
         super(props);

@@ -1,8 +1,11 @@
 import React, { useMemo, useState, useEffect } from "react"
-import './Tournaments.css'
 import axios from 'axios'
-import Table from './Table'
 import Cookies from 'universal-cookie';
+
+import Table from './Table'
+
+import './Tournaments.css'
+
 export function  LargeMLLeaderboard(){
   const cookies = new Cookies();
   const userID = cookies.get('userID')
@@ -16,7 +19,6 @@ export function  LargeMLLeaderboard(){
     })();
   }, []);
 
-  
   const columns = useMemo(
     () => [
       {

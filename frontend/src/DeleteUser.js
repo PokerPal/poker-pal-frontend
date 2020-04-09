@@ -25,9 +25,6 @@ function DeleteUserMethod(id) {
   request.setRequestHeader('Content-type', 'application/json');
   request.onload = function(){
     console.log(request.responseText);
-    let data = JSON.parse(this.response);
-    console.log("DATA: ",data);
-
   };
   request.send();
 }
@@ -46,7 +43,6 @@ class GetIDForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmit(event) {
@@ -72,7 +68,6 @@ class GetIDForm extends Component {
         <p className="warning-message"><b>WARNING: THIS CANNOT BE UNDONE - BE SURE YOU MEAN TO DELETE A USER PERMANENTLY</b></p>
         <form onSubmit={this.handleSubmit}>
           <input type="number" name="userID" className="Input-box" placeholder="ID" value={this.state.username} onChange={this.handleChange}/> <br/><br/>
-          {/*<input type="password" name="password" className="Input-box" placeholder="Password" value={this.state.password} onChange={this.handleChange}/> <br/> <br/>*/}
           <button type="submit" value="Submit" className="Login-button-red">DELETE</button>
         </form>
       </div>

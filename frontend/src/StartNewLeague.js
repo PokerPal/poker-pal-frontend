@@ -23,13 +23,12 @@ function SendDataToAPI(pars) {
     request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
       console.log(request.responseText)
-      document.getElementById("1").value = '';
-      document.getElementById("2").value = '';
-      document.getElementById("3").value = '';
-      document.getElementById("4").value = '';
+      document.getElementById("leagueName").value = '';
+      document.getElementById("startAmount").value = '';
+      document.getElementById("changes").value = '';
+      document.getElementById("type").value = '';
     };
     request.send(pars)
-
 }
 
 class NewLeagueForm extends Component {
@@ -48,7 +47,6 @@ class NewLeagueForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmit(event) {
@@ -79,21 +77,19 @@ class NewLeagueForm extends Component {
         "\"type\":\""+this.state.type + "\"" +
         "}");
     }
-
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input id="1" type="text" name="name" className="Input-box" placeholder="League Name" value={this.state.name} onChange={this.handleChange}/> <br/>
-          <input id="2" type="number" name="startingAmount" className="Input-box" placeholder="Starting Amount" value={this.state.startingAmount} onChange={this.handleChange}/> <br/>
-          <input id="3" type="text" name="allowChanges" className="Input-box" placeholder="Allow Changes?" value={this.state.allowChanges} onChange={this.handleChange}/> <br/>
-          <input id="4" type="text" name="type" className="Input-box" placeholder="Type" value={this.state.type} onChange={this.handleChange}/> <br/>
+          <input id="leagueName" type="text" name="name" className="Input-box" placeholder="League Name" value={this.state.name} onChange={this.handleChange}/> <br/>
+          <input id="startAmount" type="number" name="startingAmount" className="Input-box" placeholder="Starting Amount" value={this.state.startingAmount} onChange={this.handleChange}/> <br/>
+          <input id="changes" type="text" name="allowChanges" className="Input-box" placeholder="Allow Changes?" value={this.state.allowChanges} onChange={this.handleChange}/> <br/>
+          <input id="type" type="text" name="type" className="Input-box" placeholder="Type" value={this.state.type} onChange={this.handleChange}/> <br/>
           <button type="submit" value="Submit" className="Login-button" >Create</button>
         </form>
       </div>
     );
   }
-
 }

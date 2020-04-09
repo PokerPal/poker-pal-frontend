@@ -1,22 +1,16 @@
 import React from "react";
-import './Tournaments.css';
+import axios from 'axios'
 import SmallMLLeaderboard from './smallMLLeaderboard'
 import MainLeagueGraph from './MainLeagueGraph.js'
 import Cookies from 'universal-cookie';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-import axios from 'axios'
+
+import './Tournaments.css';
 
 export function MainLeaguePage() {
     const cookies = new Cookies();
-    //var userID  = cookies.get('userID'); 
     const userID = 1;
-    var userName = cookies.get('userName');
-    var lastUpdate = "11/10/20"    
+    let userName = cookies.get('userName');
+    let lastUpdate = "11/10/20"
     return (
         <div className="Tournament">
             <body>
@@ -34,6 +28,7 @@ export function MainLeaguePage() {
                             </button>
                         </p>
                     </div>
+
                     <div className="tournamentRightSection">
                             <p><strong>Place History </strong></p>
                             <MainLeagueGraph/>
@@ -50,7 +45,7 @@ export function MainLeaguePage() {
 class CurrPlace extends React.Component{
     constructor(props){
         super(props);
-        var cookies = new Cookies();
+        let cookies = new Cookies();
         this.state = {
             currPlace: "User has not joined any sessions",
             userID: cookies.get('userID')
@@ -76,7 +71,7 @@ class CurrPlace extends React.Component{
 class LastUpdated extends React.Component{
     constructor(props){
         super(props);
-        var cookies = new Cookies();
+        let cookies = new Cookies();
         this.state = {
             lastUpdate: "User has not joined any sessions",
             userID: cookies.get('userID')
@@ -87,8 +82,8 @@ class LastUpdated extends React.Component{
         this.setState({currPlace:2})
         axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
           .then((response) => {
-              var sessions = response.data.value
-              var recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
+              let sessions = response.data.value
+              let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
               this.setState({lastUpdate: recentSession.toDateString()});
           }, (error) => {
             console.log(error);
@@ -105,7 +100,7 @@ class LastUpdated extends React.Component{
 }
 class WinStreak extends React.Component{constructor(props){
     super(props);
-    var cookies = new Cookies();
+    let cookies = new Cookies();
     this.state = {
         streak: 0,
         WL: "user is not on a streak",

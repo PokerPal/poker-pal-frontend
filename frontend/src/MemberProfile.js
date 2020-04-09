@@ -1,28 +1,26 @@
+import * as React from "react";
+import Cookies from 'universal-cookie';
+
 import profilePicture from "./profilePicPlaceholder.jpg"
 import medal from "./medal.png"
 import dunce from "./Dunce.png"
 import nine from "./9.png"
 import fifty from "./50.png"
-
-import * as React from "react";
-import Cookies from 'universal-cookie';
 import ProfileComparison from './ProfileComparison'
-import './Tournaments.css';
-import {Line} from 'react-chartjs-2';
-import LargeMLLeaderboard from "./largeMLLeaderboard";
 
+import './Tournaments.css';
 
 export function MemberProfile() {
-    var hPlace = 10 //NEED TO GET FROM API
-    var cPlace = 10 //NEED TO GET FROM API
+    var hPlace = 10
+    var cPlace = 10
     var lastUpdate = "11/10/20"
     var pHistory = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"], //WHAT DO WE WANT ON AXIS?
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [{
             label : 'Place History',
             backgroundColor: '#0013ae',
             borderColor: '#0013ae',
-            data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
+            data: [0, 10, 5, 2, 20, 30, 45],
         }]
     };
     return (
@@ -34,19 +32,16 @@ export function MemberProfile() {
             <div className="">
                 <div className="leftSection">
                     <GetUserName/>
-                    {/*<div className="sub-section-header">
-                        <b>(Member Name)</b>
-                    </div>*/}
                     <img src={profilePicture} className="profile-picture" alt="profilePicture" align="left" width="175" height="175" />
 
                     <div className="sub-section-header">
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                         <b>Badges</b>
                     </div>
                     <img src={medal} className="circle" alt="circle" align="left"/>
@@ -54,13 +49,13 @@ export function MemberProfile() {
                     <img src={nine} className="circle" alt="circle" align="left"  />
                     <img src={fifty} className="circle" alt="circle" align="left"  />
 
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
 
                     <link id="pagestyle" rel="stylesheet" type="text/css" href="App.css"/>
                     <p id="button" onClick="ChangeContrast('AppContrast.css')">
@@ -68,9 +63,6 @@ export function MemberProfile() {
                             <b>High contrast mode</b>
                         </div>
                     </p>
-
-                    {/*<input type="checkbox" id="checkbox" name="highContrast" value="contrast"/>*/}
-                    {/*    <label htmlFor="uni"> uni </label>*/}
 
                 </div>
 
@@ -81,20 +73,16 @@ export function MemberProfile() {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
 
-window.onload = function()
-{
-
+window.onload = function() {
     document.getElementById("button").onclick = ChangeContrast;
 };
 
 
-function ChangeContrast(sheet){
-    //document.body.style.background= "#FCFF90";
+function ChangeContrast(sheet) {
     document.body.style.fontWeight= "bolder";
     document.body.style.fontSize = "200px";
     document.getElementById('pagestyle').setAttribute('href', sheet);
@@ -106,21 +94,18 @@ window.onload = function() {
     document.getElementById("button").onclick = ChangeContrast;
 };
 
-function Reload(){
-    //import "./AppContrast.css";
+/*function Reload(){
     window.location.reload(true)
-}
+}*/
 
 function ChangeContrast(sheet){
     document.body.style.background= "#FCFF90";
     document.body.style.fontWeight= "bold";
-    //document.body.style.cssText = "color: black";
     document.getElementById('pagestyle').setAttribute('href', sheet);
 }
 
 function GetUserName(){
     const cookies = new Cookies();
-    /*cookies.set('myCat', 'Pacman', { path: '/' });*/
     console.log(cookies.get('userName'));
     let name = cookies.get('userName');
     return (
@@ -144,7 +129,6 @@ function GetRank(){
     let request = new XMLHttpRequest();
     let filePath = "";
     // TODO - GET CURRENT RANK FROM MAIN LEAGUE
-    //request.open('GET', "http://localhost:5000/"+filePath+"/"+userID, true);
     //request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
     request.open(method, url, true);
     let rank;

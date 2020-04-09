@@ -54,13 +54,9 @@ class LoginForm extends Component {
 
     handleChange(event) { // doing anything?
         this.setState({[event.target.name]: event.target.value});
-        /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
     }
 
     async handleLoginSubmit(event) {
-        console.log("username: " + this.state.username);
-        console.log("password: " + this.state.password);
-
         let valid = true;
         if (this.state.username.length === 0
           || this.state.password.length === 0) {
@@ -81,25 +77,14 @@ class LoginForm extends Component {
               "\"email\": \"" + this.state.username + "@bath.ac.uk\", " +
               "\"password\": \"" + this.state.password + "\"" +
               "}";
-            console.log(pars);
             let res = LoginRequest(pars);
-            console.log("res: ", res);
             if (res) {
-                console.log("success innit ");
                 await sleep(300);
                 if (cookies.get('loggedIn') !== undefined) {
                     this.setState({isLoggedIn: true})
                 }
-            } else {
-                console.log("not quick enough ")
             }
-
-
-            /*this.setState({isLoggedIn:true})*/
         }
-
-        /*this.setState({isLoggedIn:true})*/
-
     }
 
     handleRegisterSubmit(event) {
@@ -128,22 +113,16 @@ class LoginForm extends Component {
               "\"name\":\"" + this.state.firstName + " " + this.state.lastName + "\"," +
               "\"password\":\"" + this.state.newPassword + "\"" +
               "}";
-            console.log(pars);
 
             const method = "POST";
             const url = "http://localhost:5000/users";
-
             let request = new XMLHttpRequest();
             request.open(method, url, true);
             request.setRequestHeader('Content-type', 'application/json');
             request.onload = function () {
-                console.log(request.responseText);
                 let response = JSON.parse(this.response);
-                console.log("response: ",response.error);
-                /*{"value":{"id":9},"error":null,"isOk":true}*/
                 if(response.error===null){
-                    console.log("sign up success");
-                    alert("sign up success");
+                    alert("Register successful");
                 }
             };
             request.send(pars);

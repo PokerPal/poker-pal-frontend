@@ -2,46 +2,22 @@ import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Cookies from 'universal-cookie';
 
-/*import Redirect from "react-router-dom/es/Redirect";*/ // fucked
-
-
 import './adminPages.css';
-
-import {MLI} from "./MLI";
-import {SLI} from "./SLI";
-import {StartNewLeague} from "./StartNewLeague";
-
 
 export function StartNewSession() {
   return (
     <div>
       <br/>
-
       <Router>
         <Switch>
-
           <Route exact path="/adminOptions/createNewSession">
             <p><b>CREATE NEW SESSION</b></p>
             <NewSessionForm/>
             <br/>
             <br/><button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>
-
-
-            {/*<div className="adminLeftSection">
-              <p><b>CREATE NEW SESSION</b></p>
-              <NewSessionForm/>
-            </div>
-            <div className="adminRightSection">
-
-            </div>*/}
           </Route>
-
         </Switch>
       </Router>
-
-      {/*<ThisHome/>*/}
-
-
     </div>
   )
 }
@@ -57,27 +33,18 @@ function CheckLeagueDetails(sessionIDCookie,leagueIDforCookie) {
   request.onload = function(){
     console.log(request.responseText);
     let data = JSON.parse(this.response);
-    let name = data.value.name;
     let type = data.value.type;
-    console.log("[name,type]: ",[name,type]);
-    /*return [name,type];*/
 
     if(type === "Points") {
       cookies.set('mainSessionID', sessionIDCookie, {path: '/'});
-      console.log("setMain")
     } else if (type === "Cash"){
       cookies.set('sideSessionID', sessionIDCookie, {path: '/'});
-      console.log("setSide")
     }
-    document.getElementById("1").value = '';
-    document.getElementById("2").value = '';
-    document.getElementById("3").value = '';
-    document.getElementById("4").value = '';
-    document.getElementById("5").value = '';
-
-    /*let check = confirm("are  you sure you want to create a session in league name: "+name+"and type: "+type+"?");
-    console.log("check: ",check);*/
-    //return check;
+    document.getElementById("startDate").value = '';
+    document.getElementById("endDate").value = '';
+    document.getElementById("freq").value = '';
+    document.getElementById("venue").value = '';
+    document.getElementById("leagueID").value = '';
   };
   request.send();
 }
@@ -98,12 +65,8 @@ function SendDataToAPI(pars,leagueIDforCookie) {
     let sessionIDforCookie = data.value.id;
 
     CheckLeagueDetails(sessionIDforCookie,leagueIDforCookie)
-    /*cookies.set('mainSessionID', IDforCookie, { path: '/' });*/
-
-    // TODO cookie set here
   };
   request.send(pars);
-
 
   cookies.set('sessionID', '1', { path: '/' });
   alert("Session created!");
@@ -127,7 +90,6 @@ class NewSessionForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmit(event) {
@@ -143,20 +105,6 @@ class NewSessionForm extends Component {
       valid = false;
     }
 
-
-    /*let l = CheckLeagueDetails(this.state.leagueID);
-    console.log("GOT HERE ");
-    let check = confirm("are  you sure you want to create a session in league name: "+l[0]+"and type: "+l[1]+"?");
-    console.log("check: ",check);
-
-    console.log("returned check: ",check);
-    if(!check){
-      /!*valid = false;*!/
-      console.log("Re-enter details")
-    }else{
-      console.log("Go ahead and create session");
-    }*/
-
     if (valid) {
       SendDataToAPI("{" +
         "\"startDate\":\""+ this.state.startDate + "\"," +
@@ -165,26 +113,19 @@ class NewSessionForm extends Component {
         "\"venue\":\""+this.state.venue + "\"," +
         "\"leagueID\":"+this.state.leagueID+ "" +
         "}",this.state.leagueID);
-      /*const cookies = new Cookies();
-      cookies.set('sessionID', '1', { path: '/' });
-      alert("Session created!");*/
     }
-
-    /*return <GoToDataInput/>*/
-    /*return <Redirect to="/adminOptions/enterSessionData/"/>;*/
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input id="1" type="date" name="startDate" className="Input-box" placeholder="Start Date" value={this.state.startDate} onChange={this.handleChange}/> <br/>
-          <input id="2" type="date" name="endDate" className="Input-box" placeholder="End Date" value={this.state.endDate} onChange={this.handleChange}/> <br/>
-          <input id="3" type="number" name="frequency" className="Input-box" placeholder="Frequency" value={this.state.frequency} onChange={this.handleChange}/> <br/>
-          <input id="4" type="text" name="venue" className="Input-box" placeholder="Venue" value={this.state.venue} onChange={this.handleChange}/> <br/>
-          <input id="5" type="number" name="leagueID" className="Input-box" placeholder="League ID" value={this.state.leagueID} onChange={this.handleChange}/> <br/> <br/>
+          <input id="startDate" type="date" name="startDate" className="Input-box" placeholder="Start Date" value={this.state.startDate} onChange={this.handleChange}/> <br/>
+          <input id="endDate" type="date" name="endDate" className="Input-box" placeholder="End Date" value={this.state.endDate} onChange={this.handleChange}/> <br/>
+          <input id="freq" type="number" name="frequency" className="Input-box" placeholder="Frequency" value={this.state.frequency} onChange={this.handleChange}/> <br/>
+          <input id="venue" type="text" name="venue" className="Input-box" placeholder="Venue" value={this.state.venue} onChange={this.handleChange}/> <br/>
+          <input id="leagueID" type="number" name="leagueID" className="Input-box" placeholder="League ID" value={this.state.leagueID} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button" >Create</button>
-          {/*<button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>*/}
         </form>
       </div>
     );

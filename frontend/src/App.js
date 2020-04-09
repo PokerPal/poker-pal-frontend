@@ -4,22 +4,19 @@ import {
     Switch,
     Route,
     Link,
-    Redirect
 } from "react-router-dom";
 import BluffBathLogo from './bluffBathLogo.png';
+
 import './App.css';
 import './Layout.css';
-import {LoginPage} from "./LoginPage";
+
 import {MemberProfile} from "./MemberProfile";
 import {MainLeaguePage} from "./MainLeaguePage";
 import {SideLeaguePage} from "./SideLeaguePage";
 import {AdminOptions} from "./AdminOptions";
 import {UserSettings} from "./UserSettings";
-import {TournDataIn} from "./TournDataIn";
 import {Dashboard} from "./Dashboard";
 import {Logout} from "./Logout";
-
-import Cookies from 'universal-cookie';
 
 class App extends Component {
     render() {
@@ -45,7 +42,6 @@ function HomeContainer(){
           <ul className="navBar">
             <b>
               <a href="/dashboard">Dashboard</a>|
-              {/*<a href="/login">Login</a>|*/}
               <a href="/memberProfile">Profile</a>|
               <a href="/mainLeague">Main League</a>|
               <a href="/sideLeague">Side League</a>|
@@ -70,16 +66,11 @@ function HomeContainer(){
           <Switch>
             <Route exact path="/">
               <Dashboard />
-              {/*<LoginPage/>*/}
             </Route>
 
             <Route exact path="/dashboard">
               <Dashboard />
             </Route>
-
-            {/*<Route path="/login">
-              <LoginPage />
-            </Route>*/}
 
             <Route path="/memberProfile">
               <MemberProfile />
@@ -95,10 +86,6 @@ function HomeContainer(){
 
             <Route path="/adminOptions">
               <AdminOptions />
-            </Route>
-
-            <Route path="/tournDataIn">
-              <TournDataIn />
             </Route>
 
             <Route path="/userSettings">

@@ -109,9 +109,6 @@ function EndSession(idToEnd) {
   };
   request.send();
 
-/*  cookies.remove('sessionID');
-  console.log("cookie val: ", cookies.get('seshID'));*/
-
   window.location.reload(true)
 }
 
@@ -122,7 +119,6 @@ function DisplayLIs() {
   const cookies = new Cookies();
   let MainSeshID = cookies.get('mainSessionID');
   let SideSeshID = cookies.get('sideSessionID');
-  /*console.log("seshID: ",seshID);*/
   if (MainSeshID !== undefined && SideSeshID !== undefined){
     return (
       <div>
@@ -159,8 +155,6 @@ function CurrentSessionID() {
   const cookies = new Cookies();
   let MseshID = cookies.get('mainSessionID');
   let SseshID = cookies.get('sideSessionID');
-  console.log("MseshID: ",MseshID);
-  console.log("SseshID: ",SseshID);
   if (MseshID === undefined){
     MseshID = "No Session in Current Use"
   }
