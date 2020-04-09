@@ -109,8 +109,8 @@ function EndSession(idToEnd) {
   };
   request.send();
 
-  cookies.remove('sessionID');
-  console.log("cookie val: ", cookies.get('seshID'));
+/*  cookies.remove('sessionID');
+  console.log("cookie val: ", cookies.get('seshID'));*/
 
   window.location.reload(true)
 }

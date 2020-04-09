@@ -23,6 +23,10 @@ function SendDataToAPI(pars) {
     request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
       console.log(request.responseText)
+      document.getElementById("1").value = '';
+      document.getElementById("2").value = '';
+      document.getElementById("3").value = '';
+      document.getElementById("4").value = '';
     };
     request.send(pars)
 
@@ -82,10 +86,10 @@ class NewLeagueForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="name" className="Input-box" placeholder="League Name" value={this.state.name} onChange={this.handleChange}/> <br/>
-          <input type="number" name="startingAmount" className="Input-box" placeholder="Starting Amount" value={this.state.startingAmount} onChange={this.handleChange}/> <br/>
-          <input type="text" name="allowChanges" className="Input-box" placeholder="Allow Changes?" value={this.state.allowChanges} onChange={this.handleChange}/> <br/>
-          <input type="text" name="type" className="Input-box" placeholder="Type" value={this.state.type} onChange={this.handleChange}/> <br/>
+          <input id="1" type="text" name="name" className="Input-box" placeholder="League Name" value={this.state.name} onChange={this.handleChange}/> <br/>
+          <input id="2" type="number" name="startingAmount" className="Input-box" placeholder="Starting Amount" value={this.state.startingAmount} onChange={this.handleChange}/> <br/>
+          <input id="3" type="text" name="allowChanges" className="Input-box" placeholder="Allow Changes?" value={this.state.allowChanges} onChange={this.handleChange}/> <br/>
+          <input id="4" type="text" name="type" className="Input-box" placeholder="Type" value={this.state.type} onChange={this.handleChange}/> <br/>
           <button type="submit" value="Submit" className="Login-button" >Create</button>
         </form>
       </div>

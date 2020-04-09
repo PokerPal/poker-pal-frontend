@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Autosuggest from "react-autosuggest";
+import Cookies from 'universal-cookie';
 
 export function MLI() {
   return (
@@ -10,32 +11,48 @@ export function MLI() {
   )
 }
 
-function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
+function SendToBackEnd(un,place) {
   console.log("STUFF TO SEND TO BACKEND");
   console.log(un);
   console.log(place);
   let request = new XMLHttpRequest();
-  let q = "?" + "j";
+  let q = "?q=" + un;
   request.open('GET', "http://localhost:5000/users" + q, true);
   request.setRequestHeader('Content-type', 'application/json');
-  let dataReturn = [];
   request.onload = function () {
     let data = JSON.parse(this.response);
     if (data.error == null) {
-      let numEntries = data.value.length; // how many users
-      console.log("numEntries: ",numEntries);
-      console.log("data.value: ",data.value);
-      console.log("data.value[0].name: ",data.value[0].name);
-      for (let i = 0;i<numEntries;i++){
-        dataReturn.push(data.value[i])
-      }
-      /*dataReturn = data.value;*/
-      return dataReturn
+      push(data.value[0].id,place)
+
     }
   };
   request.send();
-
 }
+
+function push(id,place){
+  const cookies = new Cookies();
+  let MainSeshID = cookies.get('mainSessionID');
+  let request = new XMLHttpRequest();
+  let pars = "{\n" +
+    "  \"userId\": " + id + ",\n" +
+    "  \"totalScore\": " + place + "\n" +
+    "}";
+  request.open('GET', "http://localhost:5000/sessions/"+MainSeshID+"/users", true);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.onload = function () {
+    let data = JSON.parse(this.response);
+    if (data.error == null) {
+      alert("details sent")
+      document.getElementById("mName").value = '';
+      document.getElementById("mPlace").value = '';
+
+
+
+    }
+  };
+  request.send(pars);
+}
+
 
 /**
  * @return {string}
@@ -43,7 +60,7 @@ function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
 async function GetUNamesFromBE() {
   console.log("HUGE FART");
   let request = new XMLHttpRequest();
-  let q = "?" + "j";
+  let q = "?q=" + "j";
   request.open('GET', "http://localhost:5000/users" + q, true);
   request.setRequestHeader('Content-type', 'application/json');
   let dataReturn = [];
@@ -54,9 +71,11 @@ async function GetUNamesFromBE() {
       console.log("numEntries: ",numEntries);
       console.log("data.value: ",data.value);
       console.log("data.value[0].name: ",data.value[0].name);
+      let dataReturn = [];
       for (let i = 0;i<numEntries;i++){
         dataReturn.push(data.value[i])
       }
+      console.log("typeof dataReturn: ",typeof dataReturn)
       /*dataReturn = data.value;*/
       return dataReturn
     }
@@ -166,7 +185,8 @@ class MainLeagueDataEntryForm extends Component {
       /*console.log(this.state.place);
       console.log(this.state.value);*/
       SendToBackEnd(this.state.value, this.state.place)
-
+      this.state.value = '';
+      this.state.place = '';
     }
 
   }
@@ -176,6 +196,7 @@ class MainLeagueDataEntryForm extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
+      id:'mName',
       placeholder: 'Enter a username',
       value,
       onChange: this.onChange,
@@ -185,7 +206,7 @@ class MainLeagueDataEntryForm extends Component {
     return (
       <div>
         <br/>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} id={"mliForm"}>
           <p><b>Enter Name:</b></p>
           <Autosuggest
             suggestions={suggestions}
@@ -196,7 +217,7 @@ class MainLeagueDataEntryForm extends Component {
             inputProps={inputProps}
           />
           <p><b>Enter Place: </b></p>
-          <input type="number" name="place" className="Input-box" placeholder="Place" value={this.state.place} onChange={this.handleChange}/> <br/> <br/>
+          <input id="mPlace" type="number" name="place" className="Input-box" placeholder="Place" value={this.state.place} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button">Submit</button>
         </form>
       </div>
