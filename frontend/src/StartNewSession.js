@@ -69,7 +69,11 @@ function CheckLeagueDetails(sessionIDCookie,leagueIDforCookie) {
       cookies.set('sideSessionID', sessionIDCookie, {path: '/'});
       console.log("setSide")
     }
-
+    document.getElementById("1").value = '';
+    document.getElementById("2").value = '';
+    document.getElementById("3").value = '';
+    document.getElementById("4").value = '';
+    document.getElementById("5").value = '';
 
     /*let check = confirm("are  you sure you want to create a session in league name: "+name+"and type: "+type+"?");
     console.log("check: ",check);*/
@@ -174,11 +178,11 @@ class NewSessionForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input type="date" name="startDate" className="Input-box" placeholder="Start Date" value={this.state.startDate} onChange={this.handleChange}/> <br/>
-          <input type="date" name="endDate" className="Input-box" placeholder="End Date" value={this.state.endDate} onChange={this.handleChange}/> <br/>
-          <input type="number" name="frequency" className="Input-box" placeholder="Frequency" value={this.state.frequency} onChange={this.handleChange}/> <br/>
-          <input type="text" name="venue" className="Input-box" placeholder="Venue" value={this.state.venue} onChange={this.handleChange}/> <br/>
-          <input type="number" name="leagueID" className="Input-box" placeholder="League ID" value={this.state.leagueID} onChange={this.handleChange}/> <br/> <br/>
+          <input id="1" type="date" name="startDate" className="Input-box" placeholder="Start Date" value={this.state.startDate} onChange={this.handleChange}/> <br/>
+          <input id="2" type="date" name="endDate" className="Input-box" placeholder="End Date" value={this.state.endDate} onChange={this.handleChange}/> <br/>
+          <input id="3" type="number" name="frequency" className="Input-box" placeholder="Frequency" value={this.state.frequency} onChange={this.handleChange}/> <br/>
+          <input id="4" type="text" name="venue" className="Input-box" placeholder="Venue" value={this.state.venue} onChange={this.handleChange}/> <br/>
+          <input id="5" type="number" name="leagueID" className="Input-box" placeholder="League ID" value={this.state.leagueID} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button" >Create</button>
           {/*<button className="Login-button"><a className="backLink" href="/adminOptions">Back</a></button>*/}
         </form>

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Autosuggest from "react-autosuggest";
+import Cookies from "universal-cookie";
 
 
 export function SLI() {
@@ -11,10 +12,47 @@ export function SLI() {
   )
 }
 
-function SendToBackEnd(un,place) { // TODO - ACTUALLY LINK TO BACKEND
+function SendToBackEnd(un,amount) {
   console.log("STUFF TO SEND TO BACKEND");
-  console.log("un",un);
-  console.log("place",place);
+  console.log(un);
+  console.log(amount);
+  let request = new XMLHttpRequest();
+  let q = "?q=" + un;
+  request.open('GET', "http://localhost:5000/users" + q, true);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.onload = function () {
+    let data = JSON.parse(this.response);
+    if (data.error == null) {
+      push(data.value[0].id,amount)
+
+    }
+  };
+  request.send();
+}
+
+function push(id,amount){
+  const cookies = new Cookies();
+  let SideSeshID = cookies.get('sideSessionID');
+  let request = new XMLHttpRequest();
+  let pars = "{\n" +
+    "  \"userId\": " + id + ",\n" +
+    "  \"totalScore\": " + amount + "\n" +
+    "}";
+  request.open('GET', "http://localhost:5000/sessions/"+SideSeshID+"/users", true);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.onload = function () {
+    let data = JSON.parse(this.response);
+    if (data.error == null) {
+      alert("details sent")
+      document.forms["mliForm"].reset();
+      document.getElementById("sName").value = '';
+      document.getElementById("sAmount").value = '';
+
+
+
+    }
+  };
+  request.send(pars);
 }
 
 /**
@@ -35,7 +73,7 @@ function GetUNamesFromBE() {
     }
   };
   request.send();*/
-  console.log("MLI get names");
+  console.log("SLI get names");
   return "fart";
 }
 
@@ -181,7 +219,6 @@ class CurrencyOut extends Component {
   }
 
   handleSubmits(event) {
-    console.log("HUGE MEGA FART");
     let valid = true;
     if (this.state.value.length === 0
       || this.state.amountOut.length === 0) {
@@ -193,7 +230,6 @@ class CurrencyOut extends Component {
     if (valid) {
       /*console.log(this.state.place);
       console.log(this.state.value);*/
-      console.log("HUGE MEGA FART");
       SendToBackEnd(this.state.value, this.state.amountOut)
 
     }
@@ -205,6 +241,7 @@ class CurrencyOut extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
+      id: "sName",
       placeholder: 'Enter a username',
       value,
       onChange: this.onChange,
@@ -225,7 +262,7 @@ class CurrencyOut extends Component {
             inputProps={inputProps}
           />
           <p><b>Amount out: </b></p>
-          <input type="number" name="amountOut" className="Input-box" placeholder="10000" value={this.state.amountOut} onChange={this.handleChange}/> <br/> <br/>
+          <input id="sAmount" type="number" name="amountOut" className="Input-box" placeholder="10000" value={this.state.amountOut} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button">OUT</button>
         </form>
       </div>
@@ -300,6 +337,7 @@ class CurrencyIn extends Component {
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
+      id: "sName",
       placeholder: 'Enter a username',
       value,
       onChange: this.onChange,
@@ -320,7 +358,7 @@ class CurrencyIn extends Component {
             inputProps={inputProps}
           />
           <p><b>Amount in: </b></p>
-          <input type="number" name="amountIn" className="Input-box" placeholder="Currency In" value={this.state.amountIn} onChange={this.handleChange}/> <br/> <br/>
+          <input id="sAmount" type="number" name="amountIn" className="Input-box" placeholder="Currency In" value={this.state.amountIn} onChange={this.handleChange}/> <br/> <br/>
           <button type="submit" value="Submit" className="Login-button">IN</button>
         </form>
       </div>
