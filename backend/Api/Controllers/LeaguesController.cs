@@ -59,16 +59,25 @@ namespace Api.Controllers
         /// </summary>
         /// <param name="leagueId">The unique identifier of the league.</param>
         /// <param name="userId">The information of the user.</param>
+        /// <param name="context">
+        /// the number of users both above and below (in terms of their place in the standings)
+        /// the user that should be returned.
+        /// </param>
         /// <param name="leagueService">The league service.</param>
         /// <returns>The details of the user leagues within the league.</returns>
         [HttpGet("{leagueId}/user/{userId}")]
-        public async Task<ActionResult<Result<UserLeagueOutputType, string>>> GetUserLeague(
+        public async Task<ActionResult<Result<IEnumerable<UserLeagueOutputType>, string>>> GetUserLeague(
             [FromRoute] int leagueId,
             [FromRoute] int userId,
+            int? context,
             [FromServices] LeagueService leagueService)
         {
-            return (await leagueService.GetUserLeague(leagueId, userId))
-                .Map(UserLeagueOutputType.FromModel)
+            var places = context ?? 0;
+
+            return (await leagueService.GetUserLeague(leagueId, userId, places))
+                .Map(models => models
+                    .Select(model => UserLeagueOutputType.FromModel(model))
+                    .ToList())
                 .WrapSplit<ActionResult>(this.Ok, this.NotFound);
         }
 

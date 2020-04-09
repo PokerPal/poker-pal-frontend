@@ -117,8 +117,10 @@ namespace Application.Services
         /// </summary>
         /// <param name="leagueId">The leagues unique id.</param>
         /// <param name="userId">The users unique id.</param>
-        /// <returns>The user league's information, if found.</returns>
-        public async Task<Result<UserLeagueOutputModel, string>> GetUserLeague(int leagueId, int userId)
+        /// <param name="places">The amount of users above and below the current user to include.</param>
+        /// <returns>The user league's information, if found along with the context.</returns>
+        public async Task<Result<IEnumerable<UserLeagueOutputModel>, string>> GetUserLeague(
+            int leagueId, int userId, int places)
         {
             using (this.logger.BeginScope($"Getting user league with league id {leagueId} and user Id {userId}."))
             {
@@ -130,13 +132,34 @@ namespace Application.Services
                     return "user not found";
                 }
 
-                return Result<UserLeagueEntity, string>
-                    .FromNullableOr(
-                        await context.UserLeagues.FindAsync(userId, leagueId),
-                        $"Details for user {userId} in league {leagueId} not found.")
-                    .OnErr(e => this.logger.LogWarning(e))
-                    .Map(ul => new UserLeagueOutputModel(
-                        ul.UserId, ul.LeagueId, ul.TotalScore, user.Name));
+                var league = await context.Leagues
+                    .Include(l => l.UserLeagues)
+                    .ThenInclude(ul => ul.User)
+                    .SingleOrDefaultAsync(l => l.Id == leagueId);
+
+                var userLeague = await context.UserLeagues.FindAsync(userId, leagueId);
+
+                if (userLeague == null)
+                {
+                    this.logger.LogWarning($"no user league found for user{userId} within league {leagueId}");
+                    return "no user league found";
+                }
+
+                var aboveUserLeague = context.UserLeagues.OrderBy(ul => ul.TotalScore)
+                    .Where(ul => ul.TotalScore > userLeague.TotalScore && ul.LeagueId == leagueId)
+                    .ToList();
+
+                aboveUserLeague = aboveUserLeague.GetRange(0, Math.Min(places, aboveUserLeague.Count));
+
+                var underUserLeague = context.UserLeagues.OrderByDescending(ul => ul.TotalScore)
+                    .Where(ul => ul.TotalScore <= userLeague.TotalScore && ul.LeagueId == leagueId).ToList();
+
+                underUserLeague = underUserLeague.GetRange(0, Math.Min(places + 1, underUserLeague.Count));
+
+                IEnumerable<UserLeagueEntity> userLeagueEntities = aboveUserLeague.Concat(underUserLeague).OrderByDescending(ul =>
+                    ul.TotalScore);
+
+                return userLeagueEntities.Select(ul => new UserLeagueOutputModel(ul.UserId, ul.LeagueId, ul.TotalScore, ul.User.Name)).ToList();
             }
         }
 
