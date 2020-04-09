@@ -16,8 +16,6 @@ export function  LargeMLLeaderboard(){
   const columns = useMemo(
     () => [
       {
-        // first group - TV Show
-        // First group columns
         Header: "Main League",
         columns: [
           {
