@@ -25,23 +25,3 @@ if (!logged){
   );
 }
 
-
-/*
-ReactDOM.render(
-  <CookiesProvider>
-    <ToRender />
-    {/!*<LoginPage/>*!/}
-    {/!*<App />*!/}
-  </CookiesProvider>,
-  document.getElementById('root')
-);
-*/
-
-
-/* past, unchanged
-ReactDOM.render(
-  <CookiesProvider>
-    <App />
-  </CookiesProvider>,
-  document.getElementById('root')
-);*/

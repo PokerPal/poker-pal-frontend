@@ -23,7 +23,6 @@ function SendToBackEnd(un,place) {
     let data = JSON.parse(this.response);
     if (data.error == null) {
       push(data.value[0].id,place)
-
     }
   };
   request.send();
@@ -45,9 +44,6 @@ function push(id,place){
       alert("details sent")
       document.getElementById("mName").value = '';
       document.getElementById("mPlace").value = '';
-
-
-
     }
   };
   request.send(pars);
@@ -76,7 +72,6 @@ async function GetUNamesFromBE() {
         dataReturn.push(data.value[i])
       }
       console.log("typeof dataReturn: ",typeof dataReturn)
-      /*dataReturn = data.value;*/
       return dataReturn
     }
   };
@@ -105,22 +100,16 @@ userNames = [
 ];
 console.log("DATA ASDFASDF2:",userNames);
 
-// Teach Autosuggest how to calculate suggestions for any given input value.
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
-  //usernames =GetUNamesFromBE()
   return inputLength === 0 ? [] : userNames.filter(lang =>
     lang.name.toLowerCase().slice(0, inputLength) === inputValue
   );
 };
 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
 const getSuggestionValue = suggestion => suggestion.name;
 
-// Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
     {suggestion.name}
@@ -151,15 +140,12 @@ class MainLeagueDataEntryForm extends Component {
     });
   };
 
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: getSuggestions(value)
     });
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
@@ -169,7 +155,6 @@ class MainLeagueDataEntryForm extends Component {
   handleChange(event) { // FROM LOGIN
     console.log("userNamessssssssssss:",userNames);
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmit(event) {
@@ -182,8 +167,6 @@ class MainLeagueDataEntryForm extends Component {
 
     event.preventDefault();
     if (valid) {
-      /*console.log(this.state.place);
-      console.log(this.state.value);*/
       SendToBackEnd(this.state.value, this.state.place)
       this.state.value = '';
       this.state.place = '';
@@ -194,7 +177,6 @@ class MainLeagueDataEntryForm extends Component {
   render() {
     const { value, suggestions } = this.state;
 
-    // Autosuggest will pass through all these props to the input.
     const inputProps = {
       id:'mName',
       placeholder: 'Enter a username',
