@@ -59,7 +59,7 @@ class CurrPlace extends React.Component{
     async componentDidMount(){
         axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
           .then((response) => {
-            this.setState({currPlace: response.data.value.totalScore});
+            this.setState({currPlace: response.data.value[0].totalScore});
           }, (error) => {
             console.log(error);
           });
