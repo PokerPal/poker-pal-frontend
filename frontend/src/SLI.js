@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import Autosuggest from "react-autosuggest";
 import Cookies from "universal-cookie";
 
-
 export function SLI() {
   return (
     <div>
@@ -13,9 +12,6 @@ export function SLI() {
 }
 
 function SendToBackEnd(un,amount) {
-  console.log("STUFF TO SEND TO BACKEND");
-  console.log(un);
-  console.log(amount);
   let request = new XMLHttpRequest();
   let q = "?q=" + un;
   request.open('GET', "http://localhost:5000/users" + q, true);
@@ -74,14 +70,13 @@ function GetUNamesFromBE() {
   };
   request.send();*/
   console.log("SLI get names");
-  return "fart";
+  return "";
 }
 
 const userNames = GetUNamesFromBE();
 console.log("userNames:",userNames);
 
 
-// Teach Autosuggest how to calculate suggestions for any given input value.
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
@@ -91,13 +86,8 @@ const getSuggestions = value => {
   );
 };
 
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
 const getSuggestionValue = suggestion => suggestion.name;
 
-// Use your imagination to render suggestions.
-// TODO - CHANGE LOOK OF RENDERED SUGGESTIONS
 const renderSuggestion = suggestion => (
   <div>
     {suggestion.name}
@@ -198,15 +188,12 @@ class CurrencyOut extends Component {
     });
   };
 
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: getSuggestions(value)
     });
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
@@ -215,7 +202,6 @@ class CurrencyOut extends Component {
 
   handleChange(event) { // FROM LOGIN
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmits(event) {
@@ -228,10 +214,7 @@ class CurrencyOut extends Component {
 
     event.preventDefault();
     if (valid) {
-      /*console.log(this.state.place);
-      console.log(this.state.value);*/
       SendToBackEnd(this.state.value, this.state.amountOut)
-
     }
 
   }
@@ -239,7 +222,6 @@ class CurrencyOut extends Component {
   render() {
     const { value, suggestions } = this.state;
 
-    // Autosuggest will pass through all these props to the input.
     const inputProps = {
       id: "sName",
       placeholder: 'Enter a username',
@@ -294,15 +276,12 @@ class CurrencyIn extends Component {
     });
   };
 
-  // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: getSuggestions(value)
     });
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
@@ -311,7 +290,6 @@ class CurrencyIn extends Component {
 
   handleChange(event) { // FROM LOGIN
     this.setState({ [event.target.name]: event.target.value});
-    /*this.setState({value1: event.target.value1});*/ // KEEP ME FOR REFERENCE
   }
 
   handleSubmits(event) {
@@ -324,18 +302,13 @@ class CurrencyIn extends Component {
 
     event.preventDefault();
     if (valid) {
-      /*console.log(this.state.place);
-      console.log(this.state.value);*/
       SendToBackEnd(this.state.value, this.state.amountIn)
-
     }
-
   }
 
   render() {
     const { value, suggestions } = this.state;
 
-    // Autosuggest will pass through all these props to the input.
     const inputProps = {
       id: "sName",
       placeholder: 'Enter a username',

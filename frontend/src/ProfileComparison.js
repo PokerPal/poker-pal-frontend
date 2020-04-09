@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import Checkbox from "./Checkbox";
 
 let playerList = [
@@ -25,7 +26,6 @@ class ProfileComparison extends Component {
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.createCheckbox = this.createCheckbox.bind(this);
-
     }
 
     renderTableData(){

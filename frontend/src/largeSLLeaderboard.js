@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+
 import './Tournaments.css'
+
 class LargeSLLeaderboard extends Component{
     constructor(props){
         super(props)
@@ -49,4 +51,4 @@ class LargeSLLeaderboard extends Component{
     }
 }
 
-export default LargeSLLeaderboard
+export default LargeSLLeaderboard;

@@ -1,26 +1,27 @@
-import {Line} from 'react-chartjs-2';
 import React from "react";
-import './Tournaments.css';
-import Cookies from 'universal-cookie';
 import axios from 'axios'
+import {Line} from 'react-chartjs-2';
+import Cookies from 'universal-cookie';
+
+import './Tournaments.css';
 
 export class SideLeagueGraph extends React.Component{
     constructor(props){
         super(props);
-        var cookies = new Cookies();
+        let cookies = new Cookies();
         this.state = {
             lastUpdate: -1,
             userID: cookies.get('userID'),
             sessionIDs:-1,
             sessionValues: [-1],
             pHistory : {
-                labels: ["January", "February", "March", "April", "May", "June", "July"], //GET FROM API
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [{
                     label : 'Balance History',
                     backgroundColor: '#0013ae',
                     fill: false,
                     borderColor: '#0013ae',
-                    data: [0, 10, 5, 2, 20, 30, 45], //NEED TO GET FROM API
+                    data: [0, 10, 5, 2, 20, 30, 45],
                 }],
             },
             graphOptions : {
@@ -80,4 +81,6 @@ export class SideLeagueGraph extends React.Component{
         );
         
     }
-} export default SideLeagueGraph
+}
+
+export default SideLeagueGraph
