@@ -75,16 +75,6 @@ export function MemberProfile() {
                 </div>
 
                 <div className="memberRightSection">
-                    <div className="sub-section-header">
-                        <b>My Stats</b>
-                    </div>
-                    <br></br>
-                    <div className="smaller-text">
-                    {/*<p>rank = </p>*/}
-                    <GetRank/>
-                    <p>balance = 4</p>
-                    <p>wins = 1</p>
-                </div>
                     <div className="smaller-text">
                         <p><strong>Compare with other Players</strong></p>
                         <ProfileComparison/>
