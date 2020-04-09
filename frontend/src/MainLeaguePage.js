@@ -1,6 +1,6 @@
 import React from "react";
 import './Tournaments.css';
-import MainLeagueLeaderboard from './MainLeagueLeaderboard'
+import SmallMLLeaderboard from './smallMLLeaderboard'
 import MainLeagueGraph from './MainLeagueGraph.js'
 import Cookies from 'universal-cookie';
 import {
@@ -39,7 +39,7 @@ export function MainLeaguePage() {
                             <MainLeagueGraph/>
                             <p>
                             <strong>Leaderboard </strong></p>
-                            <MainLeagueLeaderboard/>
+                            <SmallMLLeaderboard/>
                     </div>
                 </div>
             </body>
@@ -59,7 +59,7 @@ class CurrPlace extends React.Component{
     async componentDidMount(){
         axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
           .then((response) => {
-            this.setState({currPlace: response.data.value.totalScore});
+            this.setState({currPlace: response.data.value[0].totalScore});
           }, (error) => {
             console.log(error);
           });

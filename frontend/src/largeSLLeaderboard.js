@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import './Tournaments.css'
-class MainLeagueLeaderboard extends Component{
+class LargeSLLeaderboard extends Component{
     constructor(props){
         super(props)
         this.state = {
             leaderboardEntry:[
-                { ranking: 1, name: 'Oisin', points: 12 },
-                { ranking: 2, name: 'James', points: 11 },
-                { ranking: 3, name: 'Jake', points: 10 },
-                { ranking: 4, name: 'Lucy', points: 9 }
+                { ranking: 1, name: 'Oisin', balance: 21},
+                { ranking: 2, name: 'Soren', balance: 19},
+                { ranking: 3, name: 'Sam', balance: 16},
+                { ranking: 4, name: 'Geordie', balance: 10}
             ]
         }
     }
@@ -17,12 +17,13 @@ class MainLeagueLeaderboard extends Component{
     }
     renderTableData(){
         return this.state.leaderboardEntry.map((student,index) => {
-            const {id, name, ranking, points} = student  
+            const {id, name, ranking, balance} = student  
             return(
                 <tr key={id}>
                     <td>{ranking}</td>
                     <td>{name}</td>
-                    <td>{points}</td>
+                    <td>{balance}</td>
+                    
                 </tr>
             )
         })
@@ -30,9 +31,10 @@ class MainLeagueLeaderboard extends Component{
     renderTableHeader() {
         let header = Object.keys(this.state.leaderboardEntry[0])
         return header.map((key, index) => {
-           return <th key={index} onClick = {() => this.sortBy(key.toUpperCase())}>{key.toUpperCase()}</th>
+           return <th key={index} onClick={() => this.sortBy(key.toUpperCase())}>{key.toUpperCase()}</th>
         })
      }
+  
     render(){
         return (
             <div>
@@ -47,4 +49,4 @@ class MainLeagueLeaderboard extends Component{
     }
 }
 
-export default MainLeagueLeaderboard
+export default LargeSLLeaderboard

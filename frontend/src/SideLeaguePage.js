@@ -1,6 +1,6 @@
 import React from "react";
 import './Tournaments.css';
-import SideLeagueLeaderboard from './SideLeagueLeaderboard'
+import SmallSLLeaderboard from './smallSLLeaderboard'
 import SideLeagueGraph from './SideLeagueGraph.js'
 import Cookies from 'universal-cookie';
 import {
@@ -38,7 +38,7 @@ export function SideLeaguePage() {
                             <SideLeagueGraph/>
                             <p>
                             <strong>Leaderboard </strong></p>
-                            <SideLeagueLeaderboard/>
+                            <SmallSLLeaderboard/>
                     </div>
                 </div>
             </body>

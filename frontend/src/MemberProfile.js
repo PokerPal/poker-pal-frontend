@@ -9,10 +9,8 @@ import Cookies from 'universal-cookie';
 import ProfileComparison from './ProfileComparison'
 import './Tournaments.css';
 import {Line} from 'react-chartjs-2';
-import "./slider.css";
-//import "./AppContrast.css";
-import "./App.css"
-import MainLeagueLeaderboard from "./MainLeagueLeaderboard";
+import LargeMLLeaderboard from "./largeMLLeaderboard";
+
 
 export function MemberProfile() {
     var hPlace = 10 //NEED TO GET FROM API
@@ -77,16 +75,6 @@ export function MemberProfile() {
                 </div>
 
                 <div className="memberRightSection">
-                    <div className="sub-section-header">
-                        <b>My Stats</b>
-                    </div>
-                    <br></br>
-                    <div className="smaller-text">
-                    {/*<p>rank = </p>*/}
-                    <GetRank/>
-                    <p>balance = 4</p>
-                    <p>wins = 1</p>
-                </div>
                     <div className="smaller-text">
                         <p><strong>Compare with other Players</strong></p>
                         <ProfileComparison/>
