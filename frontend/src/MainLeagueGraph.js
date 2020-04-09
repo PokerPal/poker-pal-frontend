@@ -27,7 +27,7 @@ export class MainLeagueGraph extends React.Component{
                 scales: {
                     yAxes: [
                         {ticks: 
-                            {reverse: true}
+                            {reverse: false}
                         }
                     ]
                 },

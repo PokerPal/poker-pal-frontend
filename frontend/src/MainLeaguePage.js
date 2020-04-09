@@ -16,17 +16,16 @@ export function MainLeaguePage() {
     //var userID  = cookies.get('userID'); 
     const userID = 1;
     var userName = cookies.get('userName');
-    var hPlace = 10 //NEED TO GET FROM API
     var lastUpdate = "11/10/20"    
     return (
         <div className="Tournament">
             <body>
                 <div>
                     <div className="tournamentLeftSection">
-                        <p><strong>Current Place</strong></p>
+                        <p><strong>Current Points</strong></p>
                         <CurrPlace/>
-                        <p><strong>Highest Place</strong></p>
-                        <HighestPlace/>
+                        <p><strong>Win Streak</strong></p>
+                        <WinStreak/>
                         <p><strong>Last Updated</strong></p>
                         <LastUpdated/>
                         <p>
@@ -53,13 +52,11 @@ class CurrPlace extends React.Component{
         super(props);
         var cookies = new Cookies();
         this.state = {
-            currPlace: -1,
+            currPlace: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
-    
     async componentDidMount(){
-        this.setState({currPlace:2})
         axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
           .then((response) => {
             this.setState({currPlace: response.data.value.totalScore});
@@ -81,7 +78,7 @@ class LastUpdated extends React.Component{
         super(props);
         var cookies = new Cookies();
         this.state = {
-            lastUpdate: -1,
+            lastUpdate: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
@@ -106,32 +103,33 @@ class LastUpdated extends React.Component{
         );
     }
 }
-class HighestPlace extends React.Component{
-    constructor(props){
-        super(props);
-        var cookies = new Cookies();
-        this.state = {
-            highPlace: -1,
-            userID: cookies.get('userID')
-        }
+class WinStreak extends React.Component{constructor(props){
+    super(props);
+    var cookies = new Cookies();
+    this.state = {
+        streak: 0,
+        WL: "user is not on a streak",
+        userID: cookies.get('userID')
     }
-    
+}
+
     async componentDidMount(){
         this.setState({currPlace:2})
-        axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID+'/history')
-          .then((response) => {
-              var sessions = response.data.value
-              var maxPlace = sessions.reduce((min, p) => p.totalScore < min ? p.totalScore : min, sessions[0].totalScore); //Formula I stole online to get min place not sure if/how it works
-              this.setState({lastUpdate: maxPlace});
-          }, (error) => {
+        axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+        .then((response) => {
+            this.setState({
+                streak: response.data.value.streak,
+                WL: response.data.value.streakType
+                });
+        }, (error) => {
             console.log(error);
-          });
+        });
         
     }
     render(){
         return(
             <p>
-                {this.state.lastUpdate}
+                {this.state.streak + " " + this.state.WL}
             </p>
         );
     }

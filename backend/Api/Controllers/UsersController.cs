@@ -86,6 +86,24 @@ namespace Api.Controllers
         }
 
         /// <summary>
+        /// Get the users win or loss streak from a given league.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user.</param>
+        /// <param name="leagueId">The unique identifier of the league.</param>
+        /// <param name="userService">The user service.</param>
+        /// <returns>The details of the users streak.</returns>
+        [HttpGet("{userId}/streak/{leagueId}")]
+        public async Task<ActionResult<Result<UserStreakOutputType, string>>> GetUserStreak(
+            [FromRoute] int userId,
+            [FromRoute] int leagueId,
+            [FromServices] UserService userService)
+        {
+            return (await userService.GetUserStreakAsync(userId, leagueId))
+                .Map(UserStreakOutputType.FromModel)
+                .WrapSplit<ActionResult>(this.Ok, this.NotFound);
+        }
+
+        /// <summary>
         /// Get the details of all users.
         /// </summary>
         /// <param name="q">Search query to filter users.</param>

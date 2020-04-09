@@ -24,6 +24,7 @@ namespace Application.Services
     public class SessionService
     {
         private readonly LeagueService leagueService;
+        private readonly PointsService pointsService;
         private readonly ILogger<SessionService> logger;
         private readonly IDatabaseContextFactory<DatabaseContext> databaseContextFactory;
 
@@ -31,14 +32,17 @@ namespace Application.Services
         /// Initializes a new instance of the <see cref="SessionService"/> class.
         /// </summary>
         /// <param name="leagueService">The league service.</param>
+        /// <param name="pointsService">The points service.</param>
         /// <param name="logger">Logger for messages.</param>
         /// <param name="databaseContextFactory">Factory for the database context.</param>
         public SessionService(
             LeagueService leagueService,
+            PointsService pointsService,
             ILogger<SessionService> logger,
             IDatabaseContextFactory<DatabaseContext> databaseContextFactory)
         {
             this.leagueService = leagueService;
+            this.pointsService = pointsService;
             this.logger = logger;
             this.databaseContextFactory = databaseContextFactory;
         }
@@ -97,6 +101,7 @@ namespace Application.Services
                 session.Finalized = true;
 
                 var league = session.League;
+                var total = session.UserSessions.Count;
 
                 foreach (var userSession in session.UserSessions)
                 {
@@ -121,7 +126,10 @@ namespace Application.Services
                             userLeague.TotalScore += userSession.TotalScore;
                             break;
                         case LeagueType.Points:
-                            userLeague.TotalScore += userSession.TotalScore;
+                            var points = this.pointsService.CalculatePoints(
+                                userSession.TotalScore,
+                                total);
+                            userLeague.TotalScore += points;
                             break;
                     }
 

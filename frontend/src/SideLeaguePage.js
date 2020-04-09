@@ -13,8 +13,7 @@ import axios from 'axios'
 
 export function SideLeaguePage() {
     const cookies = new Cookies();
-    //var userID  = cookies.get('userID'); 
-    const userID = 1;
+    var userID  = cookies.get('userID'); 
     var userName = cookies.get('userName');
     var hPlace = 10 //NEED TO GET FROM API
     var lastUpdate = "11/10/20"    
@@ -23,9 +22,9 @@ export function SideLeaguePage() {
             <body>
                 <div>
                     <div className="tournamentLeftSection">
-                        <p><strong>Current Place</strong></p>
-                        <CurrPlace/>
                         <BalanceValues/>
+                        <p><strong>Win Streak</strong></p>
+                        <WinStreak/>
                         <p><strong>Last Updated</strong></p>
                         <LastUpdated/>
                         <p>
@@ -47,45 +46,17 @@ export function SideLeaguePage() {
     );
 }
 
-class CurrPlace extends React.Component{
-    constructor(props){
-        super(props);
-        var cookies = new Cookies();
-        this.state = {
-            currPlace: -1,
-            userID: cookies.get('userID')
-        }
-    }
-    
-    async componentDidMount(){
-        axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID)
-          .then((response) => {
-            this.setState({currPlace: response.data.value.totalScore});
-          }, (error) => {
-            console.log(error);
-          });
-        
-    }
-    render(){
-        return(
-            <p>
-                {this.state.currPlace}
-            </p>
-        );
-    }
-}
 class LastUpdated extends React.Component{
     constructor(props){
         super(props);
         var cookies = new Cookies();
         this.state = {
-            lastUpdate: -1,
+            lastUpdate: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
     
     async componentDidMount(){
-        this.setState({currPlace:2})
         axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
           .then((response) => {
               var sessions = response.data.value
@@ -104,13 +75,44 @@ class LastUpdated extends React.Component{
         );
     }
 }
+class WinStreak extends React.Component{constructor(props){
+    super(props);
+    var cookies = new Cookies();
+    this.state = {
+        streak: 0,
+        WL: "user is not on a streak",
+        userID: cookies.get('userID')
+    }
+}
+
+async componentDidMount(){
+    this.setState({currPlace:2})
+    axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+      .then((response) => {
+          this.setState({
+              streak: response.data.value.streak,
+              WL: response.data.value.streakType
+            });
+      }, (error) => {
+        console.log(error);
+      });
+    
+}
+render(){
+    return(
+        <p>
+            {this.state.streak + " " + this.state.WL}
+        </p>
+    );
+}
+}
 class BalanceValues extends React.Component{
     constructor(props){
         super(props);
         var cookies = new Cookies();
         this.state = {
-            highBal: -1,
-            currBal:-1,
+            highBal: "User has not joined any sessions",
+            currBal: "User has not joined any sessions",
             userID: cookies.get('userID')
         }
     }
