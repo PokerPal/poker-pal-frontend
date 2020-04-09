@@ -40,3 +40,20 @@ Again, several options:
 - Manually run `dotnet run --launch-profile "Local API/PostgreSQL"`
 - Run one of the two launch profiles from within Rider or Visual Studio
 
+## Frontend
+
+The backend code is contained in `frontend/`. The backend is written in JSX using the React library.
+ 
+#### Prerequisites
+
+First, you'll need to install:
+- [NPM](https://docs.npmjs.com/)
+ 
+ You also might want to install:
+- [Webstorm](https://www.jetbrains.com/webstorm/download/)
+ 
+#### Building
+- Use `npm install` within the frontend folder to install necessary packages
+ 
+#### Running
+- Use `npm start` to start the application. The web page should open itself, otherwise paste the link given in the output of the command into your favourite browser.
