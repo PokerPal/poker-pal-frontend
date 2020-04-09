@@ -23,6 +23,8 @@ export function SideLeaguePage() {
                 <div>
                     <div className="tournamentLeftSection">
                         <BalanceValues/>
+                        <p><strong>Win Streak</strong></p>
+                        <WinStreak/>
                         <p><strong>Last Updated</strong></p>
                         <LastUpdated/>
                         <p>
@@ -72,6 +74,37 @@ class LastUpdated extends React.Component{
             </p>
         );
     }
+}
+class WinStreak extends React.Component{constructor(props){
+    super(props);
+    var cookies = new Cookies();
+    this.state = {
+        streak: 0,
+        WL: "user is not on a streak",
+        userID: cookies.get('userID')
+    }
+}
+
+async componentDidMount(){
+    this.setState({currPlace:2})
+    axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+      .then((response) => {
+          this.setState({
+              streak: response.data.value.streak,
+              WL: response.data.value.streakType
+            });
+      }, (error) => {
+        console.log(error);
+      });
+    
+}
+render(){
+    return(
+        <p>
+            {this.state.streak + " " + this.state.WL}
+        </p>
+    );
+}
 }
 class BalanceValues extends React.Component{
     constructor(props){
