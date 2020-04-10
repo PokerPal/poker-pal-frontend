@@ -7,7 +7,6 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "child_process": "^1.0.2",
-    "curl-request": "^1.1.1",
     "openapi-client-axios": "^3.3.2",
     "poker_pal": "^1.0.1",
     "react": "^16.13.0",
