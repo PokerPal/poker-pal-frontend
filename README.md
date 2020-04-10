@@ -1,5 +1,7 @@
 # PokerPal Frontend
 
+![Frontend](https://github.com/PokerPal/PokerPal/workflows/Frontend/badge.svg)
+
 This repository contains code for the frontend of the PokerPal application. The frontend is written 
 in JavaScript using React.
 
