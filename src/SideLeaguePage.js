@@ -8,11 +8,11 @@ import Cookies from 'universal-cookie';
 import './Tournaments.css';
 
 export function SideLeaguePage() {
-    const cookies = new Cookies();
-    let userID  = cookies.get('userID');
-    let userName = cookies.get('userName');
-    let hPlace = 10 //NEED TO GET FROM API
-    let lastUpdate = "11/10/20"
+    // const cookies = new Cookies(); // REMOVED AS UNUSED
+    // let userID  = cookies.get('userID'); // REMOVED AS UNUSED
+    // let userName = cookies.get('userName'); // REMOVED AS UNUSED
+    // let hPlace = 10 //NEED TO GET FROM API // REMOVED AS UNUSED
+    // let lastUpdate = "11/10/20" // REMOVED AS UNUSED
     return (
         <div className="Tournament">
             {/*<body>*/}
@@ -55,7 +55,7 @@ class LastUpdated extends React.Component{
     async componentDidMount(){
         axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
           .then((response) => {
-              let sessions = response.data.value
+              // let sessions = response.data.value // REMOVED AS UNUSED
               let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
               this.setState({lastUpdate: recentSession.toDateString()});
           }, (error) => {

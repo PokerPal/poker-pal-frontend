@@ -17,7 +17,7 @@ export function  LargeMLLeaderboard(){
       console.log(result.data.value)
       setData(result.data.value);
     })();
-  }, []);
+  } ); // , [] // REMOVED AS UNUSED
 
   const columns = useMemo(
     () => [

@@ -1,6 +1,5 @@
 import logo from "./bluffBathLogo.png";
 import React, {Component} from "react";
-import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 
 import "./slider.css";
@@ -95,15 +94,15 @@ class LoginForm extends Component {
           || this.state.newUsername.length === 0
           || this.state.newPassword.length === 0) {
             window.alert("Please fill in all fields");
-            this.state.newPassword = '';
-            this.state.confirmPassword = '';
+            /*this.state.newPassword = '';
+            this.state.confirmPassword = '';*/
             valid = false;
 
         }
         if (this.state.newPassword !== this.state.confirmPassword){
             window.alert("Passwords do not match");
-            this.state.newPassword = '';
-            this.state.confirmPassword = '';
+            /*this.state.newPassword = '';
+            this.state.confirmPassword = '';*/
             valid = false;
         }
 
