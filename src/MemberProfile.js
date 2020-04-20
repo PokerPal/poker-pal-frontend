@@ -77,22 +77,22 @@ export function MemberProfile() {
     );
 }
 
-window.onload = function() {
+/*window.onload = function() {
     document.getElementById("button").onclick = ChangeContrast;
-};
+};*/
 
 
-function ChangeContrast(sheet) {
+/*function ChangeContrast(sheet) {
     document.body.style.fontWeight= "bolder";
     document.body.style.fontSize = "200px";
     document.getElementById('pagestyle').setAttribute('href', sheet);
-}
+}*/
 
 
 
-window.onload = function() {
+/*window.onload = function() {
     document.getElementById("button").onclick = ChangeContrast;
-};
+};*/
 
 /*function Reload(){
     window.location.reload(true)

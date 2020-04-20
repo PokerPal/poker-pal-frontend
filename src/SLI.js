@@ -43,9 +43,6 @@ function push(id,amount){
       document.forms["mliForm"].reset();
       document.getElementById("sName").value = '';
       document.getElementById("sAmount").value = '';
-
-
-
     }
   };
   request.send(pars);

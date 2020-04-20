@@ -15,7 +15,7 @@ export function SideLeaguePage() {
     let lastUpdate = "11/10/20"
     return (
         <div className="Tournament">
-            <body>
+            {/*<body>*/}
                 <div>
                     <div className="tournamentLeftSection">
                         <BalanceValues/>
@@ -37,7 +37,7 @@ export function SideLeaguePage() {
                             <SmallSLLeaderboard/>
                     </div>
                 </div>
-            </body>
+            {/*</body>*/}
         </div>
     );
 }

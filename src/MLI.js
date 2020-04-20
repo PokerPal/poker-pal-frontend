@@ -63,16 +63,20 @@ async function GetUNamesFromBE() {
   request.onload = function () {
     let data = JSON.parse(this.response);
     if (data.error == null) {
-      let numEntries = data.value.length; // how many users
-      console.log("numEntries: ",numEntries);
-      console.log("data.value: ",data.value);
-      console.log("data.value[0].name: ",data.value[0].name);
-      let dataReturn = [];
-      for (let i = 0;i<numEntries;i++){
-        dataReturn.push(data.value[i])
-      }
-      console.log("typeof dataReturn: ",typeof dataReturn)
-      return dataReturn
+      try {
+        let numEntries = data.value.length; // how many users
+        console.log("numEntries: ", numEntries);
+        console.log("data.value: ", data.value);
+        console.log("data.value[0].name: ", data.value[0].name);
+        let dataReturn = [];
+        for (let i = 0; i < numEntries; i++) {
+          dataReturn.push(data.value[i])
+        }
+        console.log("typeof dataReturn: ", typeof dataReturn)
+        return dataReturn
+      }catch(err){
+        console.log("MLI: "+err);
+    }
     }
   };
   request.send("{}");
