@@ -11,10 +11,10 @@ import ProfileComparison from './ProfileComparison'
 import './Tournaments.css';
 
 export function MemberProfile() {
-    var hPlace = 10
-    var cPlace = 10
-    var lastUpdate = "11/10/20"
-    var pHistory = {
+    // var hPlace = 10 // REMOVED AS UNUSED
+    // var cPlace = 10 // REMOVED AS UNUSED
+    // var lastUpdate = "11/10/20" // REMOVED AS UNUSED
+    /*var pHistory = { // REMOVED AS UNUSED
         labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [{
             label : 'Place History',
@@ -22,7 +22,7 @@ export function MemberProfile() {
             borderColor: '#0013ae',
             data: [0, 10, 5, 2, 20, 30, 45],
         }]
-    };
+    };*/
     return (
         <div className="App">
             <div className="side-custom-header">
@@ -77,32 +77,33 @@ export function MemberProfile() {
     );
 }
 
-window.onload = function() {
+/*window.onload = function() {
     document.getElementById("button").onclick = ChangeContrast;
-};
+};*/
 
 
-function ChangeContrast(sheet) {
+/*function ChangeContrast(sheet) {
     document.body.style.fontWeight= "bolder";
     document.body.style.fontSize = "200px";
     document.getElementById('pagestyle').setAttribute('href', sheet);
-}
+}*/
 
 
 
-window.onload = function() {
+/*window.onload = function() {
     document.getElementById("button").onclick = ChangeContrast;
-};
+};*/
 
 /*function Reload(){
     window.location.reload(true)
 }*/
 
-function ChangeContrast(sheet){
+// REMOVED AS UNUSED
+/*function ChangeContrast(sheet){
     document.body.style.background= "#FCFF90";
     document.body.style.fontWeight= "bold";
     document.getElementById('pagestyle').setAttribute('href', sheet);
-}
+}*/
 
 function GetUserName(){
     const cookies = new Cookies();
@@ -115,7 +116,7 @@ function GetUserName(){
     )
 }
 
-
+/*
 // TODO - REPLICATE FOR GetBalance, GetNumWins
 function GetRank(){
     const cookies = new Cookies();
@@ -127,17 +128,17 @@ function GetRank(){
     let url = "http://localhost:5000/"+leagueID+"/user/"+userID;
 
     let request = new XMLHttpRequest();
-    let filePath = "";
+    // let filePath = ""; // REMOVED AS UNUSED
     // TODO - GET CURRENT RANK FROM MAIN LEAGUE
     //request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
     request.open(method, url, true);
-    let rank;
+    // let rank; // REMOVED AS UNUSED
     request.onload = function(){
         let data = JSON.parse(this.response);
-        let rank = data.rank;
+        // let rank = data.rank; // REMOVED AS UNUSED
         if (data.error == null) {
             console.log(data);
-            let rank = data.value.totalScore;// TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED
+            // let rank = data.value.totalScore;// TODO - SET AS DATA.RANK WHEN BACKEND COMPLETED // REMOVED AS UNUSED
 
             const cookies = new Cookies(); // TODO - DECIDE IF COOKIES HAVE TO BE SET HERE
             cookies.set('mainLeagueStanding', rank, { path: '/' });
@@ -161,7 +162,7 @@ function GetRank(){
 function GetBalance(){
 
     const cookies = new Cookies();
-    /*cookies.set('myCat', 'Pacman', { path: '/' });*/
+    /!*cookies.set('myCat', 'Pacman', { path: '/' });*!/
     console.log(cookies.get('userName'));
     let name = cookies.get('userName');
     return (
@@ -175,7 +176,7 @@ function GetBalance(){
 function GetNumWins(){
 
     const cookies = new Cookies();
-    /*cookies.set('myCat', 'Pacman', { path: '/' });*/
+    /!*cookies.set('myCat', 'Pacman', { path: '/' });*!/
     console.log(cookies.get('userName'));
     let name = cookies.get('userName');
     return (
@@ -183,4 +184,4 @@ function GetNumWins(){
             <b>{name}</b>
         </div>
     )
-}
+}*/

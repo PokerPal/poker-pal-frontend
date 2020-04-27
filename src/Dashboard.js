@@ -6,10 +6,10 @@ import LargeMLLeaderboard from "./largeMLLeaderboard";
 export function Dashboard() {
   const cookies = new Cookies();
   cookies.set('id', '1234', { path: '/' });
-  let userID  = cookies.get('id');
-  let mlPlace = 10; //NEED TO GET FROM API
-  let slBalance = 300000; //NEED TO GET FROM API
-  let lastUpdate = "11/10/20";
+  // let userID  = cookies.get('id'); // REMOVED AS UNUSED
+  // let mlPlace = 10; //NEED TO GET FROM API // REMOVED AS UNUSED
+  // let slBalance = 300000; //NEED TO GET FROM API // REMOVED AS UNUSED
+  // let lastUpdate = "11/10/20"; // REMOVED AS UNUSED
 
   return (
     <div className="Tournament">
@@ -110,7 +110,7 @@ class LastUpdated extends React.Component{
       this.setState({currPlace:2})
       axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
         .then((response) => {
-            let sessions = response.data.value
+            // let sessions = response.data.value // REMOVED AS UNUSED
             let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
             this.setState({lastUpdate: recentSession.toDateString()});
         }, (error) => {

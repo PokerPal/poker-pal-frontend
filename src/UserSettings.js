@@ -1,4 +1,4 @@
-import logo from "./bluffBathLogo.png";
+// import logo from "./bluffBathLogo.png"; // REMOVED AS UNUSED
 import React from "react";
 
 export function UserSettings() {

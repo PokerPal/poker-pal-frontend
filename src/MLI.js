@@ -56,23 +56,27 @@ function push(id,place){
 async function GetUNamesFromBE() {
   console.log("HUGE FART");
   let request = new XMLHttpRequest();
-  let q = "?q=" + "j";
+  let q = "?q=j"; // + "j";
   request.open('GET', "http://localhost:5000/users" + q, true);
   request.setRequestHeader('Content-type', 'application/json');
   let dataReturn = [];
   request.onload = function () {
     let data = JSON.parse(this.response);
     if (data.error == null) {
-      let numEntries = data.value.length; // how many users
-      console.log("numEntries: ",numEntries);
-      console.log("data.value: ",data.value);
-      console.log("data.value[0].name: ",data.value[0].name);
-      let dataReturn = [];
-      for (let i = 0;i<numEntries;i++){
-        dataReturn.push(data.value[i])
-      }
-      console.log("typeof dataReturn: ",typeof dataReturn)
-      return dataReturn
+      try {
+        let numEntries = data.value.length; // how many users
+        console.log("numEntries: ", numEntries);
+        console.log("data.value: ", data.value);
+        console.log("data.value[0].name: ", data.value[0].name);
+        let dataReturn = [];
+        for (let i = 0; i < numEntries; i++) {
+          dataReturn.push(data.value[i])
+        }
+        console.log("typeof dataReturn: ", typeof dataReturn)
+        return dataReturn
+      }catch(err){
+        console.log("MLI: "+err);
+    }
     }
   };
   request.send("{}");
@@ -88,17 +92,17 @@ function sleep(ms) {
 
 
 let userNames = GetUNamesFromBE();
-console.log("userNamessssssssssss:",userNames);
+// console.log("userNames:",userNames);
 userNames = [
-{id: 1, email: "ja853@bath.ac.uk", name: "James Austen", joined: "2020-04-08T12:53:09.6840892+01:00", authLevel: "User"},
-{id: 2, email: "lsg38@bath.ac.uk", name: "Lucy Green", joined: "2020-04-08T12:53:09.7889493+01:00", authLevel: "User"},
-{id: 3, email: "jm2787@bath.ac.uk", name: "Jake Mifsud", joined: "2020-04-08T12:53:09.8037499+01:00", authLevel: "User"},
-{id: 4, email: "snm48@bath.ac.uk", name: "Soren Mortensen", joined: "2020-04-08T12:53:09.8199115+01:00", authLevel: "User"},
-{id: 5, email: "oof26@bath.ac.uk", name: "Oisin OFlaherty", joined: "2020-04-08T12:53:09.8358016+01:00", authLevel: "User"},
-{id: 6, email: "sr2058@bath.ac.uk", name: "Sam Rosenthal", joined: "2020-04-08T12:53:09.8519434+01:00", authLevel: "User"},
-{id: 7, email: "gjcr20@bath.ac.uk", name: "Geordie Ross", joined: "2020-04-08T12:53:09.8681587+01:00", authLevel: "User"}
+  {id: 1, email: "ja853@bath.ac.uk", name: "James Austen", joined: "2020-04-08T12:53:09.6840892+01:00", authLevel: "User"},
+  {id: 2, email: "lsg38@bath.ac.uk", name: "Lucy Green", joined: "2020-04-08T12:53:09.7889493+01:00", authLevel: "User"},
+  {id: 3, email: "jm2787@bath.ac.uk", name: "Jake Mifsud", joined: "2020-04-08T12:53:09.8037499+01:00", authLevel: "User"},
+  {id: 4, email: "snm48@bath.ac.uk", name: "Soren Mortensen", joined: "2020-04-08T12:53:09.8199115+01:00", authLevel: "User"},
+  {id: 5, email: "oof26@bath.ac.uk", name: "Oisin OFlaherty", joined: "2020-04-08T12:53:09.8358016+01:00", authLevel: "User"},
+  {id: 6, email: "sr2058@bath.ac.uk", name: "Sam Rosenthal", joined: "2020-04-08T12:53:09.8519434+01:00", authLevel: "User"},
+  {id: 7, email: "gjcr20@bath.ac.uk", name: "Geordie Ross", joined: "2020-04-08T12:53:09.8681587+01:00", authLevel: "User"}
 ];
-console.log("DATA ASDFASDF2:",userNames);
+// console.log("DATA ASDFASDF2:",userNames);
 
 const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
@@ -168,8 +172,8 @@ class MainLeagueDataEntryForm extends Component {
     event.preventDefault();
     if (valid) {
       SendToBackEnd(this.state.value, this.state.place)
-      this.state.value = '';
-      this.state.place = '';
+/*      this.state.value = '';
+      this.state.place = '';*/
     }
 
   }

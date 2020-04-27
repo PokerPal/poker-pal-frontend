@@ -49,7 +49,7 @@ export class MainLeagueGraph extends React.Component{
           }, (error) => {
             console.log(error);
           });
-          axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions')
+          await axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions')
           .then((response) => {
               let sessions = response.data.value
               let inclSessions = this.state.sessionIDs

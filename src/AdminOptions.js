@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react"; // {Component} // REMOVED AS UNUSED
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Cookies from "universal-cookie";
 
@@ -96,7 +96,7 @@ function EndSideSession() {
 }
 
 function EndSession(idToEnd) {
-  const cookies = new Cookies();
+  // const cookies = new Cookies(); // REMOVED AS UNUSED
   const method = "POST";
   const url = "http://localhost:5000/sessions/" + idToEnd + "/finalize";
 

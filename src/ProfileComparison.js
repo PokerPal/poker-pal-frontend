@@ -41,6 +41,7 @@ class ProfileComparison extends Component {
                     </tr>
                 )
             }
+            return null;
         })
     }
     renderTableHeader() {
@@ -121,6 +122,7 @@ class DisplayChoices extends Component {
                     </tr>
                 )
             }
+            return null; // may break?
         })
     }
 
