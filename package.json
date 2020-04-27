@@ -29,8 +29,9 @@
     "eslint-plugin-react": "^7.19.0"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
+    "start": "node server.js",
+    "start:dev": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
