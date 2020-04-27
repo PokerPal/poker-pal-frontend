@@ -24,10 +24,6 @@
     "swagger-client": "^3.10.0",
     "universal-cookie": "^4.0.3"
   },
-  "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.19.0"
-  },
   "scripts": {
     "build": "react-scripts build",
     "start": "node server.js",
