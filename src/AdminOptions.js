@@ -98,7 +98,8 @@ function EndSideSession() {
 function EndSession(idToEnd) {
   // const cookies = new Cookies(); // REMOVED AS UNUSED
   const method = "POST";
-  const url = "http://localhost:5000/sessions/" + idToEnd + "/finalize";
+  // const url = "http://localhost:5000/sessions/" + idToEnd + "/finalize";
+  const url = process.env.REACT_APP_BACKEND_URL + idToEnd + "/finalize";
 
   let request = new XMLHttpRequest();
   request.open(method, url, true);

@@ -125,12 +125,13 @@ function GetRank(){
 
     const method = "GET";
     const leagueID = 1;
-    let url = "http://localhost:5000/"+leagueID+"/user/"+userID;
+    // let url = "http://localhost:5000/"+leagueID+"/user/"+userID;
+    let url = process.env.REACT_APP_BACKEND_URL+leagueID+"/user/"+userID;
 
     let request = new XMLHttpRequest();
     // let filePath = ""; // REMOVED AS UNUSED
     // TODO - GET CURRENT RANK FROM MAIN LEAGUE
-    //request.open('GET', "http://localhost:5000/"+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
+    //request.open('GET', process.env.REACT_APP_BACKEND_URL+"user"+"/"+"1", true); // TODO - REPLACE WITH LINE ABOVE
     request.open(method, url, true);
     // let rank; // REMOVED AS UNUSED
     request.onload = function(){

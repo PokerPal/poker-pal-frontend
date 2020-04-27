@@ -114,7 +114,8 @@ class LoginForm extends Component {
               "}";
 
             const method = "POST";
-            const url = "http://localhost:5000/users";
+            // const url = "http://localhost:5000/users";
+            const url = process.env.REACT_APP_BACKEND_URL+"users";
             let request = new XMLHttpRequest();
             request.open(method, url, true);
             request.setRequestHeader('Content-type', 'application/json');
@@ -247,7 +248,8 @@ function RegisterButton(props) {
  */
 async function LoginRequest(pars) {
     const method = "POST";
-    const url = "http://localhost:5000/users/logIn";
+    // const url = "http://localhost:5000/users/logIn";
+    const url = process.env.REACT_APP_BACKEND_URL+"users/logIn";
     let success = false;
     let request = new XMLHttpRequest();
     request.open(method, url, true);

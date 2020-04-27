@@ -17,7 +17,8 @@ function SendDataToAPI(pars) {
   console.log("SendDataToAPI");
   console.log(pars);
     const method = "POST";
-    const url = "http://localhost:5000/leagues";
+    // const url = "http://localhost:5000/leagues";
+    const url = process.env.REACT_APP_BACKEND_URL+"leagues";
     let request = new XMLHttpRequest();
     request.open(method, url, true);
     request.setRequestHeader('Content-type', 'application/json');
