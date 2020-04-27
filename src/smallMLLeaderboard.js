@@ -6,7 +6,7 @@ import Table from './Table'
 
 import './Tournaments.css'
 
-export function  LargeMLLeaderboard(){
+export function  SmallMLLeaderboard(){
   const cookies = new Cookies();
   const userID = cookies.get('userID')
   const [data, setData] = useState([]);
@@ -14,7 +14,7 @@ export function  LargeMLLeaderboard(){
   useEffect(() => {
     (async () => {
       const result = await axios("http://localhost:5000/leagues/1/user/"+userID+"/?context=2");
-      console.log(result.data.value)
+      // console.log(result.data.value)
       setData(result.data.value);
     })();
   } ); // , [] // REMOVED AS UNUSED
@@ -45,4 +45,4 @@ export function  LargeMLLeaderboard(){
   );
 }
 
-export default LargeMLLeaderboard
+export default SmallMLLeaderboard
