@@ -4,6 +4,7 @@ import {
     Switch,
     Route
 } from "react-router-dom";
+import Cookies from "universal-cookie";
 import BluffBathLogo from './bluffBathLogo.png';
 
 import './App.css';
