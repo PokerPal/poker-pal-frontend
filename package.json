@@ -7,8 +7,11 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "child_process": "^1.0.2",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "open": "^7.0.3",
     "openapi-client-axios": "^3.3.2",
+    "path": "^0.12.7",
     "poker_pal": "^1.0.1",
     "react": "^16.13.0",
     "react-autosuggest": "^10.0.0",
@@ -21,10 +24,10 @@
     "swagger-client": "^3.10.0",
     "universal-cookie": "^4.0.3"
   },
-  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
+    "start": "node server.js",
+    "start:dev": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
