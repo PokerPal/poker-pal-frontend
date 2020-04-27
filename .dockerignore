@@ -1,0 +1,6 @@
+.github/
+.idea/
+addUsersToDatabase.bash
+node_modules/
+build/
+README.md
