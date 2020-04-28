@@ -13,7 +13,7 @@ export function  SmallMLLeaderboard(){
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:5000/leagues/2/user/"+userID+"/?context=2");
+      const result = await axios(process.env.REACT_APP_BACKEND_URL+"leagues/2/user/"+userID+"/?context=2");
       // console.log(result.data.value)
       setData(result.data.value);
     })();

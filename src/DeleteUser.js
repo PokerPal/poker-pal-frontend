@@ -19,7 +19,8 @@ export function DeleteUser() {
 
 function DeleteUserMethod(id) {
   const method = "DELETE";
-  const url = "http://localhost:5000/users/"+id;
+  // const url = "http://localhost:5000/users/"+id;
+  const url = process.env.REACT_APP_BACKEND_URL + "users/"+id;
   let request = new XMLHttpRequest();
   request.open(method, url, true);
   request.setRequestHeader('Content-type', 'application/json');

@@ -14,7 +14,8 @@ export function SLI() {
 function SendToBackEnd(un,amount) {
   let request = new XMLHttpRequest();
   let q = "?q=" + un;
-  request.open('GET', "http://localhost:5000/users" + q, true);
+  // request.open('GET', "http://localhost:5000/users" + q, true);
+  request.open('GET', process.env.REACT_APP_BACKEND_URL+"users" + q, true);
   request.setRequestHeader('Content-type', 'application/json');
   request.onload = function () {
     let data = JSON.parse(this.response);
@@ -34,7 +35,8 @@ function push(id,amount){
     "  \"userId\": " + id + ",\n" +
     "  \"totalScore\": " + amount + "\n" +
     "}";
-  request.open('GET', "http://localhost:5000/sessions/"+SideSeshID+"/users", true);
+  // request.open('GET', "http://localhost:5000/sessions/"+SideSeshID+"/users", true);
+  request.open('GET', process.env.REACT_APP_BACKEND_URL+"sessions/"+SideSeshID+"/users", true);
   request.setRequestHeader('Content-type', 'application/json');
   request.onload = function () {
     let data = JSON.parse(this.response);

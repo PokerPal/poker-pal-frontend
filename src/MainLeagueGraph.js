@@ -38,7 +38,8 @@ export class MainLeagueGraph extends React.Component{
     }
     
     async componentDidMount(){
-        axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID+'/history')
+        // axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID+'/history')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'leagues/1/user/'+this.state.userID+'/history')
           .then((response) => {
               let sessions = response.data.value
               let sessionVal = sessions.map(sessions=>sessions.totalScore)
@@ -49,7 +50,8 @@ export class MainLeagueGraph extends React.Component{
           }, (error) => {
             console.log(error);
           });
-          await axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions')
+          // await axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions')
+          await axios.get(process.env.REACT_APP_BACKEND_URL+'users/'+this.state.userID+'/sessions')
           .then((response) => {
               let sessions = response.data.value
               let inclSessions = this.state.sessionIDs

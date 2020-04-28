@@ -25,7 +25,8 @@ export function StartNewSession() {
 function CheckLeagueDetails(sessionIDCookie,leagueIDforCookie) {
   const cookies = new Cookies();
   const method = "GET";
-  const url = "http://localhost:5000/leagues/"+leagueIDforCookie;
+  // const url = "http://localhost:5000/leagues/"+leagueIDforCookie;
+  const url = process.env.REACT_APP_BACKEND_URL+"leagues/"+leagueIDforCookie;
 
   let request = new XMLHttpRequest();
   request.open(method, url, true);
@@ -54,7 +55,8 @@ function SendDataToAPI(pars,leagueIDforCookie) {
   console.log("SendDataToAPI");
   console.log(pars);
   const method = "POST";
-  const url = "http://localhost:5000/sessions";
+  // const url = "http://localhost:5000/sessions";
+  const url = process.env.REACT_APP_BACKEND_URL+"sessions";
   let request = new XMLHttpRequest();
   request.open(method, url, true);
   request.setRequestHeader('Content-type', 'application/json');

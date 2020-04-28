@@ -47,7 +47,8 @@ class BalanceValues extends React.Component{
   
   async componentDidMount(){
       this.setState({currPlace:2})
-      axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
+      // axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
+      axios.get(process.env.REACT_APP_BACKEND_URL+'leagues/2/user/'+this.state.userID+'/history')
         .then((response) => {
             let sessions = response.data.value
             let currBalance = response.data.value[sessions.length-1].totalScore
@@ -80,7 +81,8 @@ class CurrPlace extends React.Component{
       }
   }
   async componentDidMount(){
-      axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
+      // axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
+      axios.get(process.env.REACT_APP_BACKEND_URL+'leagues/1/user/'+this.state.userID)
         .then((response) => {
           this.setState({currPlace: response.data.value[0].totalScore});
         }, (error) => {
@@ -108,7 +110,8 @@ class LastUpdated extends React.Component{
   
   async componentDidMount(){
       this.setState({currPlace:2})
-      axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
+      // axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
+      axios.get(process.env.REACT_APP_BACKEND_URL+'users/'+this.state.userID+'/sessions/')
         .then((response) => {
             // let sessions = response.data.value // REMOVED AS UNUSED
             let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)

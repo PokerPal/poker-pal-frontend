@@ -38,7 +38,8 @@ export class SideLeagueGraph extends React.Component{
     }
     
     async componentDidMount(){
-        axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
+        // axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'leagues/2/user/'+this.state.userID+'/history')
           .then((response) => {
               var sessions = response.data.value
               var sessionVal = sessions.map(sessions=>sessions.totalScore)
@@ -49,7 +50,8 @@ export class SideLeagueGraph extends React.Component{
           }, (error) => {
             console.log(error);
           });
-          axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions')
+          // axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions')
+          axios.get(process.env.REACT_APP_BACKEND_URL+'users/'+this.state.userID+'/sessions')
           .then((response) => {
               var sessions = response.data.value
               var inclSessions = this.state.sessionIDs

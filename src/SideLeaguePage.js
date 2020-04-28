@@ -53,7 +53,8 @@ class LastUpdated extends React.Component{
     }
     
     async componentDidMount(){
-        axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
+        // axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'users/'+this.state.userID+'/sessions/')
           .then((response) => {
               // let sessions = response.data.value // REMOVED AS UNUSED
               let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
@@ -85,7 +86,8 @@ class WinStreak extends React.Component{
 
     async componentDidMount(){
         this.setState({currPlace:2})
-        axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+        // axios.get('http://localhost:5000/users/'+this.state.userID+'/streak/1')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'users/'+this.state.userID+'/streak/1')
           .then((response) => {
               this.setState({
                   streak: response.data.value.streak,
@@ -119,7 +121,8 @@ class BalanceValues extends React.Component{
     
     async componentDidMount(){
         this.setState({currPlace:2})
-        axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
+        // axios.get('http://localhost:5000/leagues/2/user/'+this.state.userID+'/history')
+        axios.get(process.env.REACT_APP_BACKEND_URL+'leagues/2/user/'+this.state.userID+'/history')
           .then((response) => {
               var sessions = response.data.value
               var currBalance = response.data.value[sessions.length-1].totalScore
