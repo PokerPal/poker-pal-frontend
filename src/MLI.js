@@ -56,7 +56,6 @@ function push(id,place){
  * @return {string}
  */
 async function GetUNamesFromBE() {
-  console.log("HUGE FART");
   let request = new XMLHttpRequest();
   let q = "?q=j"; // + "j";
   // request.open('GET', "http://localhost:5000/users" + q, true);

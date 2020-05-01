@@ -16,7 +16,6 @@ export function Dashboard() {
       <div className="dashboard-header">
         <b>Welcome</b>
       </div>
-      <body>
         <div>
           <div className="tournamentLeftSection">
             <br/> <br/>
@@ -31,7 +30,6 @@ export function Dashboard() {
             <LargeMLLeaderboard/>
           </div>
         </div>
-      </body>
     </div>
   );
 }
@@ -55,10 +53,14 @@ class BalanceValues extends React.Component{
             this.setState({
                 currBal: currBalance
               });
-        }, (error) => {
+        })
+        .catch(error => {
           console.log(error);
-        });
-      
+          this.setState({
+            currBal: "User has not joined any sessions"
+          });
+        })
+
   }
   render(){
       return(
@@ -80,15 +82,25 @@ class CurrPlace extends React.Component{
           userID: cookies.get('userID')
       }
   }
+
   async componentDidMount(){
       // axios.get('http://localhost:5000/leagues/1/user/'+this.state.userID)
-      axios.get(process.env.REACT_APP_BACKEND_URL+'leagues/1/user/'+this.state.userID)
+      axios.get(process.env.REACT_APP_BACKEND_URL + 'leagues/1/user/' + this.state.userID)
         .then((response) => {
-          this.setState({currPlace: response.data.value[0].totalScore});
-        }, (error) => {
-          console.log(error);
-        });
-      
+          if (response.status === 404) {
+            console.log("404")
+          } else {
+            this.setState({currPlace: response.data.value[0].totalScore});
+          }
+        })
+        .catch(error => {
+          console.log("CAUGHT")
+          console.log(error.response);
+          this.setState({
+            currPlace: "User has not joined any sessions"
+          });
+          console.log("AFTER")
+        })
   }
   render(){
       return(
@@ -109,17 +121,24 @@ class LastUpdated extends React.Component{
   }
   
   async componentDidMount(){
+    // TODO https://stackoverflow.com/questions/44375477/error-handling-with-axios-requests-in-reactjs?rq=1
       this.setState({currPlace:2})
       // axios.get('http://localhost:5000/users/'+this.state.userID+'/sessions/')
-      axios.get(process.env.REACT_APP_BACKEND_URL+'users/'+this.state.userID+'/sessions/')
+      axios.get(process.env.REACT_APP_BACKEND_URL + 'users/' + this.state.userID + '/sessions/')
         .then((response) => {
-            // let sessions = response.data.value // REMOVED AS UNUSED
-            let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
-            this.setState({lastUpdate: recentSession.toDateString()});
-        }, (error) => {
+          if (response.status === 400) {
+            console.log("400 baybeeeee")
+          }
+          // let sessions = response.data.value // REMOVED AS UNUSED
+          let recentSession = new Date(response.data.value[response.data.value.length - 1].startDate)
+          this.setState({lastUpdate: recentSession.toDateString()});
+        })
+        .catch(error => {
           console.log(error);
-        });
-      
+          this.setState({
+            lastUpdate: "User has not joined any sessions"
+          });
+        })
   }
   render(){
       return(

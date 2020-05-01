@@ -10,9 +10,11 @@ export function  LargeMLLeaderboard(){
 
   useEffect(() => {
     (async () => {
-      // const result = await axios("http://localhost:5000/leagues/1/users");
       const result = await axios(process.env.REACT_APP_BACKEND_URL+"leagues/1/users");
-      setData(result.data.value);
+      // Table is only rendered if information returned from DB is not null
+      if (result.data.value != null) {
+        setData(result.data.value);
+      }
     })();
   }, []);
 

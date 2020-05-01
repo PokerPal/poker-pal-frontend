@@ -3,6 +3,7 @@
 import React from "react";
 import { useTable } from "react-table";
 import './Tournaments.css'
+
 export default function Table({ columns, data }) {
   // Use the useTable Hook to send the columns and data to build the table
   const {
