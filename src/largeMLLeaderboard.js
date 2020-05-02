@@ -28,7 +28,7 @@ export function  LargeMLLeaderboard(){
             accessor: "userName"
           },
           {
-            Header: "PLargeMLLeaderboardoints",
+            Header: "Points",
             accessor: "totalScore"
           }
         ]
