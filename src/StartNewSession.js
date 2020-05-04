@@ -53,7 +53,7 @@ function CheckLeagueDetails(sessionIDCookie,leagueIDforCookie) {
 }
 
 function SendDataToAPI(pars,leagueIDforCookie) {
-  const cookies = new Cookies();
+  /*const cookies = new Cookies();*/
   console.log("SendDataToAPI");
   console.log(pars);
   const method = "POST";
