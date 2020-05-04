@@ -24,8 +24,15 @@ function DeleteUserMethod(id) {
   let request = new XMLHttpRequest();
   request.open(method, url, true);
   request.setRequestHeader('Content-type', 'application/json');
-  request.onload = function(){
+  request.onload = function() {
     console.log(request.responseText);
+    let data = JSON.parse(this.response);
+    if (data.error == null) {
+      alert("user with id " + id + " deleted successfully")
+    }else{
+      console.log(data.error)
+      alert("Something went wrong, user associated with that ID may not exist.")
+    }
   };
   request.send();
 }

@@ -23,11 +23,15 @@ function SendDataToAPI(pars) {
     request.open(method, url, true);
     request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
-      console.log(request.responseText)
-      document.getElementById("leagueName").value = '';
-      document.getElementById("startAmount").value = '';
-      document.getElementById("changes").value = '';
-      document.getElementById("type").value = '';
+      let data = JSON.parse(this.response);
+      if (data.error == null) {
+        console.log(request.responseText)
+        document.getElementById("leagueName").value = '';
+        document.getElementById("startAmount").value = '';
+        /*document.getElementById("changes").value = '';*/
+        document.getElementById("type").value = '';
+        window.alert("League with ID " + data.value.id + " created successfully!")
+      }
     };
     request.send(pars)
 }
@@ -55,20 +59,26 @@ class NewLeagueForm extends Component {
     let valid = true;
     if (this.state.name.length === 0
       || this.state.startingAmount.length === 0
-      || this.state.allowChanges.length === 0
+/*      || this.state.allowChanges.length === 0*/
       || this.state.type.length === 0) {
       window.alert("Please fill in all fields");
       valid = false;
     }
-    let type = this.state.type;
-    let changes = this.state.allowChanges;
-    if (type !== "Cash" && type !== "Points") {
+    let type = this.state.type.toUpperCase();
+    /*let changes = this.state.allowChanges;*/
+    if (type === "CASH"){
+      this.setState({allowChanges: true})
+    } else if (type === "POINTS"){
+      this.setState({allowChanges: false})
+    } else {
       window.alert("Please enter 'Cash' or 'Points' ");
       valid = false;
-    } else if (changes !== "true" && changes !== "false"){
+    }
+
+    /*else if (changes !== "true" && changes !== "false"){
       window.alert("Please enter 'true' or 'false' ");
       valid = false;
-    }
+    }*/
 
     if (valid) {
       SendDataToAPI("{" +
@@ -85,10 +95,10 @@ class NewLeagueForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <input id="leagueName" type="text" name="name" className="Input-box" placeholder="League Name" value={this.state.name} onChange={this.handleChange}/> <br/>
-          <input id="startAmount" type="number" name="startingAmount" className="Input-box" placeholder="Starting Amount" value={this.state.startingAmount} onChange={this.handleChange}/> <br/>
-          <input id="changes" type="text" name="allowChanges" className="Input-box" placeholder="Allow Changes?" value={this.state.allowChanges} onChange={this.handleChange}/> <br/>
-          <input id="type" type="text" name="type" className="Input-box" placeholder="Type" value={this.state.type} onChange={this.handleChange}/> <br/>
-          <button type="submit" value="Submit" className="Login-button" >Create</button>
+          <input id="startAmount" type="number" name="startingAmount" className="Input-box" placeholder="Starting Value" value={this.state.startingAmount} onChange={this.handleChange}/> <br/>
+          {/*<input id="changes" type="text" name="allowChanges" className="Input-box" placeholder="Allow Changes?" value={this.state.allowChanges} onChange={this.handleChange}/> <br/>*/}
+          <input id="type" type="text" name="type" className="Input-box" placeholder="Type - Cash or Points" value={this.state.type} onChange={this.handleChange}/> <br/><br/>
+          <button type="submit" value="Submit" className="Login-button">Create</button>
         </form>
       </div>
     );

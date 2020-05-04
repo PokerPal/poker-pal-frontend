@@ -110,7 +110,7 @@ function HomeContainer(){
 function ShowNavBar() {
   const cookies = new Cookies();
   let userid = cookies.get('userID')
-  if (userid === 1 || userid === 7){
+  if (userid<=20){ // TODO - CHANGE THIS
     return (
       <div className="headerRight">
         <ul className="navBar">

@@ -22,8 +22,11 @@ function SendToBackEnd(un,place) {
   request.setRequestHeader('Content-type', 'application/json');
   request.onload = function () {
     let data = JSON.parse(this.response);
-    if (data.error == null) {
+    if (data.error == null && data.value[0] != null) {
       push(data.value[0].id,place)
+    } else{
+      console.log(data.error)
+      alert("Error: User could not be found")
     }
   };
   request.send();
@@ -46,6 +49,8 @@ function push(id,place){
       alert("details sent")
       document.getElementById("mName").value = '';
       document.getElementById("mPlace").value = '';
+    }else{
+      console.log(data.error)
     }
   };
   request.send(pars);

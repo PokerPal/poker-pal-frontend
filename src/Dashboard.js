@@ -127,7 +127,7 @@ class LastUpdated extends React.Component{
       axios.get(process.env.REACT_APP_BACKEND_URL + 'users/' + this.state.userID + '/sessions/')
         .then((response) => {
           if (response.status === 400) {
-            console.log("400 baybeeeee")
+            console.log("400")
           }
           // let sessions = response.data.value // REMOVED AS UNUSED
           let recentSession = new Date(response.data.value[response.data.value.length - 1].startDate)

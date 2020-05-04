@@ -108,11 +108,11 @@ class LoginForm extends Component {
 
         if (valid) {
             let pars = "{" +
-              "\"email\":\"" + this.state.username + "@bath.ac.uk\"," +
-              "\"name\":\"" + this.state.firstName + " " + this.state.lastName + "\"," +
+              "\"email\":\"" + this.state.newUsername + "@bath.ac.uk\"," +
+              "\"name\":\"" + this.state.firstName.replace(/\s+/g, '') + " " + this.state.lastName.replace(/\s+/g, '') + "\"," +
               "\"password\":\"" + this.state.newPassword + "\"" +
               "}";
-
+            console.log(pars)
             const method = "POST";
             // const url = "http://localhost:5000/users";
             const url = process.env.REACT_APP_BACKEND_URL+"users";
