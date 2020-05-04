@@ -24,12 +24,14 @@ function SendDataToAPI(pars) {
     request.setRequestHeader('Content-type', 'application/json');
     request.onload = function(){
       let data = JSON.parse(this.response);
+      console.log("data.error: "+data.error)
       if (data.error == null) {
-        console.log(request.responseText)
+        console.log("request.responseText: "+request.responseText)
         document.getElementById("leagueName").value = '';
         document.getElementById("startAmount").value = '';
         /*document.getElementById("changes").value = '';*/
         document.getElementById("type").value = '';
+        console.log("data.value.id:"+data.value.id)
         window.alert("League with ID " + data.value.id + " created successfully!")
       }
     };
@@ -66,25 +68,33 @@ class NewLeagueForm extends Component {
     }
     let type = this.state.type.toUpperCase();
     /*let changes = this.state.allowChanges;*/
+    let allowChanges;
     if (type === "CASH"){
-      this.setState({allowChanges: true})
+      console.log("cash")
+      // this.setState({allowChanges : 'true'})
+      // this.state.allowChanges = true
+      allowChanges = true;
     } else if (type === "POINTS"){
-      this.setState({allowChanges: false})
+      console.log("points")
+      // this.setState({allowChanges : "false"})
+      // this.state.allowChanges = false
+      allowChanges = false;
     } else {
       window.alert("Please enter 'Cash' or 'Points' ");
       valid = false;
     }
+    console.log("this.state.allowChanges: "+this.state.allowChanges)
 
     /*else if (changes !== "true" && changes !== "false"){
       window.alert("Please enter 'true' or 'false' ");
       valid = false;
     }*/
-
+    /*"\"allowChanges\":"+this.state.allowChanges + "," +*/
     if (valid) {
       SendDataToAPI("{" +
         "\"name\":\""+ this.state.name + "\"," +
         "\"startingAmount\":"+ this.state.startingAmount + "," +
-        "\"allowChanges\":"+this.state.allowChanges + "," +
+        "\"allowChanges\":"+allowChanges + "," +
         "\"type\":\""+this.state.type + "\"" +
         "}");
     }
