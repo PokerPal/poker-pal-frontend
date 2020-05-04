@@ -67,23 +67,15 @@ class NewLeagueForm extends Component {
       valid = false;
     }
     let type = this.state.type.toUpperCase();
-    /*let changes = this.state.allowChanges;*/
     let allowChanges;
     if (type === "CASH"){
-      console.log("cash")
-      // this.setState({allowChanges : 'true'})
-      // this.state.allowChanges = true
       allowChanges = true;
     } else if (type === "POINTS"){
-      console.log("points")
-      // this.setState({allowChanges : "false"})
-      // this.state.allowChanges = false
       allowChanges = false;
     } else {
       window.alert("Please enter 'Cash' or 'Points' ");
       valid = false;
     }
-    console.log("this.state.allowChanges: "+this.state.allowChanges)
 
     /*else if (changes !== "true" && changes !== "false"){
       window.alert("Please enter 'true' or 'false' ");

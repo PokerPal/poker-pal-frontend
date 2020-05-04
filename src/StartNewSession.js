@@ -113,12 +113,14 @@ class NewSessionForm extends Component {
       window.alert("Please fill in all fields");
       valid = false;
     }
-    this.setState({frequency : 1})
+    /*"\"frequency\":"+this.state.frequency + "," +
+    this.setState({frequency : 1})*/
+    let frequency = 1
     if (valid) {
       SendDataToAPI("{" +
         "\"startDate\":\""+ this.state.startDate + "\"," +
         "\"endDate\":\""+ this.state.startDate + "\"," + // changed from endDate
-        "\"frequency\":"+this.state.frequency + "," +
+        "\"frequency\":"+frequency + "," +
         "\"venue\":\""+this.state.venue + "\"," +
         "\"leagueID\":"+this.state.leagueID+ "" +
         "}",this.state.leagueID);
