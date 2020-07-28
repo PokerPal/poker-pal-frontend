@@ -23,6 +23,7 @@ You also might want to install:
  
 #### Running
 
-- Use `npm start` to start the application. The web page should open itself, otherwise paste the 
+- Use `REACT_APP_BACKEND_URL="http://localhost:5000/" npm run start:dev` to start the application in development mode. The web page should open itself, otherwise paste the 
   link given in the output of the command into your favourite browser.
+- See `package.json` for other scripts
 
