@@ -87,7 +87,8 @@ class LastUpdated extends React.Component{
               //let sessions = response.data.value // REMOVED AS UNUSED
               let recentSession = new Date(response.data.value[response.data.value.length-1].startDate)
               this.setState({lastUpdate: recentSession.toDateString()});
-          }, (error) => {
+          })
+          .catch((error) => {
             console.log(error);
           });
         
